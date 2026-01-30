@@ -3,7 +3,7 @@
 [![Build & test](https://github.com/mrmans0n/asyncresult/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/mrmans0n/asyncresult/actions/workflows/build.yaml?query=branch%3Amain)
 [![AsyncResult](https://img.shields.io/maven-central/v/io.nlopez.asyncresult/asyncresult)](https://central.sonatype.com/search?q=g%3Aio.nlopez.asyncresult)
 
-AsyncResult models the state of asynchronous operations in a simple, explicit way: NotStarted, Loading, Success, Error. It's your every day LoadContentError class, but lots of fp-like extensions around it. 
+AsyncResult models the state of asynchronous operations in a simple, explicit way: NotStarted, Loading, Success, Error. It's your every day LoadContentError class, but with lots of fp-like extensions around it. 
 
 ## Artifacts
 
@@ -11,19 +11,9 @@ AsyncResult models the state of asynchronous operations in a simple, explicit wa
 - `io.nlopez.asyncresult:asyncresult-either` - Arrow Either extensions.
 - `io.nlopez.asyncresult:asyncresult-test` - assertk helpers for testing.
 
-## Usage
+## Documentation
 
-```kotlin
-val result: AsyncResult<User> = Success(user)
-val message = result.fold(
-    ifNotStarted = { "Waiting" },
-    ifLoading = { "Loading..." },
-    ifSuccess = { "Hello ${it.name}" },
-    ifError = { "Error: ${it.throwable?.message}" },
-)
-```
-
-For more details, check the documentation site.
+📚 [mrmans0n.github.io/asyncresult](https://mrmans0n.github.io/asyncresult)
 
 ## License
 
