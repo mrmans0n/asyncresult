@@ -5,6 +5,9 @@ on:
     tags:
       - v*
 
+permissions:
+  contents: write
+
 jobs:
   update_release:
     if: github.repository == 'mrmans0n/asyncresult'
