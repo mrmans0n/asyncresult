@@ -1,0 +1,40 @@
+name: Update release
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  update_release:
+    if: github.repository == 'mrmans0n/asyncresult'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      TERM: dumb
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Copy CI gradle.properties
+        run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
+
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Add artifact version to ENV
+        run: echo "VERSION=$(./gradlew -q printVersion)" >> $GITHUB_ENV
+
+      - name: Create GitHub Release
+        if: success() && !endsWith(env.VERSION, '-SNAPSHOT')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ env.VERSION }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
