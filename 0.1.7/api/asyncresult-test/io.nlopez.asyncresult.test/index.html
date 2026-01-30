@@ -1,0 +1,366 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>io.nlopez.asyncresult.test</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../index.html" tabindex="1">
+                    AsyncResult
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.1.7
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":asyncresult-test/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":asyncresult-test/commonMain" data-filter=":asyncresult-test/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    AsyncResult
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="package" id="content" pageids="asyncresult-test::io.nlopez.asyncresult.test////PointingToDeclaration//-1180402031">
+  <div class="breadcrumbs"><a href="../index.html">asyncresult-test</a><span class="delimiter">/</span><span class="current">io.nlopez.asyncresult.test</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="EXTENSION_FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="1870826790%2FFunctions%2F-1180402031" anchor-label="assertError" id="1870826790%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="assert-error.html"><span>assert</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1870826790%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="assert-error.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="assert-error.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="assert-error.html"><span class="token function">assertError</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../asyncresult/io.nlopez.asyncresult/-error/index.html">Error</a></div><div class="brief "><p class="paragraph">Asserts the first terminal emission from the flow is <a href="../../asyncresult/io.nlopez.asyncresult/-error/index.html">Error</a> and returns it for further checks.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-821048109%2FFunctions%2F-1180402031" anchor-label="assertSuccess" id="-821048109%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="assert-success.html"><span>assert</span><wbr><span><span>Success</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-821048109%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">suspend </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="assert-success.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="kotlinx.coroutines.flow/Flow///PointingToDeclaration/">Flow</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="assert-success.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="assert-success.html"><span class="token function">assertSuccess</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expected<span class="token operator">: </span><a href="assert-success.html">T</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts the first terminal emission from the flow is <a href="../../asyncresult/io.nlopez.asyncresult/-success/index.html">Success</a> with the given <a href="assert-success.html">expected</a> value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-83284068%2FFunctions%2F-1180402031" anchor-label="hasErrorId" id="-83284068%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="has-error-id.html"><span>has</span><wbr><span>Error</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-83284068%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="has-error-id.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="has-error-id.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="has-error-id.html"><span class="token function">hasErrorId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expected<span class="token operator">: </span><a href="../../asyncresult/io.nlopez.asyncresult/-error-id/index.html">ErrorId</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts the <a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a> has the given <a href="../../asyncresult/io.nlopez.asyncresult/-error-id/index.html">ErrorId</a> if it's an <a href="../../asyncresult/io.nlopez.asyncresult/-error/index.html">Error</a>, checking via extension.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1700932007%2FFunctions%2F-1180402031" anchor-label="isError" id="1700932007%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-error.html"><span>is</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1700932007%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-error.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="is-error.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-error.html"><span class="token function">isError</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-error/index.html">Error</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1912745488%2FFunctions%2F-1180402031" anchor-label="isErrorIdEqualTo" id="1912745488%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-error-id-equal-to.html"><span>is</span><wbr><span>Error</span><wbr><span>Id</span><wbr><span>Equal</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1912745488%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-error/index.html">Error</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-error-id-equal-to.html"><span class="token function">isErrorIdEqualTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expected<span class="token operator">: </span><a href="../../asyncresult/io.nlopez.asyncresult/-error-id/index.html">ErrorId</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts the <a href="../../asyncresult/io.nlopez.asyncresult/-error/index.html">Error</a> has the given <a href="../../asyncresult/io.nlopez.asyncresult/-error-id/index.html">ErrorId</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1289350618%2FFunctions%2F-1180402031" anchor-label="isErrorWithId" id="-1289350618%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-error-with-id.html"><span>is</span><wbr><span>Error</span><wbr><span>With</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1289350618%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-error-with-id.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="is-error-with-id.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-error-with-id.html"><span class="token function">isErrorWithId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-error-id/index.html">ErrorId</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Asserts the <a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a> is an <a href="../../asyncresult/io.nlopez.asyncresult/-error/index.html">Error</a> with an <a href="../../asyncresult/io.nlopez.asyncresult/-error-id/index.html">ErrorId</a> and returns the <a href="../../asyncresult/io.nlopez.asyncresult/-error-id/index.html">ErrorId</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1785737533%2FFunctions%2F-1180402031" anchor-label="isErrorWithIdEqualTo" id="-1785737533%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-error-with-id-equal-to.html"><span>is</span><wbr><span>Error</span><wbr><span>With</span><wbr><span>Id</span><wbr><span>Equal</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1785737533%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-error-with-id-equal-to.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="is-error-with-id-equal-to.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-error-with-id-equal-to.html"><span class="token function">isErrorWithIdEqualTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expected<span class="token operator">: </span><a href="../../asyncresult/io.nlopez.asyncresult/-error-id/index.html">ErrorId</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Asserts the <a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a> is an <a href="../../asyncresult/io.nlopez.asyncresult/-error/index.html">Error</a> with the given <a href="../../asyncresult/io.nlopez.asyncresult/-error-id/index.html">ErrorId</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1742396462%2FFunctions%2F-1180402031" anchor-label="isErrorWithMetadata" id="-1742396462%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-error-with-metadata.html"><span>is</span><wbr><span>Error</span><wbr><span>With</span><wbr><span><span>Metadata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1742396462%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-error-with-metadata.html">T</a><span class="token punctuation">, </span><a href="is-error-with-metadata.html">M</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="is-error-with-metadata.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-error-with-metadata.html"><span class="token function">isErrorWithMetadata</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="is-error-with-metadata.html">M</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2007045863%2FFunctions%2F-1180402031" anchor-label="isErrorWithMetadataEqualTo" id="2007045863%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-error-with-metadata-equal-to.html"><span>is</span><wbr><span>Error</span><wbr><span>With</span><wbr><span>Metadata</span><wbr><span>Equal</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2007045863%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-error-with-metadata-equal-to.html">T</a><span class="token punctuation">, </span><a href="is-error-with-metadata-equal-to.html">M</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="is-error-with-metadata-equal-to.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-error-with-metadata-equal-to.html"><span class="token function">isErrorWithMetadataEqualTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="is-error-with-metadata-equal-to.html">M</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="912549867%2FFunctions%2F-1180402031" anchor-label="isIncomplete" id="912549867%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-incomplete.html"><span>is</span><wbr><span><span>Incomplete</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="912549867%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-incomplete.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="is-incomplete.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-incomplete.html"><span class="token function">isIncomplete</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-incomplete/index.html">Incomplete</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1352301875%2FFunctions%2F-1180402031" anchor-label="isLoading" id="1352301875%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-loading.html"><span>is</span><wbr><span><span>Loading</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1352301875%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-loading.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="is-loading.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-loading.html"><span class="token function">isLoading</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-loading/index.html">Loading</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-927086950%2FFunctions%2F-1180402031" anchor-label="isMetadataEqualTo" id="-927086950%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-metadata-equal-to.html"><span>is</span><wbr><span>Metadata</span><wbr><span>Equal</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-927086950%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-metadata-equal-to.html">T</a><span class="token punctuation">, </span><a href="is-metadata-equal-to.html">M</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-error/index.html">Error</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-metadata-equal-to.html"><span class="token function">isMetadataEqualTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="is-metadata-equal-to.html">M</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1208359653%2FFunctions%2F-1180402031" anchor-label="isNotStarted" id="-1208359653%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-not-started.html"><span>is</span><wbr><span>Not</span><wbr><span><span>Started</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1208359653%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-not-started.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="is-not-started.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-not-started.html"><span class="token function">isNotStarted</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-not-started/index.html">NotStarted</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1779826676%2FFunctions%2F-1180402031" anchor-label="isSuccess" id="-1779826676%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-success.html"><span>is</span><wbr><span><span>Success</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1779826676%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-success.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="is-success.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-success.html"><span class="token function">isSuccess</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="is-success.html">T</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1629026209%2FFunctions%2F-1180402031" anchor-label="isSuccessEqualTo" id="1629026209%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-success-equal-to.html"><span>is</span><wbr><span>Success</span><wbr><span>Equal</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1629026209%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-success-equal-to.html">T</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="is-success-equal-to.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-success-equal-to.html"><span class="token function">isSuccessEqualTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expected<span class="token operator">: </span><a href="is-success-equal-to.html">T</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1023098565%2FFunctions%2F-1180402031" anchor-label="isThrowableEqualTo" id="1023098565%2FFunctions%2F-1180402031" data-filterable-set=":asyncresult-test/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult-test/commonMain" data-filterable-set=":asyncresult-test/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-throwable-equal-to.html"><span>is</span><wbr><span>Throwable</span><wbr><span>Equal</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1023098565%2FFunctions%2F-1180402031"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult-test/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="is-throwable-equal-to.html">T</a><span class="token punctuation">, </span><a href="is-throwable-equal-to.html">E</a><span class="token operator">&gt; </span><span data-unresolved-link="assertk/Assert///PointingToDeclaration/">Assert</span><span class="token operator">&lt;</span><a href="../../asyncresult/io.nlopez.asyncresult/-error/index.html">Error</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="is-throwable-equal-to.html"><span class="token function">isThrowableEqualTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">expected<span class="token operator">: </span><a href="is-throwable-equal-to.html">E</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
