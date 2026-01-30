@@ -53,6 +53,16 @@ public inline fun <reified M> AsyncResult<*>.unwrapMetadata(): M {
 }
 
 /**
+ * Extracts the [ErrorId] from the [AsyncResult] if it's an [Error] with an [ErrorId], otherwise
+ * throws an [UnwrapException].
+ */
+public inline fun AsyncResult<*>.unwrapErrorId(): ErrorId {
+  contract { returns() implies (this@unwrapErrorId is Error) }
+
+  return errorIdOrNull() ?: throw UnwrapException("Tried to unwrap an `Error` that had no ErrorId")
+}
+
+/**
  * Extracts the value from the [AsyncResult] if it's a [Success], otherwise throws an
  * [UnwrapException] with the computed [message] in it.
  */
@@ -102,6 +112,19 @@ public inline fun <reified M> AsyncResult<*>.expectMetadata(crossinline message:
   }
 
   return this.errorWithMetadataOrNull<M>() ?: throw UnwrapException("${message()}")
+}
+
+/**
+ * Extracts the [ErrorId] from the [AsyncResult] if it's an [Error] with an [ErrorId], otherwise
+ * throws an [UnwrapException] with the computed [message] in it.
+ */
+public inline fun AsyncResult<*>.expectErrorId(crossinline message: () -> Any): ErrorId {
+  contract {
+    callsInPlace(message, InvocationKind.AT_MOST_ONCE)
+    returns() implies (this@expectErrorId is Error)
+  }
+
+  return errorIdOrNull() ?: throw UnwrapException("${message()}")
 }
 
 public class UnwrapException(message: String) : Exception(message)
