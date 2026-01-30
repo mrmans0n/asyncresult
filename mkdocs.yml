@@ -1,0 +1,76 @@
+site_name: 'AsyncResult'
+site_description: 'Kotlin Multiplatform utilities to model asynchronous results'
+site_author: 'Nacho Lopez'
+site_url: 'https://mrmans0n.github.io/asyncresult/'
+edit_uri: 'tree/main/docs/'
+remote_branch: gh-pages
+
+# Versioning
+extra:
+  version:
+    provider: mike
+    default: latest
+
+docs_dir: docs
+
+plugins:
+  - search
+  - mike
+
+repo_name: 'AsyncResult'
+repo_url: 'https://github.com/mrmans0n/asyncresult'
+
+# Navigation
+nav:
+    - 'Overview': index.md
+    - 'Core API': core.md
+    - 'Arrow Either': either.md
+    - 'Testing': testing.md
+
+# Configuration
+theme:
+    name: 'material'
+    language: 'en'
+    palette:
+        # Palette toggle for light mode
+        - scheme: default
+          primary: 'deep orange'
+          accent: 'red'
+          toggle:
+              icon: material/brightness-7
+              name: Switch to dark mode
+        # Palette toggle for dark mode
+        - scheme: slate
+          primary: 'deep orange'
+          accent: 'red'
+          toggle:
+              icon: material/brightness-4
+              name: Switch to light mode
+    font:
+        text: 'Roboto'
+        code: 'JetBrains Mono'
+    icon:
+        logo: material/flash
+
+# Extensions
+markdown_extensions:
+    - admonition
+    - attr_list
+    - pymdownx.emoji:
+        emoji_index: !!python/name:material.extensions.emoji.twemoji
+        emoji_generator: !!python/name:material.extensions.emoji.to_svg
+    - codehilite:
+          guess_lang: false
+    - footnotes
+    - toc:
+          permalink: true
+    - pymdownx.betterem
+    - pymdownx.superfences
+    - pymdownx.tabbed
+    - pymdownx.details
+    - mdx_truly_sane_lists
+    - pymdownx.superfences:
+        custom_fences:
+          - name: mermaid
+            class: mermaid
+            format: !!python/name:pymdownx.superfences.fence_code_format

@@ -1,0 +1,20 @@
+[versions]
+kotlin = "2.2.21"
+coroutines = "1.10.1"
+assertk = "0.28.1"
+arrow = "2.2.1.1"
+android-gradle = "8.5.2"
+ktfmt = "0.53"
+
+[libraries]
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
+assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
+arrow-core = { module = "io.arrow-kt:arrow-core", version.ref = "arrow" }
+
+[plugins]
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android-library = { id = "com.android.library", version.ref = "android-gradle" }
+mavenPublish = "com.vanniktech.maven.publish:0.36.0"
+spotless = { id = "com.diffplug.spotless", version = "8.1.0" }

@@ -1,0 +1,22 @@
+name: Docs
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install uv
+        run: pipx install uv
+      - name: Install docs deps
+        run: uv sync
+      - name: Deploy docs (next)
+        run: uv run mike deploy next --push
