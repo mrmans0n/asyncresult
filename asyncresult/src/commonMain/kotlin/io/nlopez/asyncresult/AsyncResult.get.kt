@@ -38,15 +38,15 @@ public inline fun <R> AsyncResult<Sequence<R>>.getOrEmpty(): Sequence<R> = getOr
 /** Returns the value if the [AsyncResult] is [Success] else returns an empty map. */
 public inline fun <K, V> AsyncResult<Map<K, V>>.getOrEmpty(): Map<K, V> = getOrElse { emptyMap() }
 
-/** Returns the [Error] itself if the [AsyncResult] is [Error] else returns null. */
+/** Returns the [Error] itself if the [AsyncResult] is [Error], otherwise returns null. */
 public inline fun <R> AsyncResult<R>.errorOrNull(): Error? {
-  contract { returns() implies (this@errorOrNull is Error) }
+  contract { returnsNotNull() implies (this@errorOrNull is Error) }
   return this as? Error
 }
 
 /**
- * Returns the metadata value from the [Error] if the [AsyncResult] is [Error], and has metadata or
- * the requested type.
+ * Returns the metadata value from the [Error] if the [AsyncResult] is [Error] and has metadata of
+ * the requested type [M]. Returns null otherwise.
  */
 public inline fun <reified M> AsyncResult<*>.errorWithMetadataOrNull(): M? =
     errorOrNull()?.metadataOrNull<M>()

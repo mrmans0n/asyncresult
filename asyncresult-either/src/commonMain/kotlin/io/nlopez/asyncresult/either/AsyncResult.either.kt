@@ -17,9 +17,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 
 /**
- * Based on the either values inside of the [AsyncResult], convert it to a [Success] value if the
- * [Either] was [Either.Right], and a [Error] value if the [Either] was [Either.Left]. It will store
- * the [Either.Left] contents, if any, in the [Error.metadata] value.
+ * Binds the [Either] inside this [AsyncResult]. Returns [Success] if the [Either] was
+ * [Either.Right], and [Error] if the [Either] was [Either.Left]. The [Either.Left] contents, if
+ * any, are stored in [Error.metadata].
  */
 public inline fun <L, R> AsyncResult<Either<L, R>>.bind(): AsyncResult<R> =
     when (this) {
@@ -35,10 +35,9 @@ public inline fun <L, R> AsyncResult<Either<L, R>>.bind(): AsyncResult<R> =
     }
 
 /**
- * Based on the either values ([Throwable] at the left side, [R] at the right side) inside of the
- * [AsyncResult], convert it to a [Success] value if the [Either] was [Either.Right], and a [Error]
- * value if the [Either] was [Either.Left] while also storing the [Throwable] in the error in the
- * [Error.throwable] property.
+ * Binds the [Either] inside this [AsyncResult]. Returns [Success] if the [Either] was
+ * [Either.Right], and [Error] if the [Either] was [Either.Left]. The [Throwable] from
+ * [Either.Left] is stored in [Error.throwable].
  */
 @JvmName("bindWithLeftThrowable")
 public inline fun <R> AsyncResult<Either<Throwable, R>>.bind(): AsyncResult<R> =
@@ -55,9 +54,9 @@ public inline fun <R> AsyncResult<Either<Throwable, R>>.bind(): AsyncResult<R> =
     }
 
 /**
- * Based on the either values inside of the [Either], convert it to a [Success] value it is
- * [Either.Right], and a [Error] value it is [Either.Left]. It will store the [Either.Left]
- * contents, if any, in the [Error.metadata] value.
+ * Converts the [Either] to an [AsyncResult]. Returns [Success] if the [Either] is [Either.Right],
+ * and [Error] if the [Either] is [Either.Left]. It will store the [Either.Left] contents, if any,
+ * in the [Error.metadata] value.
  */
 public inline fun <L, R> Either<L, R>.toAsyncResult(): AsyncResult<R> =
     when (this) {
@@ -80,8 +79,8 @@ public suspend inline fun <R> Flow<AsyncResult<R>>.toEither(): Either<Error, R> 
         }
 
 /**
- * Converts the receiver [AsyncResult] to an [Either]. By default, it will try to use the error in
- * the from the [Error.metadata] value. In case you want to specify your own error type, you can use
+ * Converts the receiver [AsyncResult] to an [Either]. By default, it will try to use the error
+ * from the [Error.metadata] value. In case you want to specify your own error type, you can use
  * the [errorTransform] function.
  */
 public suspend inline fun <reified E, R> Flow<AsyncResult<R>>.toEither(

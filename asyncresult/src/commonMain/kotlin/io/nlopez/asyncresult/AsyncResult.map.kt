@@ -48,8 +48,8 @@ public inline fun <T> Incomplete.cast(): AsyncResult<T> =
     }
 
 /**
- * Converts the current [AsyncResult] to a [AsyncResult] of type [R] if the current value is of type
- * [R]. If the current value is not of type [R], it will return an [Error].
+ * Converts the current [AsyncResult] to an [AsyncResult] of type [R] if the current value is of
+ * type [R]. If the current value is not of type [R], it will return an [Error].
  */
 public inline fun <reified R> AsyncResult<*>.castOrError(
     noinline lazyMetadata: (() -> Any?)? = null,

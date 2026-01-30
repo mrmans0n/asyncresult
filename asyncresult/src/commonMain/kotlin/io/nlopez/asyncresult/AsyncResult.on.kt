@@ -4,7 +4,7 @@
 
 package io.nlopez.asyncresult
 
-/** Runs the [block] when the value is [Success]. */
+/** Runs the [block] when the result is [Success]. */
 public inline fun <R> AsyncResult<R>.onSuccess(block: (R) -> Unit): AsyncResult<R> {
   if (this is Success) {
     block(value)
@@ -28,7 +28,7 @@ public inline fun <R> AsyncResult<R>.onError(block: (Throwable?) -> Unit): Async
   return this
 }
 
-/** Runs the [block] when the result is [Error] and has metadata of type [M]. */
+/** Runs the [block] when the result is [Error], passing the metadata cast to type [M] if present. */
 public inline fun <R, reified M> AsyncResult<R>.onErrorWithMetadata(
     block: (throwable: Throwable?, metadata: M?) -> Unit,
 ): AsyncResult<R> {

@@ -104,4 +104,5 @@ public inline fun <reified M> AsyncResult<*>.expectMetadata(crossinline message:
   return this.errorWithMetadataOrNull<M>() ?: throw UnwrapException("${message()}")
 }
 
+/** Exception thrown when an unwrap operation fails because the [AsyncResult] was not in the expected state. */
 public class UnwrapException(message: String) : Exception(message)

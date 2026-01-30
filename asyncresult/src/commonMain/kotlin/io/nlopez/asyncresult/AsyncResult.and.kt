@@ -12,7 +12,7 @@ public inline fun <R, reified T> AsyncResult<R>.andThen(
     noinline transform: (R) -> AsyncResult<T>,
 ): AsyncResult<T> = flatMap(transform)
 
-/** Returns the [result] if the receiver is [Success]. */
+/** Returns [result] if the receiver is [Success], otherwise returns the receiver unchanged. */
 public inline fun <R> AsyncResult<R>.and(result: AsyncResult<R>): AsyncResult<R> =
     when (this) {
       is Success -> result

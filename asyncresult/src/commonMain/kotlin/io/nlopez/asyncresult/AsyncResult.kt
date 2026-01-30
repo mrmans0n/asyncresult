@@ -19,11 +19,11 @@ public data object NotStarted : AsyncResult<Nothing>(), Incomplete
  */
 public data object Loading : AsyncResult<Nothing>(), Incomplete
 
-/** A successful request, containing the resulting [value]. */
+/** A successful operation, containing the resulting [value]. */
 public data class Success<out S>(override val value: S) : AsyncResult<S>(value = value)
 
 /**
- * The modeled request failed. If there was anything thrown to cause this, it'll be included in
+ * The modeled operation failed. If there was anything thrown to cause this, it'll be included in
  * [throwable]. It might also contain some extra [metadata], typically used to provide context about
  * the failure, to help make it actionable (either for the user or the developer).
  */

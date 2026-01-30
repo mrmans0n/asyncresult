@@ -6,7 +6,7 @@ package io.nlopez.asyncresult
 
 import kotlin.jvm.JvmName
 
-/** Returns a list of al the [Error]s from a list of [AsyncResult] items. */
+/** Returns a list of all the [Error]s from a list of [AsyncResult] items. */
 public inline fun Iterable<AsyncResult<*>>.getAllErrors(): List<Error> = filterIsInstance<Error>()
 
 /** Returns a list of all the [Error]s from the given [AsyncResult] items. */
@@ -28,7 +28,7 @@ public inline fun <reified T> Iterable<Error>.metadata(): List<T> = mapNotNull {
   it.metadataOrNull<T>()
 }
 
-/** Returns a list of al the [Throwable]s inside of [Error]s from a list of [AsyncResult] items. */
+/** Returns a list of all the [Throwable]s inside of [Error]s from a list of [AsyncResult] items. */
 public inline fun Iterable<AsyncResult<*>>.getAllThrowables(): List<Throwable> =
     getAllErrors().mapNotNull { it.throwable }
 
