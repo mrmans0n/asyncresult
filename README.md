@@ -25,10 +25,6 @@ val message = result.fold(
 
 For more details, check the documentation site.
 
-## Contributing
-
-Contributions are welcome. Please open an issue or PR.
-
 ## License
 
 ```
