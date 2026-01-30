@@ -167,6 +167,15 @@ class AsyncResultTest {
   }
 
   @Test
+  fun `Error plus ErrorId operator adds errorId preserving metadata`() {
+    val errorId = ErrorId("test-error-123")
+    val error = Error(metadata = "metadata")
+    val errorWithId = error + errorId
+    assertThat(errorWithId.errorId).isEqualTo(errorId)
+    assertThat(errorWithId.metadataOrNull<String>()).isEqualTo("metadata")
+  }
+
+  @Test
   fun `Error data class equals includes errorId`() {
     val throwable = Throwable()
     val errorId1 = ErrorId("error-1")

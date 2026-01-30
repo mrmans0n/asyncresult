@@ -65,6 +65,9 @@ public inline fun ErrorWithId(errorId: ErrorId, metadata: Any? = null): Error =
 /** Adds the given [metadata] to the [Error] object, preserving [errorId]. */
 public inline infix operator fun Error.plus(metadata: Any): Error = withMetadata(metadata)
 
+/** Adds the given [errorId] to the [Error] object, preserving [metadata]. */
+public inline infix operator fun Error.plus(errorId: ErrorId): Error = withErrorId(errorId)
+
 /**
  * Marks any [AsyncResult] that hasn't yet delivered a result ([Success] or [Error]). Useful to
  * bundle [NotStarted] and [Loading] states in exhaustive when statements.
