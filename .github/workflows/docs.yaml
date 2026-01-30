@@ -18,5 +18,9 @@ jobs:
         run: pipx install uv
       - name: Install docs deps
         run: uv sync
+      - name: Configure git for mike
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
       - name: Deploy docs (next)
         run: uv run mike deploy next --push
