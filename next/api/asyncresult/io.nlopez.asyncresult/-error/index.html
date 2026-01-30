@@ -1,22 +1,22 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Error</title>
-<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
-    <script>document.documentElement.classList.replace("no-js","js");</script>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
     <script>const storage = localStorage.getItem("dokka-dark-mode")
-    if (storage == null) {
+      if (storage == null) {
         const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         if (osDarkSchemePreferred === true) {
-            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
         }
-    } else {
+      } else {
         const savedDarkMode = JSON.parse(storage)
-        if(savedDarkMode === true) {
-            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
         }
-    }
+      }
     </script>
 <script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
 <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
@@ -24,19 +24,17 @@
 <link href="../../../styles/main.css" rel="Stylesheet">
 <link href="../../../styles/prism.css" rel="Stylesheet">
 <link href="../../../styles/logo-styles.css" rel="Stylesheet">
-<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
 <link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
-<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
 <script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
 <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
 <script type="text/javascript" src="../../../scripts/main.js" defer></script>
 <script type="text/javascript" src="../../../scripts/prism.js" async></script>
-<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script>
-<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script></head>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
 <body>
-    <div class="root">
-    <nav class="navigation theme-dark" id="navigation-wrapper">
-<a class="library-name--link" href="../../../index.html">
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../index.html" tabindex="1">
                     AsyncResult
             </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
         </button>
@@ -44,13 +42,13 @@
         <div class="library-version" id="library-version">0.1.7-SNAPSHOT
         </div>
         <div class="navigation-controls">
-        <div class="filter-section filter-section_loading" id="filter-section">
-                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":asyncresult/commonMain">common</button>
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":asyncresult/commonMain">common</button>
             <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
                 <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
-                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
-                    <div class="dropdown--header"><span>Platform filter</span>
-                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
                             <i class="ui-kit-icon ui-kit-icon_cross"></i>
                         </button>
                     </div>
@@ -64,45 +62,47 @@
                 </ul>
                 <div class="dropdown--overlay"></div>
             </div>
-        </div>
+        </ul>
             <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
             </button>
             <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
                 API
             </div>
         </div>
-    </nav>
-        <div id="container">
-            <div class="sidebar" id="leftColumn">
-                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
-                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
-                        <div class="dropdown--header">
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
                             <span>
                                     AsyncResult
                             </span>
-                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
-                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
-                            </button>
-                        </div>
-                        <div class="sidebar--inner" id="sideMenu"></div>
-                    </ul>
-                    <div class="dropdown--overlay"></div>
-                </div>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
             </div>
-            <div id="main">
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
 <div class="main-content" data-page-type="classlike" id="content" pageids="asyncresult::io.nlopez.asyncresult/Error///PointingToDeclaration//-1874162030">
   <div class="breadcrumbs"><a href="../../index.html">asyncresult</a><span class="delimiter">/</span><a href="../index.html">io.nlopez.asyncresult</a><span class="delimiter">/</span><span class="current">Error</span></div>
   <div class="cover ">
     <h1 class="cover"><span><span>Error</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">Error</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">metadata<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span> : <a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-nothing/index.html">Nothing</a><span class="token operator">&gt; </span></div><p class="paragraph">The modeled request failed. If there was anything thrown to cause this, it'll be included in <a href="throwable.html">throwable</a>. It might also contain some extra <a href="../../../asyncresult/io.nlopez.asyncresult/-error/metadata.html">metadata</a>, typically used to provide context about the failure, to help make it actionable (either for the user or the developer).</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">Error</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">metadata<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span> : <a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-nothing/index.html">Nothing</a><span class="token operator">&gt; </span></div><p class="paragraph">The modeled request failed. If there was anything thrown to cause this, it'll be included in <a href="../../../asyncresult/io.nlopez.asyncresult/-error/--root--.html">throwable</a>. It might also contain some extra <a href="../../../asyncresult/io.nlopez.asyncresult/-error/--root--.html">metadata</a>, typically used to provide context about the failure, to help make it actionable (either for the user or the developer).</p></div></div>
   </div>
   <div class="tabbedcontent">
     <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
     <div class="tabs-section-body">
       <div data-togglable="CONSTRUCTOR">
-        <h2 class="">Constructors</h2>
+        <h2 class="tableheader">Constructors</h2>
         <div class="table"><a data-name="1194845845%2FConstructors%2F-1874162030" anchor-label="Error" id="1194845845%2FConstructors%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-error.html"><span><span>Error</span></span></a></div>
@@ -119,9 +119,9 @@
         </div>
       </div>
       <div data-togglable="TYPE">
-        <h2 class="">Types</h2>
+        <h2 class="tableheader">Types</h2>
         <div class="table"><a data-name="-1131203053%2FClasslikes%2F-1874162030" anchor-label="Companion" id="-1131203053%2FClasslikes%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
@@ -138,9 +138,9 @@
         </div>
       </div>
       <div data-togglable="PROPERTY">
-        <h2 class="">Properties</h2>
+        <h2 class="tableheader">Properties</h2>
         <div class="table"><a data-name="-1618662576%2FProperties%2F-1874162030" anchor-label="isIncomplete" id="-1618662576%2FProperties%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../is-incomplete.html"><span>is</span><wbr><span><span>Incomplete</span></span></a></div>
@@ -155,7 +155,7 @@
             </div>
           </div>
 <a data-name="652693773%2FProperties%2F-1874162030" anchor-label="isSuccess" id="652693773%2FProperties%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../is-success.html"><span>is</span><wbr><span><span>Success</span></span></a></div>
@@ -170,7 +170,7 @@
             </div>
           </div>
 <a data-name="-854985844%2FProperties%2F-1874162030" anchor-label="throwable" id="-854985844%2FProperties%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="throwable.html"><span><span>throwable</span></span></a></div>
@@ -179,13 +179,13 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="throwable.html">throwable</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null</div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><a href="throwable.html">throwable</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
 <a data-name="-1029154774%2FProperties%2F-1874162030" anchor-label="value" id="-1029154774%2FProperties%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../-async-result/value.html"><span><span>value</span></span></a></div>
@@ -202,9 +202,9 @@
         </div>
       </div>
       <div data-togglable="FUNCTION">
-        <h2 class="">Functions</h2>
+        <h2 class="tableheader">Functions</h2>
         <div class="table"><a data-name="-1989058707%2FFunctions%2F-1874162030" anchor-label="and" id="-1989058707%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../and.html"><span><span>and</span></span></a></div>
@@ -219,7 +219,7 @@
             </div>
           </div>
 <a data-name="-1572879154%2FFunctions%2F-1874162030" anchor-label="andThen" id="-1572879154%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../and-then.html"><span>and</span><wbr><span><span>Then</span></span></a></div>
@@ -234,7 +234,7 @@
             </div>
           </div>
 <a data-name="728079368%2FFunctions%2F-1874162030" anchor-label="castOrError" id="728079368%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../cast-or-error.html"><span>cast</span><wbr><span>Or</span><wbr><span><span>Error</span></span></a></div>
@@ -249,7 +249,7 @@
             </div>
           </div>
 <a data-name="271771694%2FFunctions%2F-1874162030" anchor-label="component1" id="271771694%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../component1.html"><span><span>component1</span></span></a></div>
@@ -264,7 +264,7 @@
             </div>
           </div>
 <a data-name="-1978848818%2FFunctions%2F-1874162030" anchor-label="component2" id="-1978848818%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../component2.html"><span><span>component2</span></span></a></div>
@@ -279,7 +279,7 @@
             </div>
           </div>
 <a data-name="1684224611%2FFunctions%2F-1874162030" anchor-label="component3" id="1684224611%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../component3.html"><span><span>component3</span></span></a></div>
@@ -294,7 +294,7 @@
             </div>
           </div>
 <a data-name="338104564%2FFunctions%2F-1874162030" anchor-label="errorOrNull" id="338104564%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../error-or-null.html"><span>error</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
@@ -309,7 +309,7 @@
             </div>
           </div>
 <a data-name="-959928519%2FFunctions%2F-1874162030" anchor-label="errorWithMetadataOrNull" id="-959928519%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../error-with-metadata-or-null.html"><span>error</span><wbr><span>With</span><wbr><span>Metadata</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
@@ -324,7 +324,7 @@
             </div>
           </div>
 <a data-name="-1256855343%2FFunctions%2F-1874162030" anchor-label="expect" id="-1256855343%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../expect.html"><span><span>expect</span></span></a></div>
@@ -339,7 +339,7 @@
             </div>
           </div>
 <a data-name="861405891%2FFunctions%2F-1874162030" anchor-label="expectError" id="861405891%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../expect-error.html"><span>expect</span><wbr><span><span>Error</span></span></a></div>
@@ -354,7 +354,7 @@
             </div>
           </div>
 <a data-name="-1695027780%2FFunctions%2F-1874162030" anchor-label="expectMetadata" id="-1695027780%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../expect-metadata.html"><span>expect</span><wbr><span><span>Metadata</span></span></a></div>
@@ -369,7 +369,7 @@
             </div>
           </div>
 <a data-name="-988292469%2FFunctions%2F-1874162030" anchor-label="expectThrowable" id="-988292469%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../expect-throwable.html"><span>expect</span><wbr><span><span>Throwable</span></span></a></div>
@@ -384,7 +384,7 @@
             </div>
           </div>
 <a data-name="48269%2FFunctions%2F-1874162030" anchor-label="filterOrError" id="48269%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../filter-or-error.html"><span>filter</span><wbr><span>Or</span><wbr><span><span>Error</span></span></a></div>
@@ -399,7 +399,7 @@
             </div>
           </div>
 <a data-name="-2073328033%2FFunctions%2F-1874162030" anchor-label="flatMap" id="-2073328033%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../flat-map.html"><span>flat</span><wbr><span><span>Map</span></span></a></div>
@@ -414,7 +414,7 @@
             </div>
           </div>
 <a data-name="1407114126%2FFunctions%2F-1874162030" anchor-label="flatten" id="1407114126%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../flatten.html"><span><span>flatten</span></span></a></div>
@@ -429,7 +429,7 @@
             </div>
           </div>
 <a data-name="477806719%2FFunctions%2F-1874162030" anchor-label="fold" id="477806719%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../fold.html"><span><span>fold</span></span></a></div>
@@ -444,7 +444,7 @@
             </div>
           </div>
 <a data-name="-393232722%2FFunctions%2F-1874162030" anchor-label="getOrDefault" id="-393232722%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../get-or-default.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Default</span></span></a></div>
@@ -459,7 +459,7 @@
             </div>
           </div>
 <a data-name="-485655968%2FFunctions%2F-1874162030" anchor-label="getOrElse" id="-485655968%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../get-or-else.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Else</span></span></a></div>
@@ -474,7 +474,7 @@
             </div>
           </div>
 <a data-name="2115871356%2FFunctions%2F-1874162030" anchor-label="getOrEmpty" id="2115871356%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../get-or-empty.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Empty</span></span></a></div>
@@ -489,7 +489,7 @@
             </div>
           </div>
 <a data-name="866325286%2FFunctions%2F-1874162030" anchor-label="getOrNull" id="866325286%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../get-or-null.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
@@ -504,7 +504,7 @@
             </div>
           </div>
 <a data-name="1012281867%2FFunctions%2F-1874162030" anchor-label="getOrThrow" id="1012281867%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../get-or-throw.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Throw</span></span></a></div>
@@ -519,7 +519,7 @@
             </div>
           </div>
 <a data-name="1202406776%2FFunctions%2F-1874162030" anchor-label="map" id="1202406776%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../map.html"><span><span>map</span></span></a></div>
@@ -534,7 +534,7 @@
             </div>
           </div>
 <a data-name="1127824704%2FFunctions%2F-1874162030" anchor-label="mapError" id="1127824704%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../map-error.html"><span>map</span><wbr><span><span>Error</span></span></a></div>
@@ -549,7 +549,7 @@
             </div>
           </div>
 <a data-name="-1331020927%2FFunctions%2F-1874162030" anchor-label="mapSuccess" id="-1331020927%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../map-success.html"><span>map</span><wbr><span><span>Success</span></span></a></div>
@@ -564,7 +564,7 @@
             </div>
           </div>
 <a data-name="-125998059%2FFunctions%2F-1874162030" anchor-label="metadataOrNull" id="-125998059%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="metadata-or-null.html"><span>metadata</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
@@ -573,13 +573,13 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="metadata-or-null.html">T</a><span class="token operator">&gt; </span><a href="metadata-or-null.html"><span class="token function">metadataOrNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="metadata-or-null.html">T</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the <a href="../metadata.html">metadata</a> as the given type <a href="metadata-or-null.html">T</a>.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="metadata-or-null.html">T</a><span class="token operator">&gt; </span><a href="metadata-or-null.html"><span class="token function">metadataOrNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="metadata-or-null.html">T</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the <a href="../../../asyncresult/io.nlopez.asyncresult/-error/--root--.html">metadata</a> as the given type <a href="metadata-or-null.html">T</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
 <a data-name="-1986590518%2FFunctions%2F-1874162030" anchor-label="onError" id="-1986590518%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../on-error.html"><span>on</span><wbr><span><span>Error</span></span></a></div>
@@ -594,7 +594,7 @@
             </div>
           </div>
 <a data-name="-513579719%2FFunctions%2F-1874162030" anchor-label="onErrorWithMetadata" id="-513579719%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../on-error-with-metadata.html"><span>on</span><wbr><span>Error</span><wbr><span>With</span><wbr><span><span>Metadata</span></span></a></div>
@@ -609,7 +609,7 @@
             </div>
           </div>
 <a data-name="308838589%2FFunctions%2F-1874162030" anchor-label="onLoading" id="308838589%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../on-loading.html"><span>on</span><wbr><span><span>Loading</span></span></a></div>
@@ -624,7 +624,7 @@
             </div>
           </div>
 <a data-name="797072059%2FFunctions%2F-1874162030" anchor-label="onNotStarted" id="797072059%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../on-not-started.html"><span>on</span><wbr><span>Not</span><wbr><span><span>Started</span></span></a></div>
@@ -639,7 +639,7 @@
             </div>
           </div>
 <a data-name="-1243008995%2FFunctions%2F-1874162030" anchor-label="onSuccess" id="-1243008995%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../on-success.html"><span>on</span><wbr><span><span>Success</span></span></a></div>
@@ -654,7 +654,7 @@
             </div>
           </div>
 <a data-name="1093727300%2FFunctions%2F-1874162030" anchor-label="orError" id="1093727300%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../or-error.html"><span>or</span><wbr><span><span>Error</span></span></a></div>
@@ -669,7 +669,7 @@
             </div>
           </div>
 <a data-name="1543202498%2FFunctions%2F-1874162030" anchor-label="plus" id="1543202498%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../plus.html"><span><span>plus</span></span></a></div>
@@ -684,7 +684,7 @@
             </div>
           </div>
 <a data-name="-2114067480%2FFunctions%2F-1874162030" anchor-label="spread" id="-2114067480%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../spread.html"><span><span>spread</span></span></a></div>
@@ -699,7 +699,7 @@
             </div>
           </div>
 <a data-name="96175420%2FFunctions%2F-1874162030" anchor-label="throwableOrNull" id="96175420%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../throwable-or-null.html"><span>throwable</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
@@ -714,7 +714,7 @@
             </div>
           </div>
 <a data-name="-545382155%2FFunctions%2F-1874162030" anchor-label="unwrap" id="-545382155%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../unwrap.html"><span><span>unwrap</span></span></a></div>
@@ -729,7 +729,7 @@
             </div>
           </div>
 <a data-name="1107997115%2FFunctions%2F-1874162030" anchor-label="unwrapError" id="1107997115%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../unwrap-error.html"><span>unwrap</span><wbr><span><span>Error</span></span></a></div>
@@ -744,7 +744,7 @@
             </div>
           </div>
 <a data-name="-336736032%2FFunctions%2F-1874162030" anchor-label="unwrapMetadata" id="-336736032%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../unwrap-metadata.html"><span>unwrap</span><wbr><span><span>Metadata</span></span></a></div>
@@ -759,7 +759,7 @@
             </div>
           </div>
 <a data-name="1279373443%2FFunctions%2F-1874162030" anchor-label="unwrapThrowable" id="1279373443%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../unwrap-throwable.html"><span>unwrap</span><wbr><span><span>Throwable</span></span></a></div>
@@ -774,7 +774,7 @@
             </div>
           </div>
 <a data-name="-494786811%2FFunctions%2F-1874162030" anchor-label="withMetadata" id="-494786811%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="with-metadata.html"><span>with</span><wbr><span><span>Metadata</span></span></a></div>
@@ -789,7 +789,7 @@
             </div>
           </div>
 <a data-name="-1319508255%2FFunctions%2F-1874162030" anchor-label="zipWith" id="-1319508255%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="../zip-with.html"><span>zip</span><wbr><span><span>With</span></span></a></div>
@@ -809,17 +809,21 @@
   </div>
 </div>
     <div class="footer">
-        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
-        <span>© 2026 Copyright</span>
-        <span class="pull-right">
-            <span>Generated by </span>
-            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
-                <span>dokka</span>
-            </a>
-        </span>
-    </div>
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
             </div>
         </div>
     </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>
