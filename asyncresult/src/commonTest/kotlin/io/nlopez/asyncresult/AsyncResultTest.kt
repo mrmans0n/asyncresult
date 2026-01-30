@@ -98,6 +98,96 @@ class AsyncResultTest {
   }
 
   @Test
+  fun `errorIdOrNull returns the errorId when error has errorId else returns null`() {
+    assertThat(Success(10).errorIdOrNull()).isNull()
+    assertThat((NotStarted as AsyncResult<Int>).errorIdOrNull()).isNull()
+    assertThat((Loading as AsyncResult<Int>).errorIdOrNull()).isNull()
+    val throwable = Throwable()
+    val errorId = ErrorId("test-error-123")
+    assertThat(Error(throwable).errorIdOrNull()).isNull()
+    assertThat(Error(throwable, errorId = errorId).errorIdOrNull()).isEqualTo(errorId)
+    assertThat(Error(throwable, "metadata", errorId).errorIdOrNull()).isEqualTo(errorId)
+  }
+
+  @Test
+  fun `Error withErrorId creates a copy with the given errorId preserving metadata`() {
+    val throwable = Throwable()
+    val errorId = ErrorId("test-error-123")
+    val error = Error(throwable, "metadata")
+    val errorWithId = error.withErrorId(errorId)
+    assertThat(errorWithId.errorId).isEqualTo(errorId)
+    assertThat(errorWithId.throwable).isEqualTo(throwable)
+    assertThat(errorWithId.metadataOrNull<String>()).isEqualTo("metadata")
+  }
+
+  @Test
+  fun `Error withMetadata preserves errorId`() {
+    val throwable = Throwable()
+    val errorId = ErrorId("test-error-123")
+    val error = Error(throwable, errorId = errorId)
+    val errorWithMetadata = error.withMetadata("new-metadata")
+    assertThat(errorWithMetadata.errorId).isEqualTo(errorId)
+    assertThat(errorWithMetadata.metadataOrNull<String>()).isEqualTo("new-metadata")
+  }
+
+  @Test
+  fun `ErrorWithId creates an Error with the given errorId`() {
+    val errorId = ErrorId("test-error-123")
+    val error = ErrorWithId(errorId)
+    assertThat(error.errorId).isEqualTo(errorId)
+    assertThat(error.throwable).isNull()
+    assertThat(error.metadataOrNull<Any>()).isNull()
+  }
+
+  @Test
+  fun `ErrorWithId creates an Error with errorId and metadata`() {
+    val errorId = ErrorId("test-error-123")
+    val error = ErrorWithId(errorId, "metadata")
+    assertThat(error.errorId).isEqualTo(errorId)
+    assertThat(error.metadataOrNull<String>()).isEqualTo("metadata")
+  }
+
+  @Test
+  fun `ErrorWithMetadata accepts optional errorId`() {
+    val errorId = ErrorId("test-error-123")
+    val errorWithoutId = ErrorWithMetadata("metadata")
+    val errorWithId = ErrorWithMetadata("metadata", errorId)
+    assertThat(errorWithoutId.errorId).isNull()
+    assertThat(errorWithId.errorId).isEqualTo(errorId)
+    assertThat(errorWithId.metadataOrNull<String>()).isEqualTo("metadata")
+  }
+
+  @Test
+  fun `Error plus operator preserves errorId`() {
+    val errorId = ErrorId("test-error-123")
+    val error = Error(errorId = errorId)
+    val errorWithMetadata = error + "metadata"
+    assertThat(errorWithMetadata.errorId).isEqualTo(errorId)
+    assertThat(errorWithMetadata.metadataOrNull<String>()).isEqualTo("metadata")
+  }
+
+  @Test
+  fun `Error plus ErrorId operator adds errorId preserving metadata`() {
+    val errorId = ErrorId("test-error-123")
+    val error = Error(metadata = "metadata")
+    val errorWithId = error + errorId
+    assertThat(errorWithId.errorId).isEqualTo(errorId)
+    assertThat(errorWithId.metadataOrNull<String>()).isEqualTo("metadata")
+  }
+
+  @Test
+  fun `Error data class equals includes errorId`() {
+    val throwable = Throwable()
+    val errorId1 = ErrorId("error-1")
+    val errorId2 = ErrorId("error-2")
+    val error1 = Error(throwable, "metadata", errorId1)
+    val error2 = Error(throwable, "metadata", errorId1)
+    val error3 = Error(throwable, "metadata", errorId2)
+    assertThat(error1).isEqualTo(error2)
+    assertThat(error1 == error3).isFalse()
+  }
+
+  @Test
   fun `unwrap returns value when Success else throws UnwrapException`() {
     assertThat(Success(10).unwrap()).isEqualTo(10)
     assertFailsWith<UnwrapException> { NotStarted.unwrap() }
@@ -136,6 +226,17 @@ class AsyncResultTest {
   }
 
   @Test
+  fun `unwrapErrorId returns errorId when Error has errorId else throws UnwrapException`() {
+    val errorId = ErrorId("test-error-123")
+    assertThat(Error(errorId = errorId).unwrapErrorId()).isEqualTo(errorId)
+    assertFailsWith<UnwrapException> { Error(throwable = Throwable()).unwrapErrorId() }
+    assertFailsWith<UnwrapException> { Error(metadata = "metadata").unwrapErrorId() }
+    assertFailsWith<UnwrapException> { Success(10).unwrapErrorId() }
+    assertFailsWith<UnwrapException> { NotStarted.unwrapErrorId() }
+    assertFailsWith<UnwrapException> { Loading.unwrapErrorId() }
+  }
+
+  @Test
   fun `expect returns value when Success else throws UnwrapException with custom message`() {
     assertThat(Success(10).expect { "Custom error" }).isEqualTo(10)
     val exception = assertFailsWith<UnwrapException> { NotStarted.expect { "Custom error" } }
@@ -168,6 +269,17 @@ class AsyncResultTest {
     val exception =
         assertFailsWith<UnwrapException> {
           Error(metadata = 1234).expectMetadata<String> { "Custom error" }
+        }
+    assertThat(exception.message).isEqualTo("Custom error")
+  }
+
+  @Test
+  fun `expectErrorId returns errorId else throws UnwrapException with custom message`() {
+    val errorId = ErrorId("test-error-123")
+    assertThat(Error(errorId = errorId).expectErrorId { "Custom error" }).isEqualTo(errorId)
+    val exception =
+        assertFailsWith<UnwrapException> {
+          Error(throwable = Throwable()).expectErrorId { "Custom error" }
         }
     assertThat(exception.message).isEqualTo("Custom error")
   }

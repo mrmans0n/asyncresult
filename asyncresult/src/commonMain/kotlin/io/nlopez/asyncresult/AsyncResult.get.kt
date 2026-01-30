@@ -54,6 +54,9 @@ public inline fun <reified M> AsyncResult<*>.errorWithMetadataOrNull(): M? =
 /** Returns the throwable if the [AsyncResult] is [Error] else returns null. */
 public inline fun <R> AsyncResult<R>.throwableOrNull(): Throwable? = errorOrNull()?.throwable
 
+/** Returns the [ErrorId] if the [AsyncResult] is [Error] and has an errorId, else returns null. */
+public inline fun <R> AsyncResult<R>.errorIdOrNull(): ErrorId? = errorOrNull()?.errorId
+
 /** Returns the value if the [AsyncResult] is [Success] else returns null. */
 public inline fun <R> AsyncResult<R>.getOrThrow(): R =
     when (this) {

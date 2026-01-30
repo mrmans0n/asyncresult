@@ -8,10 +8,12 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.support.expected
 import io.nlopez.asyncresult.AsyncResult
 import io.nlopez.asyncresult.Error
+import io.nlopez.asyncresult.ErrorId
 import io.nlopez.asyncresult.Incomplete
 import io.nlopez.asyncresult.Loading
 import io.nlopez.asyncresult.NotStarted
 import io.nlopez.asyncresult.Success
+import io.nlopez.asyncresult.errorIdOrNull
 import io.nlopez.asyncresult.getOrThrow
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -79,6 +81,32 @@ public inline fun <T, reified M> Assert<AsyncResult<T>>.isErrorWithMetadataEqual
     given { actual ->
       assertThat(actual).isErrorWithMetadata<T, M>().isEqualTo(value)
     }
+
+/** Asserts the [AsyncResult] is an [Error] with an [ErrorId] and returns the [ErrorId]. */
+public fun <T> Assert<AsyncResult<T>>.isErrorWithId(): Assert<ErrorId> = transform { actual ->
+  when (actual) {
+    is Error ->
+        actual.errorId ?: expected("AsyncResult to be Error with errorId, but errorId was null")
+
+    else -> expected("AsyncResult to be Error, but was $actual")
+  }
+}
+
+/** Asserts the [Error] has the given [ErrorId]. */
+public fun Assert<Error>.isErrorIdEqualTo(expected: ErrorId): Unit = given { actual ->
+  assertThat(actual.errorId).isEqualTo(expected)
+}
+
+/** Asserts the [AsyncResult] is an [Error] with the given [ErrorId]. */
+public fun <T> Assert<AsyncResult<T>>.isErrorWithIdEqualTo(expected: ErrorId): Unit =
+    given { actual ->
+      assertThat(actual).isErrorWithId().isEqualTo(expected)
+    }
+
+/** Asserts the [AsyncResult] has the given [ErrorId] if it's an [Error], checking via extension. */
+public fun <T> Assert<AsyncResult<T>>.hasErrorId(expected: ErrorId): Unit = given { actual ->
+  assertThat(actual.errorIdOrNull()).isEqualTo(expected)
+}
 
 /**
  * Asserts the first terminal emission from the flow is [Success] with the given [expected] value.
