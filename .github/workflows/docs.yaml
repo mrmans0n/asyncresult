@@ -77,3 +77,35 @@ jobs:
         if: steps.version.outputs.is_stable == 'false'
         run: |
           uv run mike deploy --push ${{ steps.version.outputs.version }}
+
+      - name: Check and deploy missing stable version
+        if: steps.version.outputs.is_stable == 'false'
+        run: |
+          # Get the latest stable tag
+          LATEST_TAG=$(git tag -l 'v*' --sort=-v:refname | head -n1)
+          if [[ -z "$LATEST_TAG" ]]; then
+            echo "No stable tags found, skipping"
+            exit 0
+          fi
+
+          LATEST_VERSION="${LATEST_TAG#v}"
+          echo "Latest stable version: $LATEST_VERSION"
+
+          # Check if this version exists in mike's versions
+          git fetch origin gh-pages:gh-pages || true
+          if git show gh-pages:versions.json 2>/dev/null | grep -q "\"version\": \"$LATEST_VERSION\""; then
+            echo "Stable version $LATEST_VERSION already deployed, skipping"
+            exit 0
+          fi
+
+          echo "Stable version $LATEST_VERSION not found, deploying..."
+
+          # Checkout the stable tag
+          git checkout "$LATEST_TAG"
+
+          # Rebuild docs for stable version
+          ./gradlew :dokkaGenerate
+
+          # Deploy stable version
+          uv run mike deploy --push --update-aliases "$LATEST_VERSION" latest
+          uv run mike set-default --push latest
