@@ -1,3 +1,41 @@
+# Gradle files
+.gradle/
+.buildtrace/
+build/
+local.properties
+
+# IntelliJ .idea folder
+.idea/workspace.xml
+.idea/misc.xml
+.idea/libraries
+.idea/caches
+.idea/navEditor.xml
+.idea/tasks.xml
+.idea/modules.xml
+.idea/compiler.xml
+.idea/migrations.xml
+.idea/other.xml
+.idea/vcs.xml
+.idea/kotlinc.xml
+.idea/jarRepositories.xml
+.idea/deploymentTargetDropDown.xml
+.idea/deploymentTargetSelector.xml
+.idea/androidTestResultsUserPreferences.xml
+.idea/artifacts
+.idea/codeStyles
+.idea/inspectionProfiles
+.idea/AndroidProjectSystem.xml
+.idea/studiobot.xml
+.idea/runConfigurations/App_*.xml
+.idea/xcode.xml
+.idea/markdown.xml
+gradle.xml
+*.iml
+
+# Apple
+.DS_Store
+**/.DS_Store
+
 # Compiled class file
 *.class
 
@@ -26,5 +64,5 @@ replay_pid*
 # Kotlin Gradle plugin data, see https://kotlinlang.org/docs/whatsnew20.html#new-directory-for-kotlin-data-in-gradle-projects
 .kotlin/
 
-# Throwaway 
+# Throwaway
 .throwaway/
