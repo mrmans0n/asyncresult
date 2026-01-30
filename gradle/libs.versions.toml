@@ -5,7 +5,7 @@ assertk = "0.28.1"
 arrow = "2.0.0"
 android-gradle = "8.13.2"
 ktfmt = "0.53"
-dokka = "2.0.0"
+dokka = "2.1.0"
 
 [libraries]
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
@@ -18,5 +18,5 @@ kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref 
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "android-gradle" }
 mavenPublish = "com.vanniktech.maven.publish:0.36.0"
-spotless = { id = "com.diffplug.spotless", version = "8.1.0" }
+spotless = { id = "com.diffplug.spotless", version = "8.2.1" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
