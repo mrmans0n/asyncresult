@@ -2,8 +2,8 @@
 kotlin = "2.2.21"
 coroutines = "1.10.1"
 assertk = "0.28.1"
-arrow = "2.2.1.1"
-android-gradle = "8.5.2"
+arrow = "2.0.0"
+android-gradle = "8.13.0"
 ktfmt = "0.53"
 
 [libraries]

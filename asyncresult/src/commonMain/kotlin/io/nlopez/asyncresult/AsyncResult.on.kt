@@ -1,55 +1,47 @@
+// Copyright 2026 Nacho Lopez
+// SPDX-License-Identifier: MIT
 @file:Suppress("NOTHING_TO_INLINE")
 
 package io.nlopez.asyncresult
 
-/**
- * Runs the [block] when the value is [Success].
- */
+/** Runs the [block] when the value is [Success]. */
 inline fun <R> AsyncResult<R>.onSuccess(block: (R) -> Unit): AsyncResult<R> {
-    if (this is Success) {
-        block(value)
-    }
-    return this
+  if (this is Success) {
+    block(value)
+  }
+  return this
 }
 
-/**
- * Runs the [block] when the result is [Loading].
- */
+/** Runs the [block] when the result is [Loading]. */
 inline fun <R> AsyncResult<R>.onLoading(block: () -> Unit): AsyncResult<R> {
-    if (this is Loading) {
-        block()
-    }
-    return this
+  if (this is Loading) {
+    block()
+  }
+  return this
 }
 
-/**
- * Runs the [block] when the result is [Error].
- */
+/** Runs the [block] when the result is [Error]. */
 inline fun <R> AsyncResult<R>.onError(block: (Throwable?) -> Unit): AsyncResult<R> {
-    if (this is Error) {
-        block(throwable)
-    }
-    return this
+  if (this is Error) {
+    block(throwable)
+  }
+  return this
 }
 
-/**
- * Runs the [block] when the result is [Error] and has metadata of type [M].
- */
+/** Runs the [block] when the result is [Error] and has metadata of type [M]. */
 inline fun <R, reified M> AsyncResult<R>.onErrorWithMetadata(
     block: (throwable: Throwable?, metadata: M?) -> Unit,
 ): AsyncResult<R> {
-    if (this is Error) {
-        block(throwable, metadataOrNull<M>())
-    }
-    return this
+  if (this is Error) {
+    block(throwable, metadataOrNull<M>())
+  }
+  return this
 }
 
-/**
- * Runs the [block] when the result is [NotStarted].
- */
+/** Runs the [block] when the result is [NotStarted]. */
 inline fun <R> AsyncResult<R>.onNotStarted(block: () -> Unit): AsyncResult<R> {
-    if (this is NotStarted) {
-        block()
-    }
-    return this
+  if (this is NotStarted) {
+    block()
+  }
+  return this
 }
