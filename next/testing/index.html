@@ -356,6 +356,24 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -372,6 +390,69 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#state-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flow assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -424,6 +505,58 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#state-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        State assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#success-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Success assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#error-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Error assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flow assertions
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -443,16 +576,51 @@
 
 
 <h1 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h1>
-<p>The <code>asyncresult-test</code> artifact exposes assertk helpers for testing <code>AsyncResult</code>.</p>
+<p>The <code>asyncresult-test</code> artifact provides <a href="https://github.com/willowtreeapps/assertk">assertk</a> extensions for testing <code>AsyncResult</code> values in a fluent and readable way.</p>
+<h2 id="state-assertions">State assertions<a class="headerlink" href="#state-assertions" title="Permanent link">&para;</a></h2>
+<p>Assert that a result is in a specific state:</p>
 <div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">assertk.assertThat</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">io.nlopez.asyncresult.test.isSuccessEqualTo</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">io.nlopez.asyncresult.test.*</span>
 
-<span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Success</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isNotStarted</span><span class="p">()</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isLoading</span><span class="p">()</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isIncomplete</span><span class="p">()</span><span class="w">  </span><span class="c1">// NotStarted or Loading</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isSuccess</span><span class="p">()</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isError</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="success-assertions">Success assertions<a class="headerlink" href="#success-assertions" title="Permanent link">&para;</a></h2>
+<p>Assert success with a specific value:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Success</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
 <span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isSuccessEqualTo</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
 </code></pre></div>
-<p>Flow helpers are also available:</p>
-<div class="highlight"><pre><span></span><code><span class="n">flow</span><span class="p">.</span><span class="na">assertSuccess</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
+<p>Chain assertions on the success value:</p>
+<div class="highlight"><pre><span></span><code><span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isSuccess</span><span class="p">().</span><span class="na">isEqualTo</span><span class="p">(</span><span class="n">expectedUser</span><span class="p">)</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isSuccess</span><span class="p">().</span><span class="na">prop</span><span class="p">(</span><span class="n">User</span><span class="o">::</span><span class="n">name</span><span class="p">).</span><span class="na">isEqualTo</span><span class="p">(</span><span class="s">&quot;Alice&quot;</span><span class="p">)</span>
 </code></pre></div>
+<h2 id="error-assertions">Error assertions<a class="headerlink" href="#error-assertions" title="Permanent link">&para;</a></h2>
+<p>Assert error state and inspect the error:</p>
+<div class="highlight"><pre><span></span><code><span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isError</span><span class="p">()</span>
+
+<span class="c1">// Check the throwable</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isError</span><span class="p">().</span><span class="na">isThrowableEqualTo</span><span class="p">(</span><span class="n">expectedException</span><span class="p">)</span>
+
+<span class="c1">// Check metadata</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isErrorWithMetadata</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isErrorWithMetadataEqualTo</span><span class="p">(</span><span class="n">NetworkError</span><span class="p">.</span><span class="na">Timeout</span><span class="p">)</span>
+
+<span class="c1">// Chain assertions on metadata</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isError</span><span class="p">().</span><span class="na">isMetadataEqualTo</span><span class="p">(</span><span class="n">expectedMetadata</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="flow-assertions">Flow assertions<a class="headerlink" href="#flow-assertions" title="Permanent link">&para;</a></h2>
+<p>Test terminal emissions from a <code>Flow&lt;AsyncResult&lt;T&gt;&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Assert the first terminal emission is Success with value</span>
+<span class="n">flow</span><span class="p">.</span><span class="na">assertSuccess</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
+
+<span class="c1">// Assert the first terminal emission is Error and get it for further checks</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="p">:</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="p">.</span><span class="na">assertError</span><span class="p">()</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="na">throwable</span><span class="p">).</span><span class="na">isInstanceOf</span><span class="p">(</span><span class="n">IOException</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
+</code></pre></div>
+<p>These suspend functions wait for the first <code>Success</code> or <code>Error</code> emission, ignoring <code>Loading</code> and <code>NotStarted</code> states.</p>
 
 
 

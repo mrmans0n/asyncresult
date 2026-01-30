@@ -380,10 +380,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#bind" class="md-nav__link">
+  <a href="#converting-either-to-asyncresult" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Bind
+        Converting Either to AsyncResult
       
     </span>
   </a>
@@ -391,24 +391,58 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#conversion" class="md-nav__link">
+  <a href="#binding-nested-either-values" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Conversion
+        Binding nested Either values
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Binding nested Either values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-handling-for-throwable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Special handling for Throwable
       
     </span>
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#flow-to-either" class="md-nav__link">
+  <a href="#converting-flow-to-either" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Flow to Either
+        Converting Flow to Either
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Converting Flow to Either">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-error-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom error transformation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -501,10 +535,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#bind" class="md-nav__link">
+  <a href="#converting-either-to-asyncresult" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Bind
+        Converting Either to AsyncResult
       
     </span>
   </a>
@@ -512,24 +546,58 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#conversion" class="md-nav__link">
+  <a href="#binding-nested-either-values" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Conversion
+        Binding nested Either values
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Binding nested Either values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-handling-for-throwable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Special handling for Throwable
       
     </span>
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
-  <a href="#flow-to-either" class="md-nav__link">
+  <a href="#converting-flow-to-either" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Flow to Either
+        Converting Flow to Either
       
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Converting Flow to Either">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#custom-error-transformation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Custom error transformation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -554,18 +622,49 @@
 
 
 <h1 id="arrow-either-extensions">Arrow Either extensions<a class="headerlink" href="#arrow-either-extensions" title="Permanent link">&para;</a></h1>
-<p>The <code>asyncresult-either</code> artifact provides helpers to bridge Arrow's <code>Either</code> with <code>AsyncResult</code>.</p>
-<h2 id="bind">Bind<a class="headerlink" href="#bind" title="Permanent link">&para;</a></h2>
+<p>The <code>asyncresult-either</code> artifact provides helpers to bridge Arrow's <code>Either</code> type with <code>AsyncResult</code>. This is useful when working with codebases that use Arrow for error handling.</p>
+<h2 id="converting-either-to-asyncresult">Converting Either to AsyncResult<a class="headerlink" href="#converting-either-to-asyncresult" title="Permanent link">&para;</a></h2>
+<p>Transform an <code>Either&lt;L, R&gt;</code> directly into an <code>AsyncResult&lt;R&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">either</span><span class="p">:</span><span class="w"> </span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchUser</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">either</span><span class="p">.</span><span class="na">toAsyncResult</span><span class="p">()</span>
+</code></pre></div>
+<ul>
+<li><code>Either.Right</code> becomes <code>Success</code></li>
+<li><code>Either.Left</code> becomes <code>Error</code> with the left value stored in metadata</li>
+</ul>
+<h2 id="binding-nested-either-values">Binding nested Either values<a class="headerlink" href="#binding-nested-either-values" title="Permanent link">&para;</a></h2>
+<p>When you have an <code>AsyncResult</code> containing an <code>Either</code>, use <code>bind()</code> to flatten it:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Success</span><span class="p">(</span><span class="n">userEither</span><span class="p">)</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">unwrapped</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">bind</span><span class="p">()</span>
 </code></pre></div>
-<h2 id="conversion">Conversion<a class="headerlink" href="#conversion" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">either</span><span class="p">:</span><span class="w"> </span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">eitherValue</span>
-<span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">either</span><span class="p">.</span><span class="na">toAsyncResult</span><span class="p">()</span>
+<p>The <code>bind()</code> function handles the conversion:</p>
+<ul>
+<li><code>Success(Right(value))</code> becomes <code>Success(value)</code></li>
+<li><code>Success(Left(error))</code> becomes <code>Error</code> with the left value in metadata</li>
+<li><code>Loading</code>, <code>NotStarted</code>, and <code>Error</code> pass through unchanged</li>
+</ul>
+<h3 id="special-handling-for-throwable">Special handling for Throwable<a class="headerlink" href="#special-handling-for-throwable" title="Permanent link">&para;</a></h3>
+<p>When the left type is <code>Throwable</code>, it's stored in <code>Error.throwable</code> instead of metadata:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Throwable</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Success</span><span class="p">(</span><span class="n">Left</span><span class="p">(</span><span class="n">IOException</span><span class="p">()))</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">bound</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">bind</span><span class="p">()</span><span class="w"> </span><span class="c1">// Error with throwable set</span>
 </code></pre></div>
-<h2 id="flow-to-either">Flow to Either<a class="headerlink" href="#flow-to-either" title="Permanent link">&para;</a></h2>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">either</span><span class="p">:</span><span class="w"> </span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Error</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="p">.</span><span class="na">toEither</span><span class="p">()</span>
+<h2 id="converting-flow-to-either">Converting Flow to Either<a class="headerlink" href="#converting-flow-to-either" title="Permanent link">&para;</a></h2>
+<p>Transform a <code>Flow&lt;AsyncResult&lt;R&gt;&gt;</code> into an <code>Either</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">flow</span><span class="p">:</span><span class="w"> </span><span class="n">Flow</span><span class="o">&lt;</span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userFlow</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">either</span><span class="p">:</span><span class="w"> </span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Error</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="p">.</span><span class="na">toEither</span><span class="p">()</span>
 </code></pre></div>
+<p>This waits for the first terminal emission (<code>Success</code> or <code>Error</code>) and converts it:</p>
+<ul>
+<li><code>Success</code> becomes <code>Either.Right</code></li>
+<li><code>Error</code> becomes <code>Either.Left</code></li>
+</ul>
+<h3 id="custom-error-transformation">Custom error transformation<a class="headerlink" href="#custom-error-transformation" title="Permanent link">&para;</a></h3>
+<p>If you need a specific error type, provide a transform function:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">either</span><span class="p">:</span><span class="w"> </span><span class="n">Either</span><span class="o">&lt;</span><span class="n">NetworkError</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="p">.</span><span class="na">toEither</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">error</span><span class="p">.</span><span class="na">metadataOrNull</span><span class="o">&lt;</span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="p">()</span><span class="w"> </span><span class="o">?:</span><span class="w"> </span><span class="n">NetworkError</span><span class="p">.</span><span class="na">Unknown</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>By default, it attempts to extract the error type from the <code>Error.metadata</code>.</p>
 
 
 
