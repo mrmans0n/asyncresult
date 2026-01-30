@@ -21,7 +21,7 @@ import kotlinx.coroutines.flow.first
  * [Either] was [Either.Right], and a [Error] value if the [Either] was [Either.Left]. It will store
  * the [Either.Left] contents, if any, in the [Error.metadata] value.
  */
-inline fun <L, R> AsyncResult<Either<L, R>>.bind(): AsyncResult<R> =
+public inline fun <L, R> AsyncResult<Either<L, R>>.bind(): AsyncResult<R> =
     when (this) {
       NotStarted -> NotStarted
       Loading -> Loading
@@ -41,7 +41,7 @@ inline fun <L, R> AsyncResult<Either<L, R>>.bind(): AsyncResult<R> =
  * [Error.throwable] property.
  */
 @JvmName("bindWithLeftThrowable")
-inline fun <R> AsyncResult<Either<Throwable, R>>.bind(): AsyncResult<R> =
+public inline fun <R> AsyncResult<Either<Throwable, R>>.bind(): AsyncResult<R> =
     when (this) {
       NotStarted -> NotStarted
       Loading -> Loading
@@ -59,7 +59,7 @@ inline fun <R> AsyncResult<Either<Throwable, R>>.bind(): AsyncResult<R> =
  * [Either.Right], and a [Error] value it is [Either.Left]. It will store the [Either.Left]
  * contents, if any, in the [Error.metadata] value.
  */
-inline fun <L, R> Either<L, R>.toAsyncResult(): AsyncResult<R> =
+public inline fun <L, R> Either<L, R>.toAsyncResult(): AsyncResult<R> =
     when (this) {
       is Left -> Error().withMetadata(value)
       is Right -> Success(value)
@@ -69,7 +69,7 @@ inline fun <L, R> Either<L, R>.toAsyncResult(): AsyncResult<R> =
  * Converts the receiver [AsyncResult] to an [Either]. It will use the [Error] as the value on the
  * left side of the [Either] and the [Success] as the value on the right side of the [Either].
  */
-suspend inline fun <R> Flow<AsyncResult<R>>.toEither(): Either<Error, R> =
+public suspend inline fun <R> Flow<AsyncResult<R>>.toEither(): Either<Error, R> =
     first { it is Success<R> || it is Error }
         .let { lcr ->
           when (lcr) {
@@ -84,7 +84,7 @@ suspend inline fun <R> Flow<AsyncResult<R>>.toEither(): Either<Error, R> =
  * the from the [Error.metadata] value. In case you want to specify your own error type, you can use
  * the [errorTransform] function.
  */
-suspend inline fun <reified E, R> Flow<AsyncResult<R>>.toEither(
+public suspend inline fun <reified E, R> Flow<AsyncResult<R>>.toEither(
     errorTransform: (Error) -> E = {
       it.metadataOrNull<E>()
           ?: error(

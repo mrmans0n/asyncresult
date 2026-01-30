@@ -13,7 +13,7 @@ import kotlin.contracts.contract
  * [transform] to their values.
  */
 @Suppress("LEAKED_IN_PLACE_LAMBDA")
-inline fun <R1, R2, reified T> zip(
+public inline fun <R1, R2, reified T> zip(
     crossinline result1: () -> AsyncResult<R1>,
     crossinline result2: () -> AsyncResult<R2>,
     crossinline transform: (R1, R2) -> T,
@@ -34,7 +34,7 @@ inline fun <R1, R2, reified T> zip(
  * applying the [transform] to their values.
  */
 @Suppress("LEAKED_IN_PLACE_LAMBDA")
-inline fun <R1, R2, R3, reified T> zip(
+public inline fun <R1, R2, R3, reified T> zip(
     crossinline result1: () -> AsyncResult<R1>,
     crossinline result2: () -> AsyncResult<R2>,
     crossinline result3: () -> AsyncResult<R3>,
@@ -59,7 +59,7 @@ inline fun <R1, R2, R3, reified T> zip(
  * by applying the [transform] to their values.
  */
 @Suppress("LEAKED_IN_PLACE_LAMBDA")
-inline fun <R1, R2, R3, R4, reified T> zip(
+public inline fun <R1, R2, R3, R4, reified T> zip(
     crossinline result1: () -> AsyncResult<R1>,
     crossinline result2: () -> AsyncResult<R2>,
     crossinline result3: () -> AsyncResult<R3>,
@@ -88,7 +88,7 @@ inline fun <R1, R2, R3, R4, reified T> zip(
  * one, by applying the [transform] to their values.
  */
 @Suppress("LEAKED_IN_PLACE_LAMBDA")
-inline fun <R1, R2, reified T> (() -> AsyncResult<R1>).zipWith(
+public inline fun <R1, R2, reified T> (() -> AsyncResult<R1>).zipWith(
     crossinline producer: () -> AsyncResult<R2>,
     crossinline transform: (R1, R2) -> T,
 ): AsyncResult<T> {
@@ -107,7 +107,7 @@ inline fun <R1, R2, reified T> (() -> AsyncResult<R1>).zipWith(
  * single one, by applying the [transform] to their values.
  */
 @Suppress("LEAKED_IN_PLACE_LAMBDA")
-inline fun <R1, R2, R3, reified T> (() -> AsyncResult<R1>).zipWith(
+public inline fun <R1, R2, R3, reified T> (() -> AsyncResult<R1>).zipWith(
     crossinline producer1: () -> AsyncResult<R2>,
     crossinline producer2: () -> AsyncResult<R3>,
     crossinline transform: (R1, R2, R3) -> T,
@@ -130,7 +130,7 @@ inline fun <R1, R2, R3, reified T> (() -> AsyncResult<R1>).zipWith(
  * [producer3]) into a single one, by applying the [transform] to their values.
  */
 @Suppress("LEAKED_IN_PLACE_LAMBDA")
-inline fun <R1, R2, R3, R4, reified T> (() -> AsyncResult<R1>).zipWith(
+public inline fun <R1, R2, R3, R4, reified T> (() -> AsyncResult<R1>).zipWith(
     crossinline producer1: () -> AsyncResult<R2>,
     crossinline producer2: () -> AsyncResult<R3>,
     crossinline producer3: () -> AsyncResult<R4>,
@@ -157,7 +157,7 @@ inline fun <R1, R2, R3, R4, reified T> (() -> AsyncResult<R1>).zipWith(
  * [transform] to their values.
  */
 @Suppress("LEAKED_IN_PLACE_LAMBDA")
-inline fun <R1, R2, reified T> AsyncResult<R1>.zipWith(
+public inline fun <R1, R2, reified T> AsyncResult<R1>.zipWith(
     result: AsyncResult<R2>,
     crossinline transform: (R1, R2) -> T,
 ): AsyncResult<T> {
@@ -171,7 +171,7 @@ inline fun <R1, R2, reified T> AsyncResult<R1>.zipWith(
  * applying the [transform] to their values.
  */
 @Suppress("LEAKED_IN_PLACE_LAMBDA")
-inline fun <R1, R2, R3, reified T> AsyncResult<R1>.zipWith(
+public inline fun <R1, R2, R3, reified T> AsyncResult<R1>.zipWith(
     result1: AsyncResult<R2>,
     result2: AsyncResult<R3>,
     crossinline transform: (R1, R2, R3) -> T,
@@ -188,7 +188,7 @@ inline fun <R1, R2, R3, reified T> AsyncResult<R1>.zipWith(
  * one, by applying the [transform] to their values.
  */
 @Suppress("LEAKED_IN_PLACE_LAMBDA")
-inline fun <R1, R2, R3, R4, reified T> AsyncResult<R1>.zipWith(
+public inline fun <R1, R2, R3, R4, reified T> AsyncResult<R1>.zipWith(
     result1: AsyncResult<R2>,
     result2: AsyncResult<R3>,
     result3: AsyncResult<R4>,

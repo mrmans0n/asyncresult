@@ -10,13 +10,13 @@ import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
 
 /** Returns the value if the [AsyncResult] is [Success] else returns null. */
-inline fun <R> AsyncResult<R>.getOrNull(): R? = value
+public inline fun <R> AsyncResult<R>.getOrNull(): R? = value
 
 /**
  * Returns the value if the [AsyncResult] is [Success] else returns the result of the [transform]
  * function.
  */
-inline fun <R> AsyncResult<R>.getOrElse(transform: (AsyncResult<R>) -> R): R {
+public inline fun <R> AsyncResult<R>.getOrElse(transform: (AsyncResult<R>) -> R): R {
   contract { callsInPlace(transform, InvocationKind.AT_MOST_ONCE) }
   return when (this) {
     is Success -> value
@@ -25,19 +25,21 @@ inline fun <R> AsyncResult<R>.getOrElse(transform: (AsyncResult<R>) -> R): R {
 }
 
 /** Returns the value if the [AsyncResult] is [Success] else returns the [default] value. */
-inline fun <R> AsyncResult<R>.getOrDefault(default: R) = value ?: default
+public inline fun <R> AsyncResult<R>.getOrDefault(default: R): R = value ?: default
 
 /** Returns the value if the [AsyncResult] is [Success] else returns an empty list. */
-inline fun <R> AsyncResult<List<R>>.getOrEmpty(): List<R> = getOrElse { emptyList() }
+public inline fun <R> AsyncResult<List<R>>.getOrEmpty(): List<R> = getOrElse { emptyList() }
 
 /** Returns the value if the [AsyncResult] is [Success] else returns an empty list. */
-inline fun <R> AsyncResult<Sequence<R>>.getOrEmpty(): Sequence<R> = getOrElse { emptySequence() }
+public inline fun <R> AsyncResult<Sequence<R>>.getOrEmpty(): Sequence<R> = getOrElse {
+  emptySequence()
+}
 
 /** Returns the value if the [AsyncResult] is [Success] else returns an empty map. */
-inline fun <K, V> AsyncResult<Map<K, V>>.getOrEmpty(): Map<K, V> = getOrElse { emptyMap() }
+public inline fun <K, V> AsyncResult<Map<K, V>>.getOrEmpty(): Map<K, V> = getOrElse { emptyMap() }
 
 /** Returns the [Error] itself if the [AsyncResult] is [Error] else returns null. */
-inline fun <R> AsyncResult<R>.errorOrNull(): Error? {
+public inline fun <R> AsyncResult<R>.errorOrNull(): Error? {
   contract { returns() implies (this@errorOrNull is Error) }
   return this as? Error
 }
@@ -46,14 +48,14 @@ inline fun <R> AsyncResult<R>.errorOrNull(): Error? {
  * Returns the metadata value from the [Error] if the [AsyncResult] is [Error], and has metadata or
  * the requested type.
  */
-inline fun <reified M> AsyncResult<*>.errorWithMetadataOrNull(): M? =
+public inline fun <reified M> AsyncResult<*>.errorWithMetadataOrNull(): M? =
     errorOrNull()?.metadataOrNull<M>()
 
 /** Returns the throwable if the [AsyncResult] is [Error] else returns null. */
-inline fun <R> AsyncResult<R>.throwableOrNull() = errorOrNull()?.throwable
+public inline fun <R> AsyncResult<R>.throwableOrNull(): Throwable? = errorOrNull()?.throwable
 
 /** Returns the value if the [AsyncResult] is [Success] else returns null. */
-inline fun <R> AsyncResult<R>.getOrThrow(): R =
+public inline fun <R> AsyncResult<R>.getOrThrow(): R =
     when (this) {
       is Success -> value
       else ->
