@@ -125,7 +125,22 @@
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-error/index.html">Error</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">metadata<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span> : <a href="-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-nothing/index.html">Nothing</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">The modeled request failed. If there was anything thrown to cause this, it'll be included in <a href="../../asyncresult/io.nlopez.asyncresult/-error/--root--.html">throwable</a>. It might also contain some extra <a href="../../asyncresult/io.nlopez.asyncresult/-error/--root--.html">metadata</a>, typically used to provide context about the failure, to help make it actionable (either for the user or the developer).</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-error/index.html">Error</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">metadata<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>errorId<span class="token operator">: </span><a href="-error-id/index.html">ErrorId</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span> : <a href="-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-nothing/index.html">Nothing</a><span class="token operator">&gt; </span></div><div class="brief "><p class="paragraph">The modeled request failed. If there was anything thrown to cause this, it'll be included in <a href="../../asyncresult/io.nlopez.asyncresult/-error/--root--.html">throwable</a>. It might also contain some extra <a href="../../asyncresult/io.nlopez.asyncresult/-error/--root--.html">metadata</a>, typically used to provide context about the failure, to help make it actionable (either for the user or the developer). An optional <a href="../../asyncresult/io.nlopez.asyncresult/-error/--root--.html">errorId</a> can be provided for error tracking and correlation purposes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-7945738%2FClasslikes%2F-1874162030" anchor-label="ErrorId" id="-7945738%2FClasslikes%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-error-id/index.html"><span>Error</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-7945738%2FClasslikes%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-inline/index.html"><span class="token annotation builtin">JvmInline</span></a></div></div><span class="token keyword">value </span><span class="token keyword">class </span><a href="-error-id/index.html">ErrorId</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>value<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A unique identifier for error tracking and correlation.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -423,6 +438,21 @@
               </div>
             </div>
           </div>
+<a data-name="-341092519%2FFunctions%2F-1874162030" anchor-label="errorIdOrNull" id="-341092519%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="error-id-or-null.html"><span>error</span><wbr><span>Id</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-341092519%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="error-id-or-null.html">R</a><span class="token operator">&gt; </span><a href="-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="error-id-or-null.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="error-id-or-null.html"><span class="token function">errorIdOrNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-error-id/index.html">ErrorId</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the <a href="-error-id/index.html">ErrorId</a> if the <a href="-async-result/index.html">AsyncResult</a> is <a href="-error/index.html">Error</a> and has an errorId, else returns null.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
 <a data-name="338104564%2FFunctions%2F-1874162030" anchor-label="errorOrNull" id="338104564%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
@@ -453,17 +483,32 @@
               </div>
             </div>
           </div>
-<a data-name="311689576%2FFunctions%2F-1874162030" anchor-label="ErrorWithMetadata" id="311689576%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+<a data-name="-422486194%2FFunctions%2F-1874162030" anchor-label="ErrorWithId" id="-422486194%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="-error-with-metadata.html"><span>Error</span><wbr><span>With</span><wbr><span><span>Metadata</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="311689576%2FFunctions%2F-1874162030"></span>
+                  <div><a href="-error-with-id.html"><span>Error</span><wbr><span>With</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-422486194%2FFunctions%2F-1874162030"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-error-with-metadata.html"><span class="token function">ErrorWithMetadata</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">metadata<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-error/index.html">Error</a></div><div class="brief "><p class="paragraph">Creates an <a href="-error/index.html">Error</a> object with the given <a href="-error-with-metadata.html">metadata</a></p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-error-with-id.html"><span class="token function">ErrorWithId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">errorId<span class="token operator">: </span><a href="-error-id/index.html">ErrorId</a><span class="token punctuation">, </span></span><span class="parameter ">metadata<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-error/index.html">Error</a></div><div class="brief "><p class="paragraph">Creates an <a href="-error/index.html">Error</a> object with the given <a href="-error-with-id.html">errorId</a> and optional <a href="-error-with-id.html">metadata</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1637923788%2FFunctions%2F-1874162030" anchor-label="ErrorWithMetadata" id="-1637923788%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-error-with-metadata.html"><span>Error</span><wbr><span>With</span><wbr><span><span>Metadata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1637923788%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-error-with-metadata.html"><span class="token function">ErrorWithMetadata</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">metadata<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span></span><span class="parameter ">errorId<span class="token operator">: </span><a href="-error-id/index.html">ErrorId</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-error/index.html">Error</a></div><div class="brief "><p class="paragraph">Creates an <a href="-error/index.html">Error</a> object with the given <a href="-error-with-metadata.html">metadata</a> and optional <a href="-error-with-metadata.html">errorId</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -509,6 +554,21 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="expect-error.html"><span class="token function">expectError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-error/index.html">Error</a></div><div class="brief "><p class="paragraph">Extracts the value from the <a href="-async-result/index.html">AsyncResult</a> if it's an <a href="-error/index.html">Error</a>, otherwise throws an <a href="-unwrap-exception/index.html">UnwrapException</a> with the computed <a href="expect-error.html">message</a> in it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1505491992%2FFunctions%2F-1874162030" anchor-label="expectErrorId" id="-1505491992%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="expect-error-id.html"><span>expect</span><wbr><span>Error</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1505491992%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="expect-error-id.html"><span class="token function">expectErrorId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-error-id/index.html">ErrorId</a></div><div class="brief "><p class="paragraph">Extracts the <a href="-error-id/index.html">ErrorId</a> from the <a href="-async-result/index.html">AsyncResult</a> if it's an <a href="-error/index.html">Error</a> with an <a href="-error-id/index.html">ErrorId</a>, otherwise throws an <a href="-unwrap-exception/index.html">UnwrapException</a> with the computed <a href="expect-error-id.html">message</a> in it.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -858,17 +918,17 @@
               </div>
             </div>
           </div>
-<a data-name="1543202498%2FFunctions%2F-1874162030" anchor-label="plus" id="1543202498%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+<a data-name="1333169865%2FFunctions%2F-1874162030" anchor-label="plus" id="1333169865%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
           <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="plus.html"><span><span>plus</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1543202498%2FFunctions%2F-1874162030"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1333169865%2FFunctions%2F-1874162030"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">infix inline operator </span><span class="token keyword">fun </span><a href="-error/index.html">Error</a><span class="token punctuation">.</span><a href="plus.html"><span class="token function">plus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">metadata<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-error/index.html">Error</a></div><div class="brief "><p class="paragraph">Adds the given <a href="plus.html">metadata</a> to the <a href="-error/index.html">Error</a> object.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">infix inline operator </span><span class="token keyword">fun </span><a href="-error/index.html">Error</a><span class="token punctuation">.</span><a href="plus.html"><span class="token function">plus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">errorId<span class="token operator">: </span><a href="-error-id/index.html">ErrorId</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-error/index.html">Error</a></div><div class="brief "><p class="paragraph">Adds the given <a href="plus.html">errorId</a> to the <a href="-error/index.html">Error</a> object, preserving <a href="metadata.html">metadata</a>.</p></div><div class="symbol monospace"><span class="token keyword">infix inline operator </span><span class="token keyword">fun </span><a href="-error/index.html">Error</a><span class="token punctuation">.</span><a href="plus.html"><span class="token function">plus</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">metadata<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-error/index.html">Error</a></div><div class="brief "><p class="paragraph">Adds the given <a href="plus.html">metadata</a> to the <a href="-error/index.html">Error</a> object, preserving errorId.</p></div></div></div>
                 </div>
               </div>
             </div>
@@ -929,6 +989,21 @@
               <div>
                 <div class="title">
                   <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="unwrap-error.html"><span class="token function">unwrapError</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-error/index.html">Error</a></div><div class="brief "><p class="paragraph">Extracts the value from the <a href="-async-result/index.html">AsyncResult</a> if it's an <a href="-error/index.html">Error</a>, otherwise throws an <a href="-unwrap-exception/index.html">UnwrapException</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1964199456%2FFunctions%2F-1874162030" anchor-label="unwrapErrorId" id="-1964199456%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unwrap-error-id.html"><span>unwrap</span><wbr><span>Error</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1964199456%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="unwrap-error-id.html"><span class="token function">unwrapErrorId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="-error-id/index.html">ErrorId</a></div><div class="brief "><p class="paragraph">Extracts the <a href="-error-id/index.html">ErrorId</a> from the <a href="-async-result/index.html">AsyncResult</a> if it's an <a href="-error/index.html">Error</a> with an <a href="-error-id/index.html">ErrorId</a>, otherwise throws an <a href="-unwrap-exception/index.html">UnwrapException</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
