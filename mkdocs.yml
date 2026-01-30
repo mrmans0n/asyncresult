@@ -26,6 +26,7 @@ nav:
     - 'Core API': core.md
     - 'Arrow Either': either.md
     - 'Testing': testing.md
+    - 'API Reference': api/index.html
 
 # Configuration
 theme:
