@@ -65,3 +65,9 @@ replay_pid*
 
 # Throwaway
 .throwaway/
+
+# Generated API docs
+docs/api/
+
+# MkDocs build
+site/

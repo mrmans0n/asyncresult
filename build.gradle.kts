@@ -11,6 +11,18 @@ plugins {
   alias(libs.plugins.android.library) apply false
   alias(libs.plugins.mavenPublish) apply false
   alias(libs.plugins.spotless) apply false
+  alias(libs.plugins.dokka)
+}
+
+dokka {
+  moduleName = "AsyncResult"
+  dokkaPublications.html { outputDirectory = layout.projectDirectory.dir("docs/api") }
+}
+
+dependencies {
+  dokka(projects.asyncresult)
+  dokka(projects.asyncresultEither)
+  dokka(projects.asyncresultTest)
 }
 
 allprojects {
