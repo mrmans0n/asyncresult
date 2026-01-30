@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT
 import com.diffplug.gradle.spotless.SpotlessExtension
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
@@ -28,6 +29,10 @@ allprojects {
       target("*.kts")
       ktfmt(ktfmtVersion)
     }
+  }
+
+  pluginManager.withPlugin(libs.plugins.kotlin.multiplatform.get().pluginId) {
+    configure<KotlinMultiplatformExtension> { explicitApi() }
   }
 
   tasks.withType<KotlinCompile>().configureEach {

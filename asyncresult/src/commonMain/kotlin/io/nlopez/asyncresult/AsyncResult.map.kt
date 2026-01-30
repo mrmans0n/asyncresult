@@ -14,7 +14,7 @@ import kotlin.jvm.JvmName
  * Transforms the [Success] value via [transform]. The [AsyncResult] will change its containing type
  * accordingly.
  */
-inline fun <R, T> AsyncResult<R>.mapSuccess(transform: (R) -> T): AsyncResult<T> {
+public inline fun <R, T> AsyncResult<R>.mapSuccess(transform: (R) -> T): AsyncResult<T> {
   contract { callsInPlace(transform, InvocationKind.AT_MOST_ONCE) }
 
   return when (this) {
@@ -25,7 +25,7 @@ inline fun <R, T> AsyncResult<R>.mapSuccess(transform: (R) -> T): AsyncResult<T>
 }
 
 /** Transforms the [Error] value, if any, via [transform]. */
-inline fun <R> AsyncResult<R>.mapError(transform: (Error) -> Error): AsyncResult<R> {
+public inline fun <R> AsyncResult<R>.mapError(transform: (Error) -> Error): AsyncResult<R> {
   contract { callsInPlace(transform, InvocationKind.AT_MOST_ONCE) }
 
   return when (this) {
@@ -41,7 +41,7 @@ inline fun <R> AsyncResult<R>.mapError(transform: (Error) -> Error): AsyncResult
  * having to map everything when we know we don't have a [Success] value, where types would actually
  * matter.
  */
-inline fun <T> Incomplete.cast(): AsyncResult<T> =
+public inline fun <T> Incomplete.cast(): AsyncResult<T> =
     when (this) {
       Loading -> Loading
       NotStarted -> NotStarted
@@ -51,7 +51,7 @@ inline fun <T> Incomplete.cast(): AsyncResult<T> =
  * Converts the current [AsyncResult] to a [AsyncResult] of type [R] if the current value is of type
  * [R]. If the current value is not of type [R], it will return an [Error].
  */
-inline fun <reified R> AsyncResult<*>.castOrError(
+public inline fun <reified R> AsyncResult<*>.castOrError(
     noinline lazyMetadata: (() -> Any?)? = null,
 ): AsyncResult<R> = flatMap { value ->
   when (value) {
@@ -68,7 +68,7 @@ inline fun <reified R> AsyncResult<*>.castOrError(
  * Returns the current [AsyncResult] if it matches the given [predicate], or an [Error] if it does
  * not.
  */
-inline fun <reified R> AsyncResult<R>.filterOrError(
+public inline fun <reified R> AsyncResult<R>.filterOrError(
     noinline lazyMetadata: (() -> Any?)? = null,
     predicate: ((R) -> Boolean),
 ): AsyncResult<R> = flatMap { value ->
@@ -83,7 +83,7 @@ inline fun <reified R> AsyncResult<R>.filterOrError(
 }
 
 /** Transforms the current [AsyncResult] to the result of [transform]. */
-inline fun <R, T> AsyncResult<R>.map(
+public inline fun <R, T> AsyncResult<R>.map(
     transform: (AsyncResult<R>) -> AsyncResult<T>,
 ): AsyncResult<T> {
   contract { callsInPlace(transform, InvocationKind.EXACTLY_ONCE) }
@@ -91,7 +91,7 @@ inline fun <R, T> AsyncResult<R>.map(
 }
 
 /** Generates a value of type [T] from any state contained in [AsyncResult]. */
-inline fun <R, T> AsyncResult<R>.fold(
+public inline fun <R, T> AsyncResult<R>.fold(
     ifNotStarted: () -> T,
     ifLoading: () -> T,
     ifSuccess: (R) -> T,
@@ -116,7 +116,9 @@ inline fun <R, T> AsyncResult<R>.fold(
  * Transforms the current [AsyncResult] to the result of [transform] if it's a [Success], based on
  * its contained value.
  */
-inline fun <R, reified T> AsyncResult<R>.flatMap(transform: (R) -> AsyncResult<T>): AsyncResult<T> {
+public inline fun <R, reified T> AsyncResult<R>.flatMap(
+    transform: (R) -> AsyncResult<T>
+): AsyncResult<T> {
   contract { callsInPlace(transform, InvocationKind.AT_MOST_ONCE) }
 
   return when (this) {
@@ -127,14 +129,14 @@ inline fun <R, reified T> AsyncResult<R>.flatMap(transform: (R) -> AsyncResult<T
 }
 
 /** Unwraps the [AsyncResult] inside of the [AsyncResult]. */
-inline fun <reified R> AsyncResult<AsyncResult<R>>.flatten(): AsyncResult<R> = flatMap { it }
+public inline fun <reified R> AsyncResult<AsyncResult<R>>.flatten(): AsyncResult<R> = flatMap { it }
 
 /**
  * Transforms the type of [AsyncResult] from nullable to non-nullable. If the value is null, it will
  * return an [Error]. It also allows adding specific metadata to disambiguate errors if necessary,
  * via [lazyMetadata].
  */
-inline fun <reified R> AsyncResult<R?>.orError(
+public inline fun <reified R> AsyncResult<R?>.orError(
     noinline lazyMetadata: (() -> Any?)? = null,
 ): AsyncResult<R> =
     when (this) {
@@ -157,7 +159,7 @@ inline fun <reified R> AsyncResult<R?>.orError(
  * - [Loading] becomes a pair of [Loading]
  * - [Error] becomes a pair of the same [Error]
  */
-fun <A, B> AsyncResult<Pair<A, B>>.spread(): Pair<AsyncResult<A>, AsyncResult<B>> =
+public fun <A, B> AsyncResult<Pair<A, B>>.spread(): Pair<AsyncResult<A>, AsyncResult<B>> =
     when (this) {
       NotStarted -> Pair(NotStarted, NotStarted)
       Loading -> Pair(Loading, Loading)
@@ -172,7 +174,7 @@ fun <A, B> AsyncResult<Pair<A, B>>.spread(): Pair<AsyncResult<A>, AsyncResult<B>
  * - [Loading] becomes a triple of [Loading]
  * - [Error] becomes a triple of the same [Error]
  */
-fun <A, B, C> AsyncResult<Triple<A, B, C>>.spread():
+public fun <A, B, C> AsyncResult<Triple<A, B, C>>.spread():
     Triple<AsyncResult<A>, AsyncResult<B>, AsyncResult<C>> =
     when (this) {
       NotStarted -> Triple(NotStarted, NotStarted, NotStarted)
@@ -182,26 +184,29 @@ fun <A, B, C> AsyncResult<Triple<A, B, C>>.spread():
     }
 
 @JvmName("component1Pair")
-inline operator fun <T> AsyncResult<Pair<T, *>>.component1(): AsyncResult<T> = mapSuccess {
+public inline operator fun <T> AsyncResult<Pair<T, *>>.component1(): AsyncResult<T> = mapSuccess {
   it.first
 }
 
 @JvmName("component2Pair")
-inline operator fun <T> AsyncResult<Pair<*, T>>.component2(): AsyncResult<T> = mapSuccess {
+public inline operator fun <T> AsyncResult<Pair<*, T>>.component2(): AsyncResult<T> = mapSuccess {
   it.second
 }
 
 @JvmName("component1Triple")
-inline operator fun <T> AsyncResult<Triple<T, *, *>>.component1(): AsyncResult<T> = mapSuccess {
-  it.first
-}
+public inline operator fun <T> AsyncResult<Triple<T, *, *>>.component1(): AsyncResult<T> =
+    mapSuccess {
+      it.first
+    }
 
 @JvmName("component2Triple")
-inline operator fun <T> AsyncResult<Triple<*, T, *>>.component2(): AsyncResult<T> = mapSuccess {
-  it.second
-}
+public inline operator fun <T> AsyncResult<Triple<*, T, *>>.component2(): AsyncResult<T> =
+    mapSuccess {
+      it.second
+    }
 
 @JvmName("component3Triple")
-inline operator fun <T> AsyncResult<Triple<*, *, T>>.component3(): AsyncResult<T> = mapSuccess {
-  it.third
-}
+public inline operator fun <T> AsyncResult<Triple<*, *, T>>.component3(): AsyncResult<T> =
+    mapSuccess {
+      it.third
+    }
