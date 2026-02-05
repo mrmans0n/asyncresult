@@ -219,10 +219,6 @@ public suspend fun <T> Flow<AsyncResult<T>>.assertErrorWithId(expected: ErrorId)
   }
 }
 
-// ==========================================================================
-// Flow: Non-terminal emission asserts (MEDIUM PRIORITY)
-// ==========================================================================
-
 /** Asserts the first emission from the flow is [Loading]. */
 public suspend fun <T> Flow<AsyncResult<T>>.assertFirstIsLoading() {
   val first = first()
@@ -246,10 +242,6 @@ public suspend fun <T> Flow<AsyncResult<T>>.assertFirstIsIncomplete() {
     throw AssertionError("Expected first emission to be Incomplete, but was $first")
   }
 }
-
-// ==========================================================================
-// Collection helpers (MEDIUM PRIORITY)
-// ==========================================================================
 
 /** Asserts the collection contains at least one [Loading] element. */
 public fun Assert<Iterable<AsyncResult<*>>>.hasAnyLoading(): Unit = given { actual ->

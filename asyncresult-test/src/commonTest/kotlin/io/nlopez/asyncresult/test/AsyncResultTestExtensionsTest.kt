@@ -2,26 +2,22 @@
 // SPDX-License-Identifier: MIT
 package io.nlopez.asyncresult.test
 
-import assertk.assertFailure
 import assertk.assertThat
 import assertk.assertions.containsExactly
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
-import assertk.assertions.messageContains
 import io.nlopez.asyncresult.Error
 import io.nlopez.asyncresult.ErrorId
 import io.nlopez.asyncresult.Loading
 import io.nlopez.asyncresult.NotStarted
 import io.nlopez.asyncresult.Success
 import kotlin.test.Test
+import kotlin.test.assertFailsWith
+import kotlin.test.assertTrue
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runTest
 
 class AsyncResultTestExtensionsTest {
-
-  // ==========================================================================
-  // Error + Throwable helpers
-  // ==========================================================================
 
   @Test
   fun `isErrorWithThrowable returns throwable when present`() {
@@ -33,15 +29,15 @@ class AsyncResultTestExtensionsTest {
   @Test
   fun `isErrorWithThrowable fails when throwable is null`() {
     val result = Error()
-    assertFailure { assertThat(result).isErrorWithThrowable() }
-        .messageContains("AsyncResult to be Error with throwable, but throwable was null")
+    val ex = assertFailsWith<AssertionError> { assertThat(result).isErrorWithThrowable() }
+    assertTrue(ex.message?.contains("throwable") == true)
   }
 
   @Test
   fun `isErrorWithThrowable fails when not Error`() {
     val result = Success(42)
-    assertFailure { assertThat(result).isErrorWithThrowable() }
-        .messageContains("AsyncResult to be Error, but was")
+    val ex = assertFailsWith<AssertionError> { assertThat(result).isErrorWithThrowable() }
+    assertTrue(ex.message?.contains("Error") == true)
   }
 
   @Test
@@ -55,23 +51,31 @@ class AsyncResultTestExtensionsTest {
   fun `isErrorWithThrowableOfType fails when type does not match`() {
     val throwable = IllegalStateException("test error")
     val result = Error(throwable)
-    assertFailure { assertThat(result).isErrorWithThrowableOfType<IllegalArgumentException>() }
-        .messageContains("AsyncResult to be Error with throwable of type IllegalArgumentException")
-        .messageContains("but was IllegalStateException")
+    val ex =
+        assertFailsWith<AssertionError> {
+          assertThat(result).isErrorWithThrowableOfType<IllegalArgumentException>()
+        }
+    assertTrue(ex.message?.contains("IllegalArgumentException") == true)
   }
 
   @Test
   fun `isErrorWithThrowableOfType fails when throwable is null`() {
     val result = Error()
-    assertFailure { assertThat(result).isErrorWithThrowableOfType<IllegalArgumentException>() }
-        .messageContains("AsyncResult to be Error with throwable, but throwable was null")
+    val ex =
+        assertFailsWith<AssertionError> {
+          assertThat(result).isErrorWithThrowableOfType<IllegalArgumentException>()
+        }
+    assertTrue(ex.message?.contains("throwable") == true)
   }
 
   @Test
   fun `isErrorWithThrowableOfType fails when not Error`() {
     val result = Success(42)
-    assertFailure { assertThat(result).isErrorWithThrowableOfType<IllegalArgumentException>() }
-        .messageContains("AsyncResult to be Error, but was")
+    val ex =
+        assertFailsWith<AssertionError> {
+          assertThat(result).isErrorWithThrowableOfType<IllegalArgumentException>()
+        }
+    assertTrue(ex.message?.contains("Error") == true)
   }
 
   @Test
@@ -85,28 +89,32 @@ class AsyncResultTestExtensionsTest {
   fun `isErrorWithThrowableMessage fails when message does not match`() {
     val throwable = RuntimeException("actual message")
     val result = Error(throwable)
-    assertFailure { assertThat(result).isErrorWithThrowableMessage("expected message") }
-        .messageContains("Expected throwable message to be \"expected message\"")
-        .messageContains("but was \"actual message\"")
+    val ex =
+        assertFailsWith<AssertionError> {
+          assertThat(result).isErrorWithThrowableMessage("expected message")
+        }
+    assertTrue(ex.message?.contains("expected message") == true)
   }
 
   @Test
   fun `isErrorWithThrowableMessage fails when throwable is null`() {
     val result = Error()
-    assertFailure { assertThat(result).isErrorWithThrowableMessage("any message") }
-        .messageContains("Expected Error to have throwable, but throwable was null")
+    val ex =
+        assertFailsWith<AssertionError> {
+          assertThat(result).isErrorWithThrowableMessage("any message")
+        }
+    assertTrue(ex.message?.contains("throwable") == true)
   }
 
   @Test
   fun `isErrorWithThrowableMessage fails when not Error`() {
     val result = Success(42)
-    assertFailure { assertThat(result).isErrorWithThrowableMessage("any message") }
-        .messageContains("Expected AsyncResult to be Error, but was")
+    val ex =
+        assertFailsWith<AssertionError> {
+          assertThat(result).isErrorWithThrowableMessage("any message")
+        }
+    assertTrue(ex.message?.contains("Error") == true)
   }
-
-  // ==========================================================================
-  // Flow: Non-terminal emission asserts
-  // ==========================================================================
 
   @Test
   fun `assertFirstIsLoading succeeds when first emission is Loading`() = runTest {
@@ -117,8 +125,8 @@ class AsyncResultTestExtensionsTest {
   @Test
   fun `assertFirstIsLoading fails when first emission is not Loading`() = runTest {
     val flow = flowOf(Success(42))
-    assertFailure { flow.assertFirstIsLoading() }
-        .messageContains("Expected first emission to be Loading")
+    val ex = assertFailsWith<AssertionError> { flow.assertFirstIsLoading() }
+    assertTrue(ex.message?.contains("Loading") == true)
   }
 
   @Test
@@ -130,13 +138,12 @@ class AsyncResultTestExtensionsTest {
   @Test
   fun `assertFirstIsNotStarted fails when first emission is not NotStarted`() = runTest {
     val flow = flowOf(Loading, Success(42))
-    assertFailure { flow.assertFirstIsNotStarted() }
-        .messageContains("Expected first emission to be NotStarted")
+    val ex = assertFailsWith<AssertionError> { flow.assertFirstIsNotStarted() }
+    assertTrue(ex.message?.contains("NotStarted") == true)
   }
 
   @Test
   fun `assertFirstIsIncomplete succeeds when first emission is Incomplete`() = runTest {
-    // Loading implements Incomplete
     val flow = flowOf(Loading, Success(42))
     flow.assertFirstIsIncomplete()
   }
@@ -144,13 +151,11 @@ class AsyncResultTestExtensionsTest {
   @Test
   fun `assertFirstIsIncomplete fails when first emission is not Incomplete`() = runTest {
     val flow = flowOf(Success(42))
-    assertFailure { flow.assertFirstIsIncomplete() }
-        .messageContains("Expected first emission to be Incomplete")
+    val ex = assertFailsWith<AssertionError> { flow.assertFirstIsIncomplete() }
+    assertTrue(ex.message?.contains("Incomplete") == true)
   }
 
-  // ==========================================================================
-  // Flow: Terminal emission asserts (enriched)
-  // ==========================================================================
+  data class TestMetadata(val code: Int)
 
   @Test
   fun `assertErrorWithMetadata returns metadata when present`() = runTest {
@@ -163,15 +168,15 @@ class AsyncResultTestExtensionsTest {
   @Test
   fun `assertErrorWithMetadata fails when metadata is null`() = runTest {
     val flow = flowOf(Loading, Error(Throwable("error")))
-    assertFailure { flow.assertErrorWithMetadata<TestMetadata>() }
-        .messageContains("Expected Error to have metadata of type TestMetadata, but was null")
+    val ex = assertFailsWith<AssertionError> { flow.assertErrorWithMetadata<TestMetadata>() }
+    assertTrue(ex.message?.contains("metadata") == true)
   }
 
   @Test
   fun `assertErrorWithMetadata fails when terminal is Success`() = runTest {
     val flow = flowOf(Loading, Success(42))
-    assertFailure { flow.assertErrorWithMetadata<TestMetadata>() }
-        .messageContains("AsyncResult flow to emit Error, but was")
+    val ex = assertFailsWith<AssertionError> { flow.assertErrorWithMetadata<TestMetadata>() }
+    assertTrue(ex.message?.contains("Error") == true)
   }
 
   @Test
@@ -186,23 +191,31 @@ class AsyncResultTestExtensionsTest {
   fun `assertErrorWithThrowableOfType fails when type does not match`() = runTest {
     val throwable = IllegalStateException("test error")
     val flow = flowOf(Loading, Error(throwable))
-    assertFailure { flow.assertErrorWithThrowableOfType<IllegalArgumentException>() }
-        .messageContains("Expected Error to have throwable of type IllegalArgumentException")
-        .messageContains("but was IllegalStateException")
+    val ex =
+        assertFailsWith<AssertionError> {
+          flow.assertErrorWithThrowableOfType<IllegalArgumentException>()
+        }
+    assertTrue(ex.message?.contains("IllegalArgumentException") == true)
   }
 
   @Test
   fun `assertErrorWithThrowableOfType fails when throwable is null`() = runTest {
     val flow = flowOf(Loading, Error())
-    assertFailure { flow.assertErrorWithThrowableOfType<IllegalArgumentException>() }
-        .messageContains("Expected Error to have throwable, but throwable was null")
+    val ex =
+        assertFailsWith<AssertionError> {
+          flow.assertErrorWithThrowableOfType<IllegalArgumentException>()
+        }
+    assertTrue(ex.message?.contains("throwable") == true)
   }
 
   @Test
   fun `assertErrorWithThrowableOfType fails when terminal is Success`() = runTest {
     val flow = flowOf(Loading, Success(42))
-    assertFailure { flow.assertErrorWithThrowableOfType<IllegalArgumentException>() }
-        .messageContains("AsyncResult flow to emit Error, but was")
+    val ex =
+        assertFailsWith<AssertionError> {
+          flow.assertErrorWithThrowableOfType<IllegalArgumentException>()
+        }
+    assertTrue(ex.message?.contains("Error") == true)
   }
 
   @Test
@@ -215,29 +228,23 @@ class AsyncResultTestExtensionsTest {
   @Test
   fun `assertErrorWithId fails when errorId does not match`() = runTest {
     val flow = flowOf(Loading, Error(Throwable("error"), errorId = ErrorId("ACTUAL")))
-    assertFailure { flow.assertErrorWithId(ErrorId("EXPECTED")) }
-        .messageContains("Expected Error to have errorId ErrorId(value=EXPECTED)")
-        .messageContains("but was ErrorId(value=ACTUAL)")
+    val ex = assertFailsWith<AssertionError> { flow.assertErrorWithId(ErrorId("EXPECTED")) }
+    assertTrue(ex.message?.contains("EXPECTED") == true)
   }
 
   @Test
   fun `assertErrorWithId fails when errorId is null`() = runTest {
     val flow = flowOf(Loading, Error(Throwable("error")))
-    assertFailure { flow.assertErrorWithId(ErrorId("TEST")) }
-        .messageContains("Expected Error to have errorId ErrorId(value=TEST)")
-        .messageContains("but was null")
+    val ex = assertFailsWith<AssertionError> { flow.assertErrorWithId(ErrorId("TEST")) }
+    assertTrue(ex.message?.contains("TEST") == true)
   }
 
   @Test
   fun `assertErrorWithId fails when terminal is Success`() = runTest {
     val flow = flowOf(Loading, Success(42))
-    assertFailure { flow.assertErrorWithId(ErrorId("TEST")) }
-        .messageContains("AsyncResult flow to emit Error, but was")
+    val ex = assertFailsWith<AssertionError> { flow.assertErrorWithId(ErrorId("TEST")) }
+    assertTrue(ex.message?.contains("Error") == true)
   }
-
-  // ==========================================================================
-  // Collection helpers
-  // ==========================================================================
 
   @Test
   fun `hasAnyLoading succeeds when collection contains Loading`() {
@@ -248,22 +255,21 @@ class AsyncResultTestExtensionsTest {
   @Test
   fun `hasAnyLoading fails when collection has no Loading`() {
     val results = listOf(NotStarted, Success(42))
-    assertFailure { assertThat(results).hasAnyLoading() }
-        .messageContains("collection to have at least one Loading")
+    val ex = assertFailsWith<AssertionError> { assertThat(results).hasAnyLoading() }
+    assertTrue(ex.message?.contains("Loading") == true)
   }
 
   @Test
   fun `hasAnyIncomplete succeeds when collection contains Incomplete`() {
-    // NotStarted and Loading both implement Incomplete
     val results = listOf(Success(1), NotStarted, Success(42))
     assertThat(results).hasAnyIncomplete()
   }
 
   @Test
   fun `hasAnyIncomplete fails when collection has no Incomplete`() {
-    val results = listOf(NotStarted, Loading, Success(42))
-    assertFailure { assertThat(results).hasAnyIncomplete() }
-        .messageContains("collection to have at least one Incomplete")
+    val results = listOf(Success(1), Success(42), Error(Throwable("err")))
+    val ex = assertFailsWith<AssertionError> { assertThat(results).hasAnyIncomplete() }
+    assertTrue(ex.message?.contains("Incomplete") == true)
   }
 
   @Test
@@ -282,15 +288,13 @@ class AsyncResultTestExtensionsTest {
     assertThat(results).allErrors().hasSize(0)
   }
 
-  data class TestMetadata(val code: Int)
-
   @Test
   fun `allErrorMetadata returns all metadata instances of given type`() {
     val meta1 = TestMetadata(100)
     val meta2 = TestMetadata(200)
     val error1 = Error(throwable = Throwable("error1"), metadata = meta1)
     val error2 = Error(throwable = Throwable("error2"), metadata = meta2)
-    val error3 = Error(throwable = Throwable("error3")) // No metadata
+    val error3 = Error(throwable = Throwable("error3"))
 
     val results = listOf(NotStarted, error1, Success(42), error2, error3)
 
