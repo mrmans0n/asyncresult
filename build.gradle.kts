@@ -52,7 +52,7 @@ allprojects {
       allWarningsAsErrors = true
       jvmTarget.set(JvmTarget.JVM_11)
       freeCompilerArgs.addAll(
-          "-Xjvm-default=all",
+          "-jvm-default=enable",
       )
     }
   }
