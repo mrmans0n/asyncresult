@@ -218,39 +218,3 @@ public suspend fun <T> Flow<AsyncResult<T>>.assertErrorWithId(expected: ErrorId)
     throw AssertionError("Expected Error to have errorId $expected, but was $actualId")
   }
 }
-
-/**
- * Asserts the first terminal emission from the flow is [Error] with metadata of type [M]. Returns
- * the metadata for further assertions.
- */
-public suspend inline fun <T, reified M> Flow<AsyncResult<T>>.assertErrorWithMetadata(): M {
-  val error = assertError()
-  return error.metadataOrNull<M>()
-      ?: throw AssertionError(
-          "Expected Error to have metadata of type ${M::class.simpleName}, but was null")
-}
-
-/**
- * Asserts the first terminal emission from the flow is [Error] with a throwable of type [E].
- * Returns the throwable for further assertions.
- */
-public suspend inline fun <T, reified E : Throwable> Flow<AsyncResult<T>>
-    .assertErrorWithThrowableOfType(): E {
-  val error = assertError()
-  val throwable =
-      error.throwable
-          ?: throw AssertionError("Expected Error to have throwable, but throwable was null")
-  return throwable as? E
-      ?: throw AssertionError(
-          "Expected Error to have throwable of type ${E::class.simpleName}, " +
-              "but was ${throwable::class.simpleName}")
-}
-
-/** Asserts the first terminal emission from the flow is [Error] with the specified [errorId]. */
-public suspend fun <T> Flow<AsyncResult<T>>.assertErrorWithId(errorId: ErrorId) {
-  val error = assertError()
-  val actualErrorId = error.errorId
-  if (actualErrorId != errorId) {
-    throw AssertionError("Expected Error to have errorId $errorId, but was $actualErrorId")
-  }
-}
