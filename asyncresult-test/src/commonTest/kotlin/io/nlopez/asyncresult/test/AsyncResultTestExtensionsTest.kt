@@ -8,10 +8,8 @@ import assertk.assertions.containsExactly
 import assertk.assertions.hasSize
 import assertk.assertions.isEqualTo
 import assertk.assertions.messageContains
-import io.nlopez.asyncresult.AsyncResult
 import io.nlopez.asyncresult.Error
 import io.nlopez.asyncresult.ErrorId
-import io.nlopez.asyncresult.Incomplete
 import io.nlopez.asyncresult.Loading
 import io.nlopez.asyncresult.NotStarted
 import io.nlopez.asyncresult.Success
@@ -138,7 +136,8 @@ class AsyncResultTestExtensionsTest {
 
   @Test
   fun `assertFirstIsIncomplete succeeds when first emission is Incomplete`() = runTest {
-    val flow = flowOf(Incomplete, Success(42))
+    // Loading implements Incomplete
+    val flow = flowOf(Loading, Success(42))
     flow.assertFirstIsIncomplete()
   }
 
@@ -255,7 +254,8 @@ class AsyncResultTestExtensionsTest {
 
   @Test
   fun `hasAnyIncomplete succeeds when collection contains Incomplete`() {
-    val results = listOf(NotStarted, Incomplete, Success(42))
+    // NotStarted and Loading both implement Incomplete
+    val results = listOf(Success(1), NotStarted, Success(42))
     assertThat(results).hasAnyIncomplete()
   }
 
@@ -288,9 +288,9 @@ class AsyncResultTestExtensionsTest {
   fun `allErrorMetadata returns all metadata instances of given type`() {
     val meta1 = TestMetadata(100)
     val meta2 = TestMetadata(200)
-    val error1 = AsyncResult.error<Int>(Throwable("error1"), metadata = meta1)
-    val error2 = AsyncResult.error<Int>(Throwable("error2"), metadata = meta2)
-    val error3 = AsyncResult.error<Int>(Throwable("error3")) // No metadata
+    val error1 = Error(throwable = Throwable("error1"), metadata = meta1)
+    val error2 = Error(throwable = Throwable("error2"), metadata = meta2)
+    val error3 = Error(throwable = Throwable("error3")) // No metadata
 
     val results = listOf(NotStarted, error1, Success(42), error2, error3)
 
