@@ -57,7 +57,60 @@ public fun <T> Assert<AsyncResult<T>>.isError(): Assert<Error> = transform { act
   }
 }
 
-public inline fun <T, reified M> Assert<AsyncResult<T>>.isErrorWithMetadata(): Assert<M> =
+/** Asserts the [AsyncResult] is an [Error] with a non-null throwable and returns it. */
+public fun <T> Assert<AsyncResult<T>>.isErrorWithThrowable(): Assert<Throwable> =
+    transform { actual ->
+      when (actual) {
+        is Error ->
+            actual.throwable
+                ?: expected("AsyncResult to be Error with throwable, but throwable was null")
+
+        else -> expected("AsyncResult to be Error, but was $actual")
+      }
+    }
+
+/** Asserts the [AsyncResult] is an [Error] with a throwable of the specified type. */
+public inline fun <reified E : Throwable> Assert<AsyncResult<*>>.isErrorWithThrowableOfType():
+    Assert<E> = transform { actual ->
+  when (actual) {
+    is Error -> {
+      val throwable =
+          actual.throwable
+              ?: expected("AsyncResult to be Error with throwable, but throwable was null")
+      if (throwable is E) {
+        throwable
+      } else {
+        expected(
+            "AsyncResult to be Error with throwable of type ${E::class.simpleName}, " +
+                "but was ${throwable::class.simpleName}")
+      }
+    }
+
+    else -> expected("AsyncResult to be Error, but was $actual")
+  }
+}
+
+/** Asserts the [AsyncResult] is an [Error] with a throwable message matching [expected]. */
+public fun <T> Assert<AsyncResult<T>>.isErrorWithThrowableMessage(expected: String): Unit =
+    given { actual ->
+      when (actual) {
+        is Error -> {
+          val throwable =
+              actual.throwable
+                  ?: throw AssertionError(
+                      "Expected Error to have throwable, but throwable was null")
+          val actualMessage = throwable.message
+          if (actualMessage != expected) {
+            throw AssertionError(
+                "Expected throwable message to be \"$expected\", but was \"$actualMessage\"")
+          }
+        }
+
+        else -> throw AssertionError("Expected AsyncResult to be Error, but was $actual")
+      }
+    }
+
+public inline fun <reified M> Assert<AsyncResult<*>>.isErrorWithMetadata(): Assert<M> =
     transform { actual ->
       when (actual) {
         is Error ->
@@ -77,9 +130,9 @@ public inline fun <T, reified M> Assert<Error>.isMetadataEqualTo(value: M): Unit
   assertThat(actual.metadataOrNull<M>()).isEqualTo(value)
 }
 
-public inline fun <T, reified M> Assert<AsyncResult<T>>.isErrorWithMetadataEqualTo(value: M): Unit =
+public inline fun <reified M> Assert<AsyncResult<*>>.isErrorWithMetadataEqualTo(value: M): Unit =
     given { actual ->
-      assertThat(actual).isErrorWithMetadata<T, M>().isEqualTo(value)
+      assertThat(actual).isErrorWithMetadata<M>().isEqualTo(value)
     }
 
 /** Asserts the [AsyncResult] is an [Error] with an [ErrorId] and returns the [ErrorId]. */
@@ -119,8 +172,98 @@ public suspend fun <T> Flow<AsyncResult<T>>.assertSuccess(expected: T) {
 /**
  * Asserts the first terminal emission from the flow is [Error] and returns it for further checks.
  */
-public suspend fun <T> Flow<AsyncResult<T>>.assertError(): Error {
+public suspend fun Flow<AsyncResult<*>>.assertError(): Error {
   val terminal = first { it is Success || it is Error }
   return (terminal as? Error)
       ?: throw AssertionError("AsyncResult flow to emit Error, but was $terminal")
 }
+
+/**
+ * Asserts the first terminal emission from the flow is [Error] with metadata of type [M] and
+ * returns it.
+ */
+public suspend inline fun <reified M> Flow<AsyncResult<*>>.assertErrorWithMetadata(): M {
+  val error = assertError()
+  return error.metadataOrNull<M>()
+      ?: throw AssertionError(
+          "Expected Error to have metadata of type ${M::class.simpleName}, but was null")
+}
+
+/**
+ * Asserts the first terminal emission from the flow is [Error] with a [Throwable] of type [E] and
+ * returns it.
+ */
+public suspend inline fun <reified E : Throwable> Flow<AsyncResult<*>>
+    .assertErrorWithThrowableOfType(): E {
+  val error = assertError()
+  val throwable = error.throwable
+  return when {
+    throwable == null ->
+        throw AssertionError("Expected Error to have throwable, but throwable was null")
+
+    throwable !is E ->
+        throw AssertionError(
+            "Expected Error to have throwable of type ${E::class.simpleName}, " +
+                "but was ${throwable::class.simpleName}")
+
+    else -> throwable
+  }
+}
+
+/** Asserts the first terminal emission from the flow is [Error] with the given [ErrorId]. */
+public suspend fun <T> Flow<AsyncResult<T>>.assertErrorWithId(expected: ErrorId) {
+  val error = assertError()
+  val actualId = error.errorId
+  if (actualId != expected) {
+    throw AssertionError("Expected Error to have errorId $expected, but was $actualId")
+  }
+}
+
+/** Asserts the first emission from the flow is [Loading]. */
+public suspend fun <T> Flow<AsyncResult<T>>.assertFirstIsLoading() {
+  val first = first()
+  if (first !is Loading) {
+    throw AssertionError("Expected first emission to be Loading, but was $first")
+  }
+}
+
+/** Asserts the first emission from the flow is [NotStarted]. */
+public suspend fun <T> Flow<AsyncResult<T>>.assertFirstIsNotStarted() {
+  val first = first()
+  if (first !is NotStarted) {
+    throw AssertionError("Expected first emission to be NotStarted, but was $first")
+  }
+}
+
+/** Asserts the first emission from the flow is [Incomplete]. */
+public suspend fun <T> Flow<AsyncResult<T>>.assertFirstIsIncomplete() {
+  val first = first()
+  if (first !is Incomplete) {
+    throw AssertionError("Expected first emission to be Incomplete, but was $first")
+  }
+}
+
+/** Asserts the collection contains at least one [Loading] element. */
+public fun Assert<Iterable<AsyncResult<*>>>.hasAnyLoading(): Unit = given { actual ->
+  if (actual.none { it is Loading }) {
+    throw AssertionError("Expected collection to have at least one Loading, but none found")
+  }
+}
+
+/** Asserts the collection contains at least one [Incomplete] element. */
+public fun Assert<Iterable<AsyncResult<*>>>.hasAnyIncomplete(): Unit = given { actual ->
+  if (actual.none { it is Incomplete }) {
+    throw AssertionError("Expected collection to have at least one Incomplete, but none found")
+  }
+}
+
+/** Returns all [Error] instances from the collection for further assertions. */
+public fun Assert<Iterable<AsyncResult<*>>>.allErrors(): Assert<List<Error>> = transform { actual ->
+  actual.filterIsInstance<Error>()
+}
+
+/** Returns all metadata instances of type [M] from [Error] elements in the collection. */
+public inline fun <reified M> Assert<Iterable<AsyncResult<*>>>.allErrorMetadata(): Assert<List<M>> =
+    transform { actual ->
+      actual.filterIsInstance<Error>().mapNotNull { it.metadataOrNull<M>() }
+    }
