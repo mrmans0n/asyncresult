@@ -1,5 +1,5 @@
 [versions]
-kotlin = "2.3.0"
+kotlin = "2.3.10"
 coroutines = "1.10.2"
 assertk = "0.28.1"
 arrow = "2.2.1.1"
