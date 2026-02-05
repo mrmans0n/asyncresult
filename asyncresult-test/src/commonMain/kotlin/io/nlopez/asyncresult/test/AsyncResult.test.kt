@@ -70,7 +70,7 @@ public fun <T> Assert<AsyncResult<T>>.isErrorWithThrowable(): Assert<Throwable> 
     }
 
 /** Asserts the [AsyncResult] is an [Error] with a throwable of the specified type. */
-public inline fun <T, reified E : Throwable> Assert<AsyncResult<T>>.isErrorWithThrowableOfType():
+public inline fun <reified E : Throwable> Assert<AsyncResult<*>>.isErrorWithThrowableOfType():
     Assert<E> = transform { actual ->
   when (actual) {
     is Error -> {
@@ -110,7 +110,7 @@ public fun <T> Assert<AsyncResult<T>>.isErrorWithThrowableMessage(expected: Stri
       }
     }
 
-public inline fun <T, reified M> Assert<AsyncResult<T>>.isErrorWithMetadata(): Assert<M> =
+public inline fun <reified M> Assert<AsyncResult<*>>.isErrorWithMetadata(): Assert<M> =
     transform { actual ->
       when (actual) {
         is Error ->
@@ -130,9 +130,9 @@ public inline fun <T, reified M> Assert<Error>.isMetadataEqualTo(value: M): Unit
   assertThat(actual.metadataOrNull<M>()).isEqualTo(value)
 }
 
-public inline fun <T, reified M> Assert<AsyncResult<T>>.isErrorWithMetadataEqualTo(value: M): Unit =
+public inline fun <reified M> Assert<AsyncResult<*>>.isErrorWithMetadataEqualTo(value: M): Unit =
     given { actual ->
-      assertThat(actual).isErrorWithMetadata<T, M>().isEqualTo(value)
+      assertThat(actual).isErrorWithMetadata<M>().isEqualTo(value)
     }
 
 /** Asserts the [AsyncResult] is an [Error] with an [ErrorId] and returns the [ErrorId]. */
@@ -172,7 +172,7 @@ public suspend fun <T> Flow<AsyncResult<T>>.assertSuccess(expected: T) {
 /**
  * Asserts the first terminal emission from the flow is [Error] and returns it for further checks.
  */
-public suspend fun <T> Flow<AsyncResult<T>>.assertError(): Error {
+public suspend fun Flow<AsyncResult<*>>.assertError(): Error {
   val terminal = first { it is Success || it is Error }
   return (terminal as? Error)
       ?: throw AssertionError("AsyncResult flow to emit Error, but was $terminal")
@@ -182,7 +182,7 @@ public suspend fun <T> Flow<AsyncResult<T>>.assertError(): Error {
  * Asserts the first terminal emission from the flow is [Error] with metadata of type [M] and
  * returns it.
  */
-public suspend inline fun <T, reified M> Flow<AsyncResult<T>>.assertErrorWithMetadata(): M {
+public suspend inline fun <reified M> Flow<AsyncResult<*>>.assertErrorWithMetadata(): M {
   val error = assertError()
   return error.metadataOrNull<M>()
       ?: throw AssertionError(
@@ -193,7 +193,7 @@ public suspend inline fun <T, reified M> Flow<AsyncResult<T>>.assertErrorWithMet
  * Asserts the first terminal emission from the flow is [Error] with a [Throwable] of type [E] and
  * returns it.
  */
-public suspend inline fun <T, reified E : Throwable> Flow<AsyncResult<T>>
+public suspend inline fun <reified E : Throwable> Flow<AsyncResult<*>>
     .assertErrorWithThrowableOfType(): E {
   val error = assertError()
   val throwable = error.throwable
