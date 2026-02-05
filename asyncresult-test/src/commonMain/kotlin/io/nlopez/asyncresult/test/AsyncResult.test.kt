@@ -58,49 +58,51 @@ public fun <T> Assert<AsyncResult<T>>.isError(): Assert<Error> = transform { act
 }
 
 /** Asserts the [AsyncResult] is an [Error] with a non-null throwable and returns it. */
-public fun <T> Assert<AsyncResult<T>>.isErrorWithThrowable(): Assert<Throwable> = transform { actual ->
-  when (actual) {
-    is Error ->
-        actual.throwable
-            ?: expected("AsyncResult to be Error with throwable, but throwable was null")
-
-    else -> expected("AsyncResult to be Error, but was $actual")
-  }
-}
-
-/** Asserts the [AsyncResult] is an [Error] with a throwable of the specified type. */
-public inline fun <T, reified E : Throwable> Assert<AsyncResult<T>>.isErrorWithThrowableOfType(): Assert<E> =
+public fun <T> Assert<AsyncResult<T>>.isErrorWithThrowable(): Assert<Throwable> =
     transform { actual ->
       when (actual) {
-        is Error -> {
-          val throwable = actual.throwable
-              ?: expected("AsyncResult to be Error with throwable, but throwable was null")
-          if (throwable is E) {
-            throwable
-          } else {
-            expected(
-                "AsyncResult to be Error with throwable of type ${E::class.simpleName}, " +
-                    "but was ${throwable::class.simpleName}"
-            )
-          }
-        }
+        is Error ->
+            actual.throwable
+                ?: expected("AsyncResult to be Error with throwable, but throwable was null")
 
         else -> expected("AsyncResult to be Error, but was $actual")
       }
     }
+
+/** Asserts the [AsyncResult] is an [Error] with a throwable of the specified type. */
+public inline fun <T, reified E : Throwable> Assert<AsyncResult<T>>.isErrorWithThrowableOfType():
+    Assert<E> = transform { actual ->
+  when (actual) {
+    is Error -> {
+      val throwable =
+          actual.throwable
+              ?: expected("AsyncResult to be Error with throwable, but throwable was null")
+      if (throwable is E) {
+        throwable
+      } else {
+        expected(
+            "AsyncResult to be Error with throwable of type ${E::class.simpleName}, " +
+                "but was ${throwable::class.simpleName}")
+      }
+    }
+
+    else -> expected("AsyncResult to be Error, but was $actual")
+  }
+}
 
 /** Asserts the [AsyncResult] is an [Error] with a throwable message matching [expected]. */
 public fun <T> Assert<AsyncResult<T>>.isErrorWithThrowableMessage(expected: String): Unit =
     given { actual ->
       when (actual) {
         is Error -> {
-          val throwable = actual.throwable
-              ?: throw AssertionError("Expected Error to have throwable, but throwable was null")
+          val throwable =
+              actual.throwable
+                  ?: throw AssertionError(
+                      "Expected Error to have throwable, but throwable was null")
           val actualMessage = throwable.message
           if (actualMessage != expected) {
             throw AssertionError(
-                "Expected throwable message to be \"$expected\", but was \"$actualMessage\""
-            )
+                "Expected throwable message to be \"$expected\", but was \"$actualMessage\"")
           }
         }
 
@@ -191,8 +193,8 @@ public suspend inline fun <T, reified M> Flow<AsyncResult<T>>.assertErrorWithMet
  * Asserts the first terminal emission from the flow is [Error] with a [Throwable] of type [E] and
  * returns it.
  */
-public suspend inline fun <T, reified E : Throwable>
-    Flow<AsyncResult<T>>.assertErrorWithThrowableOfType(): E {
+public suspend inline fun <T, reified E : Throwable> Flow<AsyncResult<T>>
+    .assertErrorWithThrowableOfType(): E {
   val error = assertError()
   val throwable = error.throwable
   return when {
@@ -208,9 +210,7 @@ public suspend inline fun <T, reified E : Throwable>
   }
 }
 
-/**
- * Asserts the first terminal emission from the flow is [Error] with the given [ErrorId].
- */
+/** Asserts the first terminal emission from the flow is [Error] with the given [ErrorId]. */
 public suspend fun <T> Flow<AsyncResult<T>>.assertErrorWithId(expected: ErrorId) {
   val error = assertError()
   val actualId = error.errorId
@@ -220,33 +220,33 @@ public suspend fun <T> Flow<AsyncResult<T>>.assertErrorWithId(expected: ErrorId)
 }
 
 /**
- * Asserts the first terminal emission from the flow is [Error] with metadata of type [M].
- * Returns the metadata for further assertions.
+ * Asserts the first terminal emission from the flow is [Error] with metadata of type [M]. Returns
+ * the metadata for further assertions.
  */
 public suspend inline fun <T, reified M> Flow<AsyncResult<T>>.assertErrorWithMetadata(): M {
   val error = assertError()
   return error.metadataOrNull<M>()
-      ?: throw AssertionError("Expected Error to have metadata of type ${M::class.simpleName}, but was null")
+      ?: throw AssertionError(
+          "Expected Error to have metadata of type ${M::class.simpleName}, but was null")
 }
 
 /**
  * Asserts the first terminal emission from the flow is [Error] with a throwable of type [E].
  * Returns the throwable for further assertions.
  */
-public suspend inline fun <T, reified E : Throwable> Flow<AsyncResult<T>>.assertErrorWithThrowableOfType(): E {
+public suspend inline fun <T, reified E : Throwable> Flow<AsyncResult<T>>
+    .assertErrorWithThrowableOfType(): E {
   val error = assertError()
-  val throwable = error.throwable
-      ?: throw AssertionError("Expected Error to have throwable, but throwable was null")
+  val throwable =
+      error.throwable
+          ?: throw AssertionError("Expected Error to have throwable, but throwable was null")
   return throwable as? E
       ?: throw AssertionError(
           "Expected Error to have throwable of type ${E::class.simpleName}, " +
-              "but was ${throwable::class.simpleName}"
-      )
+              "but was ${throwable::class.simpleName}")
 }
 
-/**
- * Asserts the first terminal emission from the flow is [Error] with the specified [errorId].
- */
+/** Asserts the first terminal emission from the flow is [Error] with the specified [errorId]. */
 public suspend fun <T> Flow<AsyncResult<T>>.assertErrorWithId(errorId: ErrorId) {
   val error = assertError()
   val actualErrorId = error.errorId

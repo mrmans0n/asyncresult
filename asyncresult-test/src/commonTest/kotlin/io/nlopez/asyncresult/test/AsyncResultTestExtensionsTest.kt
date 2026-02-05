@@ -50,8 +50,7 @@ class AsyncResultTestExtensionsTest {
   fun `isErrorWithThrowableOfType returns typed throwable when type matches`() {
     val throwable = IllegalArgumentException("test error")
     val result = Error(throwable)
-    assertThat(result).isErrorWithThrowableOfType<IllegalArgumentException>()
-        .isEqualTo(throwable)
+    assertThat(result).isErrorWithThrowableOfType<IllegalArgumentException>().isEqualTo(throwable)
   }
 
   @Test
@@ -272,7 +271,7 @@ class AsyncResultTestExtensionsTest {
     val error1 = Error(Throwable("error1"))
     val error2 = Error(Throwable("error2"))
     val results = listOf(NotStarted, error1, Success(42), error2, Loading)
-    
+
     assertThat(results).allErrors().hasSize(2)
     assertThat(results).allErrors().containsExactly(error1, error2)
   }
@@ -292,9 +291,9 @@ class AsyncResultTestExtensionsTest {
     val error1 = AsyncResult.error<Int>(Throwable("error1"), metadata = meta1)
     val error2 = AsyncResult.error<Int>(Throwable("error2"), metadata = meta2)
     val error3 = AsyncResult.error<Int>(Throwable("error3")) // No metadata
-    
+
     val results = listOf(NotStarted, error1, Success(42), error2, error3)
-    
+
     assertThat(results).allErrorMetadata<TestMetadata>().hasSize(2)
     assertThat(results).allErrorMetadata<TestMetadata>().containsExactly(meta1, meta2)
   }
@@ -312,56 +311,50 @@ class AsyncResultTestExtensionsTest {
   @Test
   fun `spreadsTo for Pair succeeds when both are Success`() {
     val result = Success(Pair(42, "hello"))
-    assertThat(result).spreadsTo(
-        first = { isSuccess().isEqualTo(42) },
-        second = { isSuccess().isEqualTo("hello") }
-    )
+    assertThat(result)
+        .spreadsTo(
+            first = { isSuccess().isEqualTo(42) }, second = { isSuccess().isEqualTo("hello") })
   }
 
   @Test
   fun `spreadsTo for Pair propagates Error to both`() {
-    val error = AsyncResult.error<Pair<Int, String>>(
-        Throwable("test error"),
-        errorId = ErrorId("TEST")
-    )
-    assertThat(error).spreadsTo(
-        first = { isErrorWithIdEqualTo(ErrorId("TEST")) },
-        second = { isErrorWithIdEqualTo(ErrorId("TEST")) }
-    )
+    val error =
+        AsyncResult.error<Pair<Int, String>>(Throwable("test error"), errorId = ErrorId("TEST"))
+    assertThat(error)
+        .spreadsTo(
+            first = { isErrorWithIdEqualTo(ErrorId("TEST")) },
+            second = { isErrorWithIdEqualTo(ErrorId("TEST")) })
   }
 
   @Test
   fun `spreadsTo for Pair fails on non-terminal state`() {
     val result: AsyncResult<Pair<Int, String>> = Loading
     assertFailure {
-      assertThat(result).spreadsTo(
-          first = { isSuccess() },
-          second = { isSuccess() }
-      )
-    }.messageContains("to be terminal")
+          assertThat(result).spreadsTo(first = { isSuccess() }, second = { isSuccess() })
+        }
+        .messageContains("to be terminal")
   }
 
   @Test
   fun `spreadsTo for Triple succeeds when all are Success`() {
     val result = Success(Triple(42, "hello", true))
-    assertThat(result).spreadsTo(
-        first = { isSuccess().isEqualTo(42) },
-        second = { isSuccess().isEqualTo("hello") },
-        third = { isSuccess().isEqualTo(true) }
-    )
+    assertThat(result)
+        .spreadsTo(
+            first = { isSuccess().isEqualTo(42) },
+            second = { isSuccess().isEqualTo("hello") },
+            third = { isSuccess().isEqualTo(true) })
   }
 
   @Test
   fun `spreadsTo for Triple propagates Error to all`() {
-    val error = AsyncResult.error<Triple<Int, String, Boolean>>(
-        Throwable("test error"),
-        errorId = ErrorId("TEST")
-    )
-    assertThat(error).spreadsTo(
-        first = { isErrorWithIdEqualTo(ErrorId("TEST")) },
-        second = { isErrorWithIdEqualTo(ErrorId("TEST")) },
-        third = { isErrorWithIdEqualTo(ErrorId("TEST")) }
-    )
+    val error =
+        AsyncResult.error<Triple<Int, String, Boolean>>(
+            Throwable("test error"), errorId = ErrorId("TEST"))
+    assertThat(error)
+        .spreadsTo(
+            first = { isErrorWithIdEqualTo(ErrorId("TEST")) },
+            second = { isErrorWithIdEqualTo(ErrorId("TEST")) },
+            third = { isErrorWithIdEqualTo(ErrorId("TEST")) })
   }
 
   // ==========================================================================
