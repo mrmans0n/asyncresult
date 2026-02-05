@@ -218,3 +218,60 @@ public suspend fun <T> Flow<AsyncResult<T>>.assertErrorWithId(expected: ErrorId)
     throw AssertionError("Expected Error to have errorId $expected, but was $actualId")
   }
 }
+
+// ==========================================================================
+// Flow: Non-terminal emission asserts (MEDIUM PRIORITY)
+// ==========================================================================
+
+/** Asserts the first emission from the flow is [Loading]. */
+public suspend fun <T> Flow<AsyncResult<T>>.assertFirstIsLoading() {
+  val first = first()
+  if (first !is Loading) {
+    throw AssertionError("Expected first emission to be Loading, but was $first")
+  }
+}
+
+/** Asserts the first emission from the flow is [NotStarted]. */
+public suspend fun <T> Flow<AsyncResult<T>>.assertFirstIsNotStarted() {
+  val first = first()
+  if (first !is NotStarted) {
+    throw AssertionError("Expected first emission to be NotStarted, but was $first")
+  }
+}
+
+/** Asserts the first emission from the flow is [Incomplete]. */
+public suspend fun <T> Flow<AsyncResult<T>>.assertFirstIsIncomplete() {
+  val first = first()
+  if (first !is Incomplete) {
+    throw AssertionError("Expected first emission to be Incomplete, but was $first")
+  }
+}
+
+// ==========================================================================
+// Collection helpers (MEDIUM PRIORITY)
+// ==========================================================================
+
+/** Asserts the collection contains at least one [Loading] element. */
+public fun Assert<Iterable<AsyncResult<*>>>.hasAnyLoading(): Unit = given { actual ->
+  if (actual.none { it is Loading }) {
+    throw AssertionError("Expected collection to have at least one Loading, but none found")
+  }
+}
+
+/** Asserts the collection contains at least one [Incomplete] element. */
+public fun Assert<Iterable<AsyncResult<*>>>.hasAnyIncomplete(): Unit = given { actual ->
+  if (actual.none { it is Incomplete }) {
+    throw AssertionError("Expected collection to have at least one Incomplete, but none found")
+  }
+}
+
+/** Returns all [Error] instances from the collection for further assertions. */
+public fun Assert<Iterable<AsyncResult<*>>>.allErrors(): Assert<List<Error>> = transform { actual ->
+  actual.filterIsInstance<Error>()
+}
+
+/** Returns all metadata instances of type [M] from [Error] elements in the collection. */
+public inline fun <reified M> Assert<Iterable<AsyncResult<*>>>.allErrorMetadata(): Assert<List<M>> =
+    transform { actual ->
+      actual.filterIsInstance<Error>().mapNotNull { it.metadataOrNull<M>() }
+    }
