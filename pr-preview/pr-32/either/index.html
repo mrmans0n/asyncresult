@@ -380,6 +380,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#converting-floweither-to-flowasyncresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting Flow&lt;Either&gt; to Flow&lt;AsyncResult&gt;
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Converting Flow&lt;Either&gt; to Flow&lt;AsyncResult&gt;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-handling-for-throwable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Special handling for Throwable
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#converting-either-to-asyncresult" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -403,7 +431,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#special-handling-for-throwable" class="md-nav__link">
+  <a href="#special-handling-for-throwable_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Special handling for Throwable
@@ -535,6 +563,34 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#converting-floweither-to-flowasyncresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting Flow&lt;Either&gt; to Flow&lt;AsyncResult&gt;
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Converting Flow&lt;Either&gt; to Flow&lt;AsyncResult&gt;">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#special-handling-for-throwable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Special handling for Throwable
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#converting-either-to-asyncresult" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -558,7 +614,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#special-handling-for-throwable" class="md-nav__link">
+  <a href="#special-handling-for-throwable_1" class="md-nav__link">
     <span class="md-ellipsis">
       
         Special handling for Throwable
@@ -623,6 +679,43 @@
 
 <h1 id="arrow-either-extensions">Arrow Either extensions<a class="headerlink" href="#arrow-either-extensions" title="Permanent link">&para;</a></h1>
 <p>The <code>asyncresult-either</code> artifact provides helpers to bridge Arrow's <code>Either</code> type with <code>AsyncResult</code>. This is useful when working with codebases that use Arrow for error handling.</p>
+<h2 id="converting-floweither-to-flowasyncresult">Converting Flow&lt;Either&gt; to Flow&lt;AsyncResult&gt;<a class="headerlink" href="#converting-floweither-to-flowasyncresult" title="Permanent link">&para;</a></h2>
+<p>Transform a <code>Flow&lt;Either&lt;L, R&gt;&gt;</code> into a <code>Flow&lt;AsyncResult&lt;R&gt;&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">userFlow</span><span class="p">:</span><span class="w"> </span><span class="n">Flow</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">UserError</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userRepository</span><span class="p">.</span><span class="na">observeUser</span><span class="p">()</span>
+
+<span class="n">userFlow</span><span class="p">.</span><span class="na">asAsyncResult</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">Loading</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">showLoading</span><span class="p">()</span>
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">Success</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">showUser</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="kd">val</span><span class="w"> </span><span class="nv">userError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">metadataOrNull</span><span class="o">&lt;</span><span class="n">UserError</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="w">                </span><span class="n">showError</span><span class="p">(</span><span class="n">userError</span><span class="p">)</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">NotStarted</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>The conversion works as follows:
+- <code>Either.Right</code> becomes <code>Success</code>
+- <code>Either.Left</code> becomes <code>Error</code> with the left value stored in metadata
+- Optionally starts with <code>Loading</code> (default: <code>true</code>)</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Without initial loading state</span>
+<span class="n">userFlow</span><span class="p">.</span><span class="na">asAsyncResult</span><span class="p">(</span><span class="n">startWithLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+</code></pre></div>
+<h3 id="special-handling-for-throwable">Special handling for Throwable<a class="headerlink" href="#special-handling-for-throwable" title="Permanent link">&para;</a></h3>
+<p>When the left type is <code>Throwable</code>, it's stored in <code>Error.throwable</code> instead of metadata:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">dataFlow</span><span class="p">:</span><span class="w"> </span><span class="n">Flow</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">IOException</span><span class="p">,</span><span class="w"> </span><span class="n">Data</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchData</span><span class="p">()</span>
+
+<span class="n">dataFlow</span><span class="p">.</span><span class="na">asAsyncResult</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">throwable</span><span class="p">)</span><span class="w"> </span><span class="c1">// IOException is here</span>
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">Success</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">showData</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="p">}</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
 <h2 id="converting-either-to-asyncresult">Converting Either to AsyncResult<a class="headerlink" href="#converting-either-to-asyncresult" title="Permanent link">&para;</a></h2>
 <p>Transform an <code>Either&lt;L, R&gt;</code> directly into an <code>AsyncResult&lt;R&gt;</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">either</span><span class="p">:</span><span class="w"> </span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Failure</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchUser</span><span class="p">()</span>
@@ -643,7 +736,7 @@
 <li><code>Success(Left(error))</code> becomes <code>Error</code> with the left value in metadata</li>
 <li><code>Loading</code>, <code>NotStarted</code>, and <code>Error</code> pass through unchanged</li>
 </ul>
-<h3 id="special-handling-for-throwable">Special handling for Throwable<a class="headerlink" href="#special-handling-for-throwable" title="Permanent link">&para;</a></h3>
+<h3 id="special-handling-for-throwable_1">Special handling for Throwable<a class="headerlink" href="#special-handling-for-throwable_1" title="Permanent link">&para;</a></h3>
 <p>When the left type is <code>Throwable</code>, it's stored in <code>Error.throwable</code> instead of metadata:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Throwable</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Success</span><span class="p">(</span><span class="n">Left</span><span class="p">(</span><span class="n">IOException</span><span class="p">()))</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">bound</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">bind</span><span class="p">()</span><span class="w"> </span><span class="c1">// Error with throwable set</span>
