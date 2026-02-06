@@ -12,8 +12,10 @@ import io.nlopez.asyncresult.Error
 import io.nlopez.asyncresult.Loading
 import io.nlopez.asyncresult.NotStarted
 import io.nlopez.asyncresult.Success
+import kotlin.coroutines.cancellation.CancellationException
 import kotlin.jvm.JvmName
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onStart
@@ -138,6 +140,13 @@ public fun <L, R> Flow<Either<L, R>>.asAsyncResult(
     startWithLoading: Boolean = true,
 ): Flow<AsyncResult<R>> =
     map { either -> either.toAsyncResult() }
+        .catch { throwable ->
+          if (throwable !is CancellationException) {
+            emit(Error(throwable))
+          } else {
+            throw throwable
+          }
+        }
         .run { if (startWithLoading) onStart { emit(Loading) } else this }
 
 /**
@@ -179,6 +188,13 @@ public fun <R> Flow<Either<Throwable, R>>.asAsyncResult(
           when (either) {
             is Left -> Error(throwable = either.value)
             is Right -> Success(either.value)
+          }
+        }
+        .catch { throwable ->
+          if (throwable !is CancellationException) {
+            emit(Error(throwable))
+          } else {
+            throw throwable
           }
         }
         .run { if (startWithLoading) onStart { emit(Loading) } else this }
