@@ -191,6 +191,43 @@ val errors = errorsFrom(result1, result2, result3)
 
 ## Flow helpers
 
+### Converting to AsyncResult
+
+Transform a regular `Flow<T>` into `Flow<AsyncResult<T>>`:
+
+```kotlin
+// Basic conversion with automatic loading state
+flowOf(1, 2, 3)
+    .asAsyncResult()
+    .collect { result ->
+        // Emits: Loading, Success(1), Success(2), Success(3)
+    }
+
+// Without initial loading state
+fetchDataFlow()
+    .asAsyncResult(startWithLoading = false)
+    .collect { result ->
+        // Emits: Success(data1), Success(data2), ...
+    }
+
+// Errors are automatically wrapped
+flow {
+    emit(42)
+    throw IOException("Network error")
+}.asAsyncResult()
+    .collect { result ->
+        // Emits: Loading, Success(42), Error(IOException)
+    }
+```
+
+The `asAsyncResult()` extension:
+- Wraps each emitted value in `Success`
+- Catches exceptions (except `CancellationException`) and wraps them in `Error`
+- Optionally starts with a `Loading` emission (default: `true`)
+- Preserves coroutine cancellation by rethrowing `CancellationException`
+
+### Side effects
+
 Extensions for `Flow<AsyncResult<T>>`:
 
 ```kotlin

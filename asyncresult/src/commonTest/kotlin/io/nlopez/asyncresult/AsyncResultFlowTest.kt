@@ -418,4 +418,148 @@ class AsyncResultFlowTest {
     assertThat(results.size).isEqualTo(1)
     assertThat(results[0]).isInstanceOf<Error>()
   }
+
+  // ==============================
+  // asAsyncResult
+  // ==============================
+
+  @Test
+  fun `asAsyncResult wraps emissions in Success with Loading start`() = runTest {
+    val results = flowOf(1, 2, 3).asAsyncResult().toList()
+
+    assertThat(results).containsExactly(Loading, Success(1), Success(2), Success(3))
+  }
+
+  @Test
+  fun `asAsyncResult wraps emissions in Success without Loading start`() = runTest {
+    val results = flowOf(1, 2, 3).asAsyncResult(startWithLoading = false).toList()
+
+    assertThat(results).containsExactly(Success(1), Success(2), Success(3))
+  }
+
+  @Test
+  fun `asAsyncResult catches exceptions as Error`() = runTest {
+    val exception = RuntimeException("Test error")
+    val results =
+        flow {
+              emit(42)
+              throw exception
+            }
+            .asAsyncResult()
+            .toList()
+
+    assertThat(results.size).isEqualTo(3)
+    assertThat(results[0]).isEqualTo(Loading)
+    assertThat(results[1]).isEqualTo(Success(42))
+    val error = results[2] as Error
+    assertThat(error.throwable).isEqualTo(exception)
+  }
+
+  @Test
+  fun `asAsyncResult catches exceptions without Loading when disabled`() = runTest {
+    val exception = RuntimeException("Test error")
+    val results =
+        flow {
+              emit(42)
+              throw exception
+            }
+            .asAsyncResult(startWithLoading = false)
+            .toList()
+
+    assertThat(results.size).isEqualTo(2)
+    assertThat(results[0]).isEqualTo(Success(42))
+    val error = results[1] as Error
+    assertThat(error.throwable).isEqualTo(exception)
+  }
+
+  @Test
+  fun `asAsyncResult rethrows CancellationException`() = runTest {
+    var caught = false
+    try {
+      flow {
+            emit(1)
+            throw kotlinx.coroutines.CancellationException("Cancelled")
+          }
+          .asAsyncResult()
+          .toList()
+    } catch (e: kotlinx.coroutines.CancellationException) {
+      caught = true
+      assertThat(e.message).isEqualTo("Cancelled")
+    }
+
+    assertThat(caught).isEqualTo(true)
+  }
+
+  @Test
+  fun `asAsyncResult handles empty flow with Loading`() = runTest {
+    val results = flowOf<Int>().asAsyncResult().toList()
+
+    assertThat(results).containsExactly(Loading)
+  }
+
+  @Test
+  fun `asAsyncResult handles empty flow without Loading`() = runTest {
+    val results = flowOf<Int>().asAsyncResult(startWithLoading = false).toList()
+
+    assertThat(results).containsExactly()
+  }
+
+  @Test
+  fun `asAsyncResult with single value`() = runTest {
+    val results = flowOf(42).asAsyncResult().toList()
+
+    assertThat(results).containsExactly(Loading, Success(42))
+  }
+
+  @Test
+  fun `asAsyncResult with immediate exception`() = runTest {
+    val exception = IllegalStateException("Immediate failure")
+    val results = flow<Int> { throw exception }.asAsyncResult().toList()
+
+    assertThat(results.size).isEqualTo(2)
+    assertThat(results[0]).isEqualTo(Loading)
+    val error = results[1] as Error
+    assertThat(error.throwable).isEqualTo(exception)
+  }
+
+  @Test
+  fun `asAsyncResult preserves flow context and works with delay`() = runTest {
+    val results =
+        flow {
+              emit(1)
+              delay(10.milliseconds)
+              emit(2)
+              delay(10.milliseconds)
+              emit(3)
+            }
+            .asAsyncResult()
+            .toList()
+
+    assertThat(results).containsExactly(Loading, Success(1), Success(2), Success(3))
+  }
+
+  @Test
+  fun `asAsyncResult works with different types`() = runTest {
+    val stringResults = flowOf("hello", "world").asAsyncResult().toList()
+    assertThat(stringResults).containsExactly(Loading, Success("hello"), Success("world"))
+
+    data class User(val name: String)
+    val userResults = flowOf(User("Alice"), User("Bob")).asAsyncResult().toList()
+    assertThat(userResults).containsExactly(Loading, Success(User("Alice")), Success(User("Bob")))
+  }
+
+  @Test
+  fun `asAsyncResult can be chained with other AsyncResult operators`() = runTest {
+    val results = flowOf(1, 2, 3).asAsyncResult().skipWhileLoading().toList()
+
+    assertThat(results).containsExactly(Success(1), Success(2), Success(3))
+  }
+
+  @Test
+  fun `asAsyncResult with mapSuccess chaining`() = runTest {
+    val results =
+        flowOf(1, 2, 3).asAsyncResult().toList().map { result -> result.mapSuccess { it * 2 } }
+
+    assertThat(results).containsExactly(Loading, Success(2), Success(4), Success(6))
+  }
 }

@@ -26,7 +26,7 @@ The core module contains the type hierarchy and all essential utilities:
 - **Combining** - `zip`, `zipWith`, `and`, `andThen`, `spread`, `combine`, `sequence`
 - **Recovery** - `recover`, `recoverIf`, `or`, `orElse`
 - **Validation** - `toErrorIf`, `toErrorUnless`
-- **Flow helpers** - `onLoading`, `onSuccess`, `onError`, `skipWhileLoading`, `cacheLatestSuccess`, `timeoutToError`, `retryOnError`
+- **Flow helpers** - `asAsyncResult`, `onLoading`, `onSuccess`, `onError`, `skipWhileLoading`, `cacheLatestSuccess`, `timeoutToError`, `retryOnError`
 - **Collection utilities** - `getAllErrors`, `anyLoading`, `anyIncomplete`
 
 ### asyncresult-either
