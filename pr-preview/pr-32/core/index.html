@@ -520,6 +520,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#converting-to-asyncresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting to AsyncResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#side-effects_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Side effects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filtering" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -851,6 +873,28 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#converting-to-asyncresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting to AsyncResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#side-effects_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Side effects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#filtering" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1042,6 +1086,37 @@
 <span class="kd">val</span><span class="w"> </span><span class="nv">errors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">errorsFrom</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="w"> </span><span class="n">result2</span><span class="p">,</span><span class="w"> </span><span class="n">result3</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="flow-helpers">Flow helpers<a class="headerlink" href="#flow-helpers" title="Permanent link">&para;</a></h2>
+<h3 id="converting-to-asyncresult">Converting to AsyncResult<a class="headerlink" href="#converting-to-asyncresult" title="Permanent link">&para;</a></h3>
+<p>Transform a regular <code>Flow&lt;T&gt;</code> into <code>Flow&lt;AsyncResult&lt;T&gt;&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Basic conversion with automatic loading state</span>
+<span class="n">flowOf</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">asAsyncResult</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="c1">// Emits: Loading, Success(1), Success(2), Success(3)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="c1">// Without initial loading state</span>
+<span class="n">fetchDataFlow</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">asAsyncResult</span><span class="p">(</span><span class="n">startWithLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="c1">// Emits: Success(data1), Success(data2), ...</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="c1">// Errors are automatically wrapped</span>
+<span class="n">flow</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">emit</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="n">IOException</span><span class="p">(</span><span class="s">&quot;Network error&quot;</span><span class="p">)</span>
+<span class="p">}.</span><span class="na">asAsyncResult</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="c1">// Emits: Loading, Success(42), Error(IOException)</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>The <code>asAsyncResult()</code> extension:
+- Wraps each emitted value in <code>Success</code>
+- Catches exceptions (except <code>CancellationException</code>) and wraps them in <code>Error</code>
+- Optionally starts with a <code>Loading</code> emission (default: <code>true</code>)
+- Preserves coroutine cancellation by rethrowing <code>CancellationException</code></p>
+<h3 id="side-effects_1">Side effects<a class="headerlink" href="#side-effects_1" title="Permanent link">&para;</a></h3>
 <p>Extensions for <code>Flow&lt;AsyncResult&lt;T&gt;&gt;</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">flowOf</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 <span class="w">    </span><span class="p">.</span><span class="na">onLoading</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showSpinner</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
