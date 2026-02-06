@@ -35,7 +35,7 @@ Extensions for interoperability with Arrow's `Either` type:
 
 - **Conversion** - `toAsyncResult()` to convert `Either` to `AsyncResult`
 - **Binding** - `bind()` to flatten `AsyncResult<Either<L, R>>` to `AsyncResult<R>`
-- **Flow conversion** - `toEither()` to convert `Flow<AsyncResult<T>>` to `Either`
+- **Flow conversion** - `asAsyncResult()` to convert `Flow<Either<L, R>>` to `Flow<AsyncResult<R>>`, `toEither()` to convert `Flow<AsyncResult<T>>` to `Either`
 
 ### asyncresult-test
 

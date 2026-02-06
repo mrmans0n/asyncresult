@@ -8,6 +8,23 @@ It captures the common states you deal with in UI and data layers:
 - `Success` - The operation completed successfully with a value
 - `Error` - The operation failed, optionally with a throwable and metadata
 
+## Quick Start
+
+Convert any `Flow` to an `AsyncResult` flow and handle all states:
+
+```kotlin
+userRepository.observeUser()
+    .asAsyncResult()
+    .collect { result ->
+        when (result) {
+            is NotStarted -> { /* Initial state */ }
+            is Loading -> showLoading()
+            is Success -> showUser(result.value)
+            is Error -> showError(result.throwable)
+        }
+    }
+```
+
 The library provides a rich set of operators for transforming, combining, and extracting values from these states, making it easy to handle async operations in a type-safe way.
 
 ## Modules
@@ -21,7 +38,7 @@ The core module contains the type hierarchy and all essential utilities:
 - **Side effects** - `onSuccess`, `onLoading`, `onError`, `onNotStarted`
 - **Unwrapping** - `unwrap`, `unwrapError`, `expect`, `expectError` (Rust-style extraction)
 - **Combining** - `zip`, `zipWith`, `and`, `andThen`, `spread`
-- **Flow helpers** - `onLoading`, `onSuccess`, `onError` for `Flow<AsyncResult<T>>`
+- **Flow helpers** - `asAsyncResult`, `onLoading`, `onSuccess`, `onError`, `skipWhileLoading`, `cacheLatestSuccess`, `timeoutToError`, `retryOnError`
 - **Collection utilities** - `getAllErrors`, `anyLoading`, `anyIncomplete`
 
 [View full documentation](core.md)
@@ -32,7 +49,7 @@ Extensions for interoperability with Arrow's `Either` type:
 
 - **Conversion** - `toAsyncResult()` to convert `Either` to `AsyncResult`
 - **Binding** - `bind()` to flatten `AsyncResult<Either<L, R>>` to `AsyncResult<R>`
-- **Flow conversion** - `toEither()` to convert `Flow<AsyncResult<T>>` to `Either`
+- **Flow conversion** - `asAsyncResult()` to convert `Flow<Either<L, R>>` to `Flow<AsyncResult<R>>`, `toEither()` to convert `Flow<AsyncResult<T>>` to `Either`
 
 [View full documentation](either.md)
 
