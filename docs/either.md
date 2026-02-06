@@ -2,6 +2,54 @@
 
 The `asyncresult-either` artifact provides helpers to bridge Arrow's `Either` type with `AsyncResult`. This is useful when working with codebases that use Arrow for error handling.
 
+## Converting Flow&lt;Either&gt; to Flow&lt;AsyncResult&gt;
+
+Transform a `Flow<Either<L, R>>` into a `Flow<AsyncResult<R>>`:
+
+```kotlin
+val userFlow: Flow<Either<UserError, User>> = userRepository.observeUser()
+
+userFlow.asAsyncResult()
+    .collect { result ->
+        when (result) {
+            is Loading -> showLoading()
+            is Success -> showUser(result.value)
+            is Error -> {
+                val userError = result.metadataOrNull<UserError>()
+                showError(userError)
+            }
+            is NotStarted -> { }
+        }
+    }
+```
+
+The conversion works as follows:
+- `Either.Right` becomes `Success`
+- `Either.Left` becomes `Error` with the left value stored in metadata
+- Optionally starts with `Loading` (default: `true`)
+
+```kotlin
+// Without initial loading state
+userFlow.asAsyncResult(startWithLoading = false)
+```
+
+### Special handling for Throwable
+
+When the left type is `Throwable`, it's stored in `Error.throwable` instead of metadata:
+
+```kotlin
+val dataFlow: Flow<Either<IOException, Data>> = fetchData()
+
+dataFlow.asAsyncResult()
+    .collect { result ->
+        when (result) {
+            is Error -> showError(result.throwable) // IOException is here
+            is Success -> showData(result.value)
+            else -> { }
+        }
+    }
+```
+
 ## Converting Either to AsyncResult
 
 Transform an `Either<L, R>` directly into an `AsyncResult<R>`:
