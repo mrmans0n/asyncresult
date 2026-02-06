@@ -122,9 +122,8 @@ class AsyncResultOrTest {
   @Test
   fun `orElse receives the error`() {
     val error = Error(Exception("Test"), metadata = "test-metadata")
-    val result: AsyncResult<String> = error.orElse { err ->
-      Success("Fallback for: ${err.throwable?.message}")
-    }
+    val result: AsyncResult<String> =
+        error.orElse { err -> Success("Fallback for: ${err.throwable?.message}") }
 
     assertThat(result).isInstanceOf<Success<String>>()
     assertThat((result as Success).value).isEqualTo("Fallback for: Test")

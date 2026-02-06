@@ -214,8 +214,8 @@ public inline operator fun <T> AsyncResult<Triple<*, *, T>>.component3(): AsyncR
 /**
  * Transforms both [Success] and [Error] cases simultaneously.
  *
- * This allows you to transform the success value and error in a single operation.
- * [Loading] and [NotStarted] states pass through unchanged.
+ * This allows you to transform the success value and error in a single operation. [Loading] and
+ * [NotStarted] states pass through unchanged.
  *
  * Example:
  * ```kotlin

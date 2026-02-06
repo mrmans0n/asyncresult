@@ -253,8 +253,7 @@ class AsyncResultFilterTest {
   @Test
   fun `toErrorUnless can validate business rules`() {
     data class Order(val items: List<String>, val total: Double)
-    val order: AsyncResult<Order> =
-        Success(Order(items = listOf("item1"), total = 150.0))
+    val order: AsyncResult<Order> = Success(Order(items = listOf("item1"), total = 150.0))
 
     val result =
         order

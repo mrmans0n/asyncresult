@@ -120,8 +120,7 @@ class AsyncResultBimapTest {
     assertThat((transformedSuccess as Success).value).isEqualTo(50)
 
     assertThat(transformedError).isInstanceOf<Error>()
-    assertThat((transformedError as Error).metadataOrNull<String>())
-        .isEqualTo("transformed-error")
+    assertThat((transformedError as Error).metadataOrNull<String>()).isEqualTo("transformed-error")
   }
 
   @Test

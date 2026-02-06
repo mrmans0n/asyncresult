@@ -45,9 +45,10 @@ class AsyncResultRecoverTest {
   @Test
   fun `recover receives the error`() {
     val error = Error(Exception("Test"), metadata = "test-metadata")
-    val result: AsyncResult<String> = error.recover { err ->
-      "Error: ${err.throwable?.message}, metadata: ${err.metadataOrNull<String>()}"
-    }
+    val result: AsyncResult<String> =
+        error.recover { err ->
+          "Error: ${err.throwable?.message}, metadata: ${err.metadataOrNull<String>()}"
+        }
 
     assertThat(result).isInstanceOf<Success<String>>()
     assertThat((result as Success).value).isEqualTo("Error: Test, metadata: test-metadata")
@@ -56,7 +57,9 @@ class AsyncResultRecoverTest {
   // recoverIf tests
 
   sealed interface TestError
+
   data class NetworkError(val code: Int) : TestError
+
   data class ValidationError(val field: String) : TestError
 
   @Test
@@ -112,9 +115,8 @@ class AsyncResultRecoverTest {
   @Test
   fun `recoverIf receives the typed metadata`() {
     val error: AsyncResult<String> = ErrorWithMetadata(NetworkError(404))
-    val result = error.recoverIf<String, NetworkError> { err ->
-      "Recovered from network error: ${err.code}"
-    }
+    val result =
+        error.recoverIf<String, NetworkError> { err -> "Recovered from network error: ${err.code}" }
 
     assertThat(result).isInstanceOf<Success<String>>()
     assertThat((result as Success).value).isEqualTo("Recovered from network error: 404")

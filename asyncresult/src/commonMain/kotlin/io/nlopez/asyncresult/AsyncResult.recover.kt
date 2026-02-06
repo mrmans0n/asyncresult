@@ -12,8 +12,8 @@ import kotlin.contracts.contract
 /**
  * Converts an [Error] to a [Success] by applying [transform] to the error.
  *
- * If this is a [Success], [Loading], or [NotStarted], returns this unchanged.
- * If this is an [Error], applies [transform] and returns [Success] with the result.
+ * If this is a [Success], [Loading], or [NotStarted], returns this unchanged. If this is an
+ * [Error], applies [transform] and returns [Success] with the result.
  *
  * Example:
  * ```kotlin
@@ -38,9 +38,9 @@ public inline fun <R> AsyncResult<R>.recover(transform: (Error) -> R): AsyncResu
 /**
  * Converts an [Error] to a [Success] only if the error metadata matches type [E].
  *
- * If this is a [Success], [Loading], or [NotStarted], returns this unchanged.
- * If this is an [Error] with metadata of type [E], applies [transform] and returns [Success].
- * If this is an [Error] with metadata of a different type, returns the [Error] unchanged.
+ * If this is a [Success], [Loading], or [NotStarted], returns this unchanged. If this is an [Error]
+ * with metadata of type [E], applies [transform] and returns [Success]. If this is an [Error] with
+ * metadata of a different type, returns the [Error] unchanged.
  *
  * Example:
  * ```kotlin
@@ -55,7 +55,8 @@ public inline fun <R> AsyncResult<R>.recover(transform: (Error) -> R): AsyncResu
  * ```
  *
  * @param transform Function to convert the typed error metadata to a success value
- * @return [AsyncResult] with the error recovered to success if metadata matches, unchanged otherwise
+ * @return [AsyncResult] with the error recovered to success if metadata matches, unchanged
+ *   otherwise
  */
 public inline fun <R, reified E : Any> AsyncResult<R>.recoverIf(
     transform: (E) -> R

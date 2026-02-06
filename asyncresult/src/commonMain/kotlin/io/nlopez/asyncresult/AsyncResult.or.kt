@@ -12,8 +12,8 @@ import kotlin.contracts.contract
 /**
  * Returns [other] if this is an [Error], otherwise returns this unchanged.
  *
- * The [other] result is evaluated eagerly regardless of whether this is an error.
- * For lazy evaluation, use [orElse].
+ * The [other] result is evaluated eagerly regardless of whether this is an error. For lazy
+ * evaluation, use [orElse].
  *
  * Example:
  * ```kotlin
@@ -36,8 +36,8 @@ public inline fun <R> AsyncResult<R>.or(other: AsyncResult<R>): AsyncResult<R> =
 /**
  * Returns the result of [transform] if this is an [Error], otherwise returns this unchanged.
  *
- * The [transform] function is only called if this is an error (lazy evaluation).
- * For eager evaluation, use [or].
+ * The [transform] function is only called if this is an error (lazy evaluation). For eager
+ * evaluation, use [or].
  *
  * Example:
  * ```kotlin
@@ -54,9 +54,7 @@ public inline fun <R> AsyncResult<R>.or(other: AsyncResult<R>): AsyncResult<R> =
  * @param transform Function to generate a fallback [AsyncResult] from the error
  * @return This [AsyncResult] if successful, the result of [transform] if this is an error
  */
-public inline fun <R> AsyncResult<R>.orElse(
-    transform: (Error) -> AsyncResult<R>
-): AsyncResult<R> {
+public inline fun <R> AsyncResult<R>.orElse(transform: (Error) -> AsyncResult<R>): AsyncResult<R> {
   contract { callsInPlace(transform, InvocationKind.AT_MOST_ONCE) }
 
   return when (this) {
