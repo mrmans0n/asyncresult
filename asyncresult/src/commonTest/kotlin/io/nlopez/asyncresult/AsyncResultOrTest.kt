@@ -7,6 +7,12 @@ import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
 import kotlin.test.Test
 
+private sealed interface ApiError
+
+private data class NotFoundError(val id: String) : ApiError
+
+private data class ServerError(val code: Int) : ApiError
+
 class AsyncResultOrTest {
   @Test
   fun `or returns other when this is Error`() {
@@ -154,10 +160,6 @@ class AsyncResultOrTest {
 
   @Test
   fun `orElse can return different result types based on error`() {
-    sealed interface ApiError
-    data class NotFoundError(val id: String) : ApiError
-    data class ServerError(val code: Int) : ApiError
-
     val notFoundError: AsyncResult<String> = ErrorWithMetadata(NotFoundError("123"))
     val serverError: AsyncResult<String> = ErrorWithMetadata(ServerError(500))
 

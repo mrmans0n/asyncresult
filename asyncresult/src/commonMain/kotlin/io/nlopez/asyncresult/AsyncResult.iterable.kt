@@ -120,3 +120,16 @@ public fun <T> Iterable<AsyncResult<T>>.combine(): AsyncResult<List<T>> {
  * @see combine
  */
 public inline fun <T> List<AsyncResult<T>>.sequence(): AsyncResult<List<T>> = combine()
+
+/**
+ * Combines a [Sequence] of [AsyncResult] items into a single [AsyncResult] containing a [List].
+ *
+ * The behavior is:
+ * - If any item is an [Error], returns the first error
+ * - If any item is [Loading], returns [Loading]
+ * - If any item is [NotStarted], returns [NotStarted]
+ * - If all items are [Success], returns [Success] with a list of all values
+ *
+ * @return A single [AsyncResult] containing the list of all success values, or the first error
+ */
+public fun <T> Sequence<AsyncResult<T>>.combine(): AsyncResult<List<T>> = toList().combine()
