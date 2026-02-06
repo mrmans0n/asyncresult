@@ -11,23 +11,6 @@ It captures the common states you deal with in UI and data layers:
 - `Success` - The operation completed successfully with a value
 - `Error` - The operation failed, optionally with a throwable and metadata
 
-## Quick Start
-
-Convert any `Flow` to an `AsyncResult` flow and handle all states:
-
-```kotlin
-userRepository.observeUser()
-    .asAsyncResult()
-    .collect { result ->
-        when (result) {
-            is NotStarted -> { /* Initial state */ }
-            is Loading -> showLoading()
-            is Success -> showUser(result.value)
-            is Error -> showError(result.throwable)
-        }
-    }
-```
-
 The library provides a rich set of operators for transforming, combining, and extracting values from these states, making it easy to handle async operations in a type-safe way.
 
 ## Modules
