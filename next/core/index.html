@@ -516,6 +516,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Flow helpers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -797,6 +847,56 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Flow helpers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -953,6 +1053,42 @@
 <span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">User? </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="p">.</span><span class="na">getOrNull</span><span class="p">()</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="p">.</span><span class="na">getOrElse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">fallbackUser</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
+<h3 id="filtering">Filtering<a class="headerlink" href="#filtering" title="Permanent link">&para;</a></h3>
+<p>Skip loading states entirely:</p>
+<div class="highlight"><pre><span></span><code><span class="n">flow</span><span class="p">.</span><span class="na">skipWhileLoading</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="c1">// Only receives NotStarted, Success, or Error</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="c1">// Alias</span>
+<span class="n">flow</span><span class="p">.</span><span class="na">filterNotLoading</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">&para;</a></h3>
+<p>Cache the latest success value and emit it during reloads:</p>
+<div class="highlight"><pre><span></span><code><span class="n">flow</span><span class="p">.</span><span class="na">cacheLatestSuccess</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="c1">// During reload: shows cached Success instead of Loading</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>This is useful for "stale-while-revalidate" patterns where you want to show existing data while fetching updates.</p>
+<h3 id="timeout">Timeout<a class="headerlink" href="#timeout" title="Permanent link">&para;</a></h3>
+<p>Convert slow operations to errors:</p>
+<div class="highlight"><pre><span></span><code><span class="n">flow</span><span class="p">.</span><span class="na">timeoutToError</span><span class="p">(</span><span class="m">5.</span><span class="n">seconds</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="n">TimeoutException</span><span class="p">(</span><span class="s">&quot;Request timed out&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If no <code>Success</code> or <code>Error</code> is emitted within the timeout, an <code>Error</code> with the provided throwable is emitted.</p>
+<h3 id="retry">Retry<a class="headerlink" href="#retry" title="Permanent link">&para;</a></h3>
+<p>Automatically retry on errors:</p>
+<div class="highlight"><pre><span></span><code><span class="n">flow</span><span class="p">.</span><span class="na">retryOnError</span><span class="p">(</span>
+<span class="w">    </span><span class="n">maxRetries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.</span><span class="n">seconds</span><span class="p">,</span>
+<span class="w">    </span><span class="n">predicate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">        </span><span class="n">error</span><span class="p">.</span><span class="na">throwable</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">IOException</span><span class="w">  </span><span class="c1">// Only retry network errors</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>The flow will restart from the beginning on each retry attempt.</p>
 
 
 
