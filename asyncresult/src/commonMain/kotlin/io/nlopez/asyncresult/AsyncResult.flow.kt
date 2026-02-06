@@ -84,8 +84,8 @@ public suspend inline fun <R> Flow<AsyncResult<R>>.getOrElse(noinline transform:
  * Filters out all [Loading] emissions from this flow, only emitting [NotStarted], [Success], or
  * [Error] values.
  *
- * This is useful when you want to ignore intermediate loading states and only react to terminal
- * or idle states.
+ * This is useful when you want to ignore intermediate loading states and only react to terminal or
+ * idle states.
  *
  * Example:
  * ```kotlin
@@ -153,8 +153,8 @@ public fun <R> Flow<AsyncResult<R>>.cacheLatestSuccess(): Flow<AsyncResult<R>> =
  * Emits an [Error] if no terminal state ([Success] or [Error]) is received within the specified
  * [timeout] duration.
  *
- * The timeout is measured from the start of collection. If a terminal result is not emitted
- * within the timeout period, an [Error] is emitted using the provided [error] factory.
+ * The timeout is measured from the start of collection. If a terminal result is not emitted within
+ * the timeout period, an [Error] is emitted using the provided [error] factory.
  *
  * Non-terminal emissions ([Loading], [NotStarted]) are passed through, but do not reset the
  * timeout.
@@ -193,8 +193,8 @@ public fun <R> Flow<AsyncResult<R>>.timeoutToError(
 /**
  * Retries collecting from the upstream flow when an [Error] is emitted.
  *
- * When an [Error] is encountered that matches the [predicate], the flow waits for [delay] and
- * then restarts collection from the upstream. This continues until either:
+ * When an [Error] is encountered that matches the [predicate], the flow waits for [delay] and then
+ * restarts collection from the upstream. This continues until either:
  * - A [Success] is emitted
  * - The maximum number of retries ([maxRetries]) is reached
  * - An [Error] that doesn't match the predicate is encountered
@@ -245,9 +245,7 @@ public fun <R> Flow<AsyncResult<R>>.retryOnError(
   }
 
   try {
-    retryableFlow
-        .retry(maxRetries.toLong()) { it is RetryTriggerException }
-        .collect { emit(it) }
+    retryableFlow.retry(maxRetries.toLong()) { it is RetryTriggerException }.collect { emit(it) }
   } catch (_: RetryTriggerException) {
     // Max retries exhausted, emit the last error
     lastError?.let { emit(it) }
