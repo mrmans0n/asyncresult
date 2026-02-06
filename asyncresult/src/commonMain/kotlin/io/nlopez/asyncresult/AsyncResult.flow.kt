@@ -169,24 +169,27 @@ public fun <R> Flow<AsyncResult<R>>.cacheLatestSuccess(): Flow<AsyncResult<R>> =
  * ```
  *
  * @param timeout The maximum duration to wait for a terminal result.
- * @param error Factory function to create the error (typically a Throwable) when timeout occurs.
+ * @param error Factory function to create the [Error] when timeout occurs. This allows returning
+ *   any [Error] subtype including [Error], [ErrorWithMetadata], etc.
  */
 public fun <R> Flow<AsyncResult<R>>.timeoutToError(
     timeout: Duration,
-    error: () -> Throwable
-): Flow<AsyncResult<R>> = flow {
-  var hasTerminal = false
-  withTimeoutOrNull(timeout) {
-    collect { result ->
-      emit(result)
-      if (result is Success || result is Error) {
-        hasTerminal = true
-        return@withTimeoutOrNull
+    error: () -> Error
+): Flow<AsyncResult<R>> {
+  val upstream = this
+  return flow {
+    var hasTerminal = false
+    withTimeoutOrNull(timeout) {
+      upstream.collect { result ->
+        emit(result)
+        if (result is Success || result is Error) {
+          hasTerminal = true
+        }
       }
     }
-  }
-  if (!hasTerminal) {
-    emit(Error(error()))
+    if (!hasTerminal) {
+      emit(error())
+    }
   }
 }
 
@@ -224,33 +227,80 @@ public fun <R> Flow<AsyncResult<R>>.retryOnError(
     maxRetries: Int = 3,
     delay: Duration = Duration.ZERO,
     predicate: (Error) -> Boolean = { true }
-): Flow<AsyncResult<R>> = flow {
-  var retryCount = 0
-  var lastError: Error? = null
+): Flow<AsyncResult<R>> {
+  // If maxRetries is 0 or less, don't retry at all
+  if (maxRetries <= 0) {
+    return this
+  }
 
-  val retryableFlow = flow {
-    collect { result ->
-      when {
-        result is Error && retryCount < maxRetries && predicate(result) -> {
-          lastError = result
-          retryCount++
-          if (delay > Duration.ZERO) {
-            delay(delay)
+  val upstream = this
+  return flow {
+    var retryCount = 0
+    var lastError: Error? = null
+
+    val retryableFlow = flow {
+      upstream.collect { result ->
+        when {
+          result is Error && retryCount < maxRetries && predicate(result) -> {
+            lastError = result
+            retryCount++
+            if (delay > Duration.ZERO) {
+              delay(delay)
+            }
+            throw RetryTriggerException()
           }
-          throw RetryTriggerException()
+          else -> emit(result)
         }
-        else -> emit(result)
       }
     }
-  }
 
-  try {
-    retryableFlow.retry(maxRetries.toLong()) { it is RetryTriggerException }.collect { emit(it) }
-  } catch (_: RetryTriggerException) {
-    // Max retries exhausted, emit the last error
-    lastError?.let { emit(it) }
+    try {
+      retryableFlow.retry(maxRetries.toLong()) { it is RetryTriggerException }.collect { emit(it) }
+    } catch (_: RetryTriggerException) {
+      // Max retries exhausted, emit the last error
+      lastError?.let { emit(it) }
+    }
   }
 }
+
+/**
+ * Retries collecting from the upstream flow when an [Error] with metadata of type [E] is emitted.
+ *
+ * This is a variant of [retryOnError] that filters errors by their metadata type. Only errors
+ * containing metadata of type [E] will be considered for retry, and the [predicate] receives the
+ * typed metadata directly.
+ *
+ * Example:
+ * ```kotlin
+ * sealed class NetworkError {
+ *     data class Timeout(val ms: Long) : NetworkError()
+ *     data class ServerError(val code: Int) : NetworkError()
+ * }
+ *
+ * fetchData()
+ *     .retryOnErrorWithMetadata<_, NetworkError.Timeout>(
+ *         maxRetries = 3,
+ *         delay = 1.seconds
+ *     ) { timeout ->
+ *         timeout.ms < 5000 // Only retry short timeouts
+ *     }
+ *     .collect { result -> /* ... */ }
+ * ```
+ *
+ * @param maxRetries Maximum number of retry attempts. Default is 3.
+ * @param delay Duration to wait before each retry. Default is [Duration.ZERO].
+ * @param predicate Function to determine if a retry should occur for the given metadata. Default
+ *   retries on all matching errors.
+ */
+public inline fun <R, reified E : Any> Flow<AsyncResult<R>>.retryOnErrorWithMetadata(
+    maxRetries: Int = 3,
+    delay: Duration = Duration.ZERO,
+    crossinline predicate: (E) -> Boolean = { true }
+): Flow<AsyncResult<R>> =
+    retryOnError(maxRetries, delay) { error ->
+      val metadata = error.errorWithMetadataOrNull<E>()
+      metadata != null && predicate(metadata)
+    }
 
 /** Internal exception used to trigger retry in [retryOnError]. */
 private class RetryTriggerException : Exception()

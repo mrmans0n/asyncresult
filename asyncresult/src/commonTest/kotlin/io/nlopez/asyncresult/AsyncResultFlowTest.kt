@@ -1,11 +1,14 @@
 // Copyright 2026 Nacho Lopez
 // SPDX-License-Identifier: MIT
+@file:OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
+
 package io.nlopez.asyncresult
 
 import assertk.assertThat
 import assertk.assertions.containsExactly
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
+import assertk.assertions.isNotNull
 import kotlin.test.Test
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
@@ -123,13 +126,14 @@ class AsyncResultFlowTest {
               delay(500.milliseconds)
               emit(Loading)
             }
-            .timeoutToError(100.milliseconds) { RuntimeException("Timeout!") }
+            .timeoutToError(100.milliseconds) { Error(RuntimeException("Timeout!")) }
             .toList()
 
     assertThat(results.size).isEqualTo(2)
     assertThat(results[0]).isEqualTo(Loading)
-    assertThat(results[1]).isInstanceOf<Error>()
-    assertThat((results[1] as Error).throwable).isInstanceOf<RuntimeException>()
+    val error = results[1] as Error
+    assertThat(error.throwable).isNotNull()
+    assertThat(error.throwable!!.message).isEqualTo("Timeout!")
   }
 
   @Test
@@ -140,7 +144,7 @@ class AsyncResultFlowTest {
               delay(10.milliseconds)
               emit(Success(42))
             }
-            .timeoutToError(1.seconds) { RuntimeException("Timeout!") }
+            .timeoutToError(1.seconds) { Error(RuntimeException("Timeout!")) }
             .toList()
 
     assertThat(results).containsExactly(Loading, Success(42))
@@ -155,7 +159,7 @@ class AsyncResultFlowTest {
               delay(10.milliseconds)
               emit(originalError)
             }
-            .timeoutToError(1.seconds) { RuntimeException("Timeout!") }
+            .timeoutToError(1.seconds) { Error(RuntimeException("Timeout!")) }
             .toList()
 
     assertThat(results).containsExactly(Loading, originalError)
@@ -169,7 +173,7 @@ class AsyncResultFlowTest {
               delay(500.milliseconds)
               emit(Success(42)) // This won't be collected due to timeout
             }
-            .timeoutToError(100.milliseconds) { RuntimeException("Timed out") }
+            .timeoutToError(100.milliseconds) { Error(RuntimeException("Timed out")) }
             .toList()
 
     assertThat(results.size).isEqualTo(2)
@@ -181,7 +185,7 @@ class AsyncResultFlowTest {
   fun `timeoutToError with immediate Success`() = runTest {
     val results =
         flowOf<AsyncResult<Int>>(Success(42))
-            .timeoutToError(100.milliseconds) { RuntimeException("Timeout!") }
+            .timeoutToError(100.milliseconds) { Error(RuntimeException("Timeout!")) }
             .toList()
 
     assertThat(results).containsExactly(Success(42))
@@ -337,5 +341,81 @@ class AsyncResultFlowTest {
         flowOf<AsyncResult<Int>>(Loading, Success(42)).retryOnError(maxRetries = 3).toList()
 
     assertThat(results).containsExactly(Loading, Success(42))
+  }
+
+  // ==============================
+  // retryOnErrorWithMetadata
+  // ==============================
+
+  data class RetryableError(val shouldRetry: Boolean)
+
+  @Test
+  fun `retryOnErrorWithMetadata retries when metadata matches and predicate true`() = runTest {
+    var attempts = 0
+    val results =
+        flow<AsyncResult<Int>> {
+              attempts++
+              if (attempts < 3) {
+                emit(Error(Throwable("Error"), RetryableError(true)))
+              } else {
+                emit(Success(42))
+              }
+            }
+            .retryOnErrorWithMetadata<Int, RetryableError>(maxRetries = 3) { it.shouldRetry }
+            .toList()
+
+    assertThat(attempts).isEqualTo(3)
+    assertThat(results).containsExactly(Success(42))
+  }
+
+  @Test
+  fun `retryOnErrorWithMetadata does not retry when metadata matches but predicate false`() =
+      runTest {
+        var attempts = 0
+        val results =
+            flow<AsyncResult<Int>> {
+                  attempts++
+                  emit(Error(Throwable("Error"), RetryableError(false)))
+                }
+                .retryOnErrorWithMetadata<Int, RetryableError>(maxRetries = 3) { it.shouldRetry }
+                .toList()
+
+        assertThat(attempts).isEqualTo(1)
+        assertThat(results.size).isEqualTo(1)
+        assertThat(results[0]).isInstanceOf<Error>()
+      }
+
+  @Test
+  fun `retryOnErrorWithMetadata does not retry when metadata type does not match`() = runTest {
+    data class OtherError(val code: Int)
+
+    var attempts = 0
+    val results =
+        flow<AsyncResult<Int>> {
+              attempts++
+              emit(Error(Throwable("Error"), OtherError(500)))
+            }
+            .retryOnErrorWithMetadata<Int, RetryableError>(maxRetries = 3) { true }
+            .toList()
+
+    assertThat(attempts).isEqualTo(1)
+    assertThat(results.size).isEqualTo(1)
+    assertThat(results[0]).isInstanceOf<Error>()
+  }
+
+  @Test
+  fun `retryOnErrorWithMetadata does not retry plain Error without metadata`() = runTest {
+    var attempts = 0
+    val results =
+        flow<AsyncResult<Int>> {
+              attempts++
+              emit(Error(Throwable("Error")))
+            }
+            .retryOnErrorWithMetadata<Int, RetryableError>(maxRetries = 3) { true }
+            .toList()
+
+    assertThat(attempts).isEqualTo(1)
+    assertThat(results.size).isEqualTo(1)
+    assertThat(results[0]).isInstanceOf<Error>()
   }
 }
