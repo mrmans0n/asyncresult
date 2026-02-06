@@ -324,6 +324,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#modules" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -527,6 +538,17 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#quick-start" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quick Start
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#modules" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -616,6 +638,19 @@ It captures the common states you deal with in UI and data layers:</p>
 <li><code>Success</code> - The operation completed successfully with a value</li>
 <li><code>Error</code> - The operation failed, optionally with a throwable and metadata</li>
 </ul>
+<h2 id="quick-start">Quick Start<a class="headerlink" href="#quick-start" title="Permanent link">&para;</a></h2>
+<p>Convert any <code>Flow</code> to an <code>AsyncResult</code> flow and handle all states:</p>
+<div class="highlight"><pre><span></span><code><span class="n">userRepository</span><span class="p">.</span><span class="na">observeUser</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">asAsyncResult</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="k">when</span><span class="w"> </span><span class="p">(</span><span class="n">result</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">NotStarted</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="cm">/* Initial state */</span><span class="w"> </span><span class="p">}</span>
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">Loading</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">showLoading</span><span class="p">()</span>
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">Success</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">showUser</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+<span class="w">            </span><span class="k">is</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">throwable</span><span class="p">)</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
 <p>The library provides a rich set of operators for transforming, combining, and extracting values from these states, making it easy to handle async operations in a type-safe way.</p>
 <h2 id="modules">Modules<a class="headerlink" href="#modules" title="Permanent link">&para;</a></h2>
 <h3 id="asyncresult-core">asyncresult (Core)<a class="headerlink" href="#asyncresult-core" title="Permanent link">&para;</a></h3>
@@ -626,7 +661,7 @@ It captures the common states you deal with in UI and data layers:</p>
 <li><strong>Side effects</strong> - <code>onSuccess</code>, <code>onLoading</code>, <code>onError</code>, <code>onNotStarted</code></li>
 <li><strong>Unwrapping</strong> - <code>unwrap</code>, <code>unwrapError</code>, <code>expect</code>, <code>expectError</code> (Rust-style extraction)</li>
 <li><strong>Combining</strong> - <code>zip</code>, <code>zipWith</code>, <code>and</code>, <code>andThen</code>, <code>spread</code></li>
-<li><strong>Flow helpers</strong> - <code>onLoading</code>, <code>onSuccess</code>, <code>onError</code> for <code>Flow&lt;AsyncResult&lt;T&gt;&gt;</code></li>
+<li><strong>Flow helpers</strong> - <code>asAsyncResult</code>, <code>onLoading</code>, <code>onSuccess</code>, <code>onError</code>, <code>skipWhileLoading</code>, <code>cacheLatestSuccess</code>, <code>timeoutToError</code>, <code>retryOnError</code></li>
 <li><strong>Collection utilities</strong> - <code>getAllErrors</code>, <code>anyLoading</code>, <code>anyIncomplete</code></li>
 </ul>
 <p><a href="core/">View full documentation</a></p>
@@ -635,7 +670,7 @@ It captures the common states you deal with in UI and data layers:</p>
 <ul>
 <li><strong>Conversion</strong> - <code>toAsyncResult()</code> to convert <code>Either</code> to <code>AsyncResult</code></li>
 <li><strong>Binding</strong> - <code>bind()</code> to flatten <code>AsyncResult&lt;Either&lt;L, R&gt;&gt;</code> to <code>AsyncResult&lt;R&gt;</code></li>
-<li><strong>Flow conversion</strong> - <code>toEither()</code> to convert <code>Flow&lt;AsyncResult&lt;T&gt;&gt;</code> to <code>Either</code></li>
+<li><strong>Flow conversion</strong> - <code>asAsyncResult()</code> to convert <code>Flow&lt;Either&lt;L, R&gt;&gt;</code> to <code>Flow&lt;AsyncResult&lt;R&gt;&gt;</code>, <code>toEither()</code> to convert <code>Flow&lt;AsyncResult&lt;T&gt;&gt;</code> to <code>Either</code></li>
 </ul>
 <p><a href="either/">View full documentation</a></p>
 <h3 id="asyncresult-test">asyncresult-test<a class="headerlink" href="#asyncresult-test" title="Permanent link">&para;</a></h3>
