@@ -97,8 +97,8 @@ public suspend inline fun <reified E, R> Flow<AsyncResult<R>>.toEither(
 ): Either<E, R> = toEither().mapLeft(errorTransform)
 
 /**
- * Transforms a [Flow] of [Either] into a [Flow] of [AsyncResult], converting each [Either.Left]
- * to an [Error] with metadata, and each [Either.Right] to a [Success].
+ * Transforms a [Flow] of [Either] into a [Flow] of [AsyncResult], converting each [Either.Left] to
+ * an [Error] with metadata, and each [Either.Right] to a [Success].
  *
  * This is useful for converting flows from Arrow-based APIs into AsyncResult flows, enabling
  * seamless integration with AsyncResult operators and UI patterns.
@@ -141,8 +141,9 @@ public fun <L, R> Flow<Either<L, R>>.asAsyncResult(
         .run { if (startWithLoading) onStart { emit(Loading) } else this }
 
 /**
- * Transforms a [Flow] of [Either] with a [Throwable] on the left side into a [Flow] of [AsyncResult],
- * converting each [Either.Left] to an [Error] with the throwable, and each [Either.Right] to a [Success].
+ * Transforms a [Flow] of [Either] with a [Throwable] on the left side into a [Flow] of
+ * [AsyncResult], converting each [Either.Left] to an [Error] with the throwable, and each
+ * [Either.Right] to a [Success].
  *
  * This is a specialized version of [asAsyncResult] for the common case where errors are represented
  * as [Throwable]. The throwable is stored in [Error.throwable] instead of [Error.metadata].
@@ -175,8 +176,9 @@ public fun <R> Flow<Either<Throwable, R>>.asAsyncResult(
     startWithLoading: Boolean = true,
 ): Flow<AsyncResult<R>> =
     map { either ->
-      when (either) {
-        is Left -> Error(throwable = either.value)
-        is Right -> Success(either.value)
-      }
-    }.run { if (startWithLoading) onStart { emit(Loading) } else this }
+          when (either) {
+            is Left -> Error(throwable = either.value)
+            is Right -> Success(either.value)
+          }
+        }
+        .run { if (startWithLoading) onStart { emit(Loading) } else this }

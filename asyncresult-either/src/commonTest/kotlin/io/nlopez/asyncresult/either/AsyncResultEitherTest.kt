@@ -6,15 +6,15 @@ import arrow.core.Either
 import arrow.core.Either.Left
 import arrow.core.Either.Right
 import assertk.assertThat
+import assertk.assertions.containsExactly
 import assertk.assertions.isEqualTo
+import assertk.assertions.isInstanceOf
 import io.nlopez.asyncresult.AsyncResult
 import io.nlopez.asyncresult.Error
 import io.nlopez.asyncresult.ErrorWithMetadata
 import io.nlopez.asyncresult.Loading
 import io.nlopez.asyncresult.NotStarted
 import io.nlopez.asyncresult.Success
-import assertk.assertions.containsExactly
-import assertk.assertions.isInstanceOf
 import kotlin.test.Test
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.toList
@@ -99,9 +99,7 @@ class AsyncResultEitherTest {
   @Test
   fun `Flow Either asAsyncResult handles mixed Left and Right`() = runTest {
     val results =
-        flowOf<Either<String, Int>>(Right(1), Left("error"), Right(2))
-            .asAsyncResult()
-            .toList()
+        flowOf<Either<String, Int>>(Right(1), Left("error"), Right(2)).asAsyncResult().toList()
 
     assertThat(results.size).isEqualTo(4)
     assertThat(results[0]).isEqualTo(Loading)
@@ -114,9 +112,7 @@ class AsyncResultEitherTest {
   @Test
   fun `Flow Either asAsyncResult without Loading start`() = runTest {
     val results =
-        flowOf<Either<String, Int>>(Right(42))
-            .asAsyncResult(startWithLoading = false)
-            .toList()
+        flowOf<Either<String, Int>>(Right(42)).asAsyncResult(startWithLoading = false).toList()
 
     assertThat(results).containsExactly(Success(42))
   }
@@ -140,26 +136,19 @@ class AsyncResultEitherTest {
   // ==============================
 
   @Test
-  fun `Flow Either Throwable asAsyncResult converts Left throwable to Error throwable`() =
-      runTest {
-        val exception = RuntimeException("boom")
-        val results =
-            flowOf<Either<Throwable, Int>>(Left(exception))
-                .asAsyncResult()
-                .toList()
+  fun `Flow Either Throwable asAsyncResult converts Left throwable to Error throwable`() = runTest {
+    val exception = RuntimeException("boom")
+    val results = flowOf<Either<Throwable, Int>>(Left(exception)).asAsyncResult().toList()
 
-        assertThat(results.size).isEqualTo(2)
-        assertThat(results[0]).isEqualTo(Loading)
-        assertThat(results[1]).isInstanceOf<Error>()
-        assertThat((results[1] as Error).throwable).isEqualTo(exception)
-      }
+    assertThat(results.size).isEqualTo(2)
+    assertThat(results[0]).isEqualTo(Loading)
+    assertThat(results[1]).isInstanceOf<Error>()
+    assertThat((results[1] as Error).throwable).isEqualTo(exception)
+  }
 
   @Test
   fun `Flow Either Throwable asAsyncResult converts Right to Success`() = runTest {
-    val results =
-        flowOf<Either<Throwable, Int>>(Right(42))
-            .asAsyncResult()
-            .toList()
+    val results = flowOf<Either<Throwable, Int>>(Right(42)).asAsyncResult().toList()
 
     assertThat(results).containsExactly(Loading, Success(42))
   }
