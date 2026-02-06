@@ -139,7 +139,7 @@ public suspend inline fun <reified E, R> Flow<AsyncResult<R>>.toEither(
 public fun <L, R> Flow<Either<L, R>>.asAsyncResult(
     startWithLoading: Boolean = true,
 ): Flow<AsyncResult<R>> =
-    map { either -> either.toAsyncResult() }
+    map { Success(it).bind() }
         .catch { throwable ->
           if (throwable !is CancellationException) {
             emit(Error(throwable))
@@ -184,12 +184,7 @@ public fun <L, R> Flow<Either<L, R>>.asAsyncResult(
 public fun <R> Flow<Either<Throwable, R>>.asAsyncResult(
     startWithLoading: Boolean = true,
 ): Flow<AsyncResult<R>> =
-    map { either ->
-          when (either) {
-            is Left -> Error(throwable = either.value)
-            is Right -> Success(either.value)
-          }
-        }
+    map { Success(it).bind() }
         .catch { throwable ->
           if (throwable !is CancellationException) {
             emit(Error(throwable))
