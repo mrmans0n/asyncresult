@@ -7,15 +7,71 @@ package io.nlopez.asyncresult
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.InvocationKind
 import kotlin.contracts.contract
+import kotlin.coroutines.cancellation.CancellationException
 import kotlin.time.Duration
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.flow.retry
 import kotlinx.coroutines.withTimeoutOrNull
+
+/**
+ * Transforms a [Flow] of values into a [Flow] of [AsyncResult], wrapping each emitted value in a
+ * [Success] and handling errors by wrapping them in [Error].
+ *
+ * This is useful for converting any existing Flow into an AsyncResult-based Flow, enabling seamless
+ * integration with AsyncResult operators and UI patterns.
+ *
+ * Behavior:
+ * - When [startWithLoading] is `true` (default), emits [Loading] before the first value
+ * - Each emitted value is wrapped in [Success]
+ * - Errors are caught and wrapped in [Error], except for [CancellationException] which is rethrown
+ *   to respect structured concurrency
+ *
+ * Example:
+ * ```kotlin
+ * // A regular Flow
+ * val dataFlow: Flow<User> = userRepository.observeUser()
+ *
+ * // Convert to AsyncResult Flow
+ * dataFlow.asAsyncResult()
+ *     .collect { result ->
+ *         when (result) {
+ *             is Loading -> showLoading()
+ *             is Success -> showUser(result.value)
+ *             is Error -> showError(result.throwable)
+ *             is NotStarted -> { }
+ *         }
+ *     }
+ *
+ * // Without initial Loading state
+ * dataFlow.asAsyncResult(startWithLoading = false)
+ *     .collect { result ->
+ *         // First emission will be Success or Error, not Loading
+ *     }
+ * ```
+ *
+ * @param startWithLoading Whether to emit [Loading] before the first value. Defaults to `true`.
+ * @return A [Flow] of [AsyncResult] wrapping the original values.
+ */
+public fun <T> Flow<T>.asAsyncResult(
+    startWithLoading: Boolean = true,
+): Flow<AsyncResult<T>> =
+    map<T, AsyncResult<T>> { Success(it) }
+        .catch { throwable ->
+          if (throwable !is CancellationException) {
+            emit(Error(throwable))
+          } else {
+            throw throwable
+          }
+        }
+        .run { if (startWithLoading) onStart { emit(Loading) } else this }
 
 /**
  * It invokes the given [action] **before** each value of the upstream flow is emitted downstream,
