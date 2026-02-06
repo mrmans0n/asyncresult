@@ -210,3 +210,45 @@ public inline operator fun <T> AsyncResult<Triple<*, *, T>>.component3(): AsyncR
     mapSuccess {
       it.third
     }
+
+/**
+ * Transforms both [Success] and [Error] cases simultaneously.
+ *
+ * This allows you to transform the success value and error in a single operation.
+ * [Loading] and [NotStarted] states pass through unchanged.
+ *
+ * Example:
+ * ```kotlin
+ * val result: AsyncResult<Int> = Success(42)
+ * val transformed = result.bimap(
+ *     success = { it * 2 },
+ *     error = { it.withMetadata("Calculation failed") }
+ * ) // Success(84)
+ *
+ * val errorResult: AsyncResult<Int> = Error(Exception("Failed"))
+ * val transformed = errorResult.bimap(
+ *     success = { it * 2 },
+ *     error = { it.withMetadata("Calculation failed") }
+ * ) // Error with added metadata
+ * ```
+ *
+ * @param success Function to transform the success value
+ * @param error Function to transform the error
+ * @return [AsyncResult] with both success and error cases transformed
+ */
+public inline fun <R, T> AsyncResult<R>.bimap(
+    success: (R) -> T,
+    error: (Error) -> Error
+): AsyncResult<T> {
+  contract {
+    callsInPlace(success, InvocationKind.AT_MOST_ONCE)
+    callsInPlace(error, InvocationKind.AT_MOST_ONCE)
+  }
+
+  return when (this) {
+    is Success -> Success(success(value))
+    is Error -> error(this)
+    Loading -> Loading
+    NotStarted -> NotStarted
+  }
+}
