@@ -7,17 +7,16 @@ package io.nlopez.asyncresult.either
 import arrow.core.Either
 import arrow.core.Either.Left
 import arrow.core.Either.Right
-import arrow.core.getOrElse
 import io.nlopez.asyncresult.AsyncResult
 import io.nlopez.asyncresult.Error
 import io.nlopez.asyncresult.Loading
 import io.nlopez.asyncresult.NotStarted
 import io.nlopez.asyncresult.Success
-import io.nlopez.asyncresult.asAsyncResult
 import kotlin.jvm.JvmName
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 
 /**
  * Based on the either values inside of the [AsyncResult], convert it to a [Success] value if the
@@ -138,16 +137,8 @@ public suspend inline fun <reified E, R> Flow<AsyncResult<R>>.toEither(
 public fun <L, R> Flow<Either<L, R>>.asAsyncResult(
     startWithLoading: Boolean = true,
 ): Flow<AsyncResult<R>> =
-    map { either -> either.getOrElse { left -> throw EitherLeftException(left) } }
-        .asAsyncResult(startWithLoading)
-        .map { result ->
-            if (result is Error && result.throwable is EitherLeftException) {
-                @Suppress("UNCHECKED_CAST")
-                Error<R>().withMetadata((result.throwable as EitherLeftException).left as L)
-            } else {
-                result
-            }
-        }
+    map { either -> either.toAsyncResult() }
+        .run { if (startWithLoading) onStart { emit(Loading) } else this }
 
 /**
  * Transforms a [Flow] of [Either] with a [Throwable] on the left side into a [Flow] of
@@ -184,8 +175,10 @@ public fun <L, R> Flow<Either<L, R>>.asAsyncResult(
 public fun <R> Flow<Either<Throwable, R>>.asAsyncResult(
     startWithLoading: Boolean = true,
 ): Flow<AsyncResult<R>> =
-    map { either -> either.getOrElse { throwable -> throw throwable } }
-        .asAsyncResult(startWithLoading)
-
-/** Internal exception used to carry Either.Left values through core's asAsyncResult. */
-private class EitherLeftException(val left: Any?) : Exception()
+    map { either ->
+          when (either) {
+            is Left -> Error(throwable = either.value)
+            is Right -> Success(either.value)
+          }
+        }
+        .run { if (startWithLoading) onStart { emit(Loading) } else this }
