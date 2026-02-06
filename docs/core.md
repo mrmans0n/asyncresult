@@ -207,3 +207,58 @@ val value: User = flow.getOrThrow()
 val value: User? = flow.getOrNull()
 val value: User = flow.getOrElse { fallbackUser }
 ```
+
+### Filtering
+
+Skip loading states entirely:
+
+```kotlin
+flow.skipWhileLoading()
+    .collect { result ->
+        // Only receives NotStarted, Success, or Error
+    }
+
+// Alias
+flow.filterNotLoading()
+```
+
+### Caching
+
+Cache the latest success value and emit it during reloads:
+
+```kotlin
+flow.cacheLatestSuccess()
+    .collect { result ->
+        // During reload: shows cached Success instead of Loading
+    }
+```
+
+This is useful for "stale-while-revalidate" patterns where you want to show existing data while fetching updates.
+
+### Timeout
+
+Convert slow operations to errors:
+
+```kotlin
+flow.timeoutToError(5.seconds) { 
+    TimeoutException("Request timed out") 
+}
+```
+
+If no `Success` or `Error` is emitted within the timeout, an `Error` with the provided throwable is emitted.
+
+### Retry
+
+Automatically retry on errors:
+
+```kotlin
+flow.retryOnError(
+    maxRetries = 3,
+    delay = 1.seconds,
+    predicate = { error -> 
+        error.throwable is IOException  // Only retry network errors
+    }
+)
+```
+
+The flow will restart from the beginning on each retry attempt.
