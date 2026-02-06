@@ -35,7 +35,7 @@ class AsyncResultFlowTest {
   }
 
   @Test
-  fun `skipWhileLoading passes through NotStarted, Success, and Error`() = runTest {
+  fun `skipWhileLoading passes through NotStarted and Success and Error`() = runTest {
     val results =
         flowOf<AsyncResult<Int>>(NotStarted, Success(1), Error(), Success(2))
             .skipWhileLoading()
