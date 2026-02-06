@@ -15,6 +15,8 @@ import io.nlopez.asyncresult.Success
 import kotlin.jvm.JvmName
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 
 /**
  * Based on the either values inside of the [AsyncResult], convert it to a [Success] value if the
@@ -93,3 +95,88 @@ public suspend inline fun <reified E, R> Flow<AsyncResult<R>>.toEither(
           )
     },
 ): Either<E, R> = toEither().mapLeft(errorTransform)
+
+/**
+ * Transforms a [Flow] of [Either] into a [Flow] of [AsyncResult], converting each [Either.Left]
+ * to an [Error] with metadata, and each [Either.Right] to a [Success].
+ *
+ * This is useful for converting flows from Arrow-based APIs into AsyncResult flows, enabling
+ * seamless integration with AsyncResult operators and UI patterns.
+ *
+ * Behavior:
+ * - When [startWithLoading] is `true` (default), emits [Loading] before the first value
+ * - [Either.Right] values are wrapped in [Success]
+ * - [Either.Left] values are converted to [Error] with the left value stored in [Error.metadata]
+ *
+ * Example:
+ * ```kotlin
+ * sealed class UserError {
+ *     object NotFound : UserError()
+ *     data class NetworkError(val code: Int) : UserError()
+ * }
+ *
+ * val userFlow: Flow<Either<UserError, User>> = userRepository.observeUser()
+ *
+ * userFlow.asAsyncResult()
+ *     .collect { result ->
+ *         when (result) {
+ *             is Loading -> showLoading()
+ *             is Success -> showUser(result.value)
+ *             is Error -> {
+ *                 val userError = result.metadataOrNull<UserError>()
+ *                 showError(userError)
+ *             }
+ *             is NotStarted -> { }
+ *         }
+ *     }
+ * ```
+ *
+ * @param startWithLoading Whether to emit [Loading] before the first value. Defaults to `true`.
+ * @return A [Flow] of [AsyncResult] wrapping the Either values.
+ */
+public fun <L, R> Flow<Either<L, R>>.asAsyncResult(
+    startWithLoading: Boolean = true,
+): Flow<AsyncResult<R>> =
+    map { either -> either.toAsyncResult() }
+        .run { if (startWithLoading) onStart { emit(Loading) } else this }
+
+/**
+ * Transforms a [Flow] of [Either] with a [Throwable] on the left side into a [Flow] of [AsyncResult],
+ * converting each [Either.Left] to an [Error] with the throwable, and each [Either.Right] to a [Success].
+ *
+ * This is a specialized version of [asAsyncResult] for the common case where errors are represented
+ * as [Throwable]. The throwable is stored in [Error.throwable] instead of [Error.metadata].
+ *
+ * Behavior:
+ * - When [startWithLoading] is `true` (default), emits [Loading] before the first value
+ * - [Either.Right] values are wrapped in [Success]
+ * - [Either.Left] throwables are converted to [Error] with [Error.throwable] set
+ *
+ * Example:
+ * ```kotlin
+ * val dataFlow: Flow<Either<IOException, Data>> = dataRepository.observeData()
+ *
+ * dataFlow.asAsyncResult()
+ *     .collect { result ->
+ *         when (result) {
+ *             is Loading -> showLoading()
+ *             is Success -> showData(result.value)
+ *             is Error -> showError(result.throwable) // IOException is in throwable
+ *             is NotStarted -> { }
+ *         }
+ *     }
+ * ```
+ *
+ * @param startWithLoading Whether to emit [Loading] before the first value. Defaults to `true`.
+ * @return A [Flow] of [AsyncResult] wrapping the Either values.
+ */
+@JvmName("asAsyncResultWithLeftThrowable")
+public fun <R> Flow<Either<Throwable, R>>.asAsyncResult(
+    startWithLoading: Boolean = true,
+): Flow<AsyncResult<R>> =
+    map { either ->
+      when (either) {
+        is Left -> Error(throwable = either.value)
+        is Right -> Success(either.value)
+      }
+    }.run { if (startWithLoading) onStart { emit(Loading) } else this }

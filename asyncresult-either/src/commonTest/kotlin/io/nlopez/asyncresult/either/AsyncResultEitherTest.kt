@@ -13,8 +13,11 @@ import io.nlopez.asyncresult.ErrorWithMetadata
 import io.nlopez.asyncresult.Loading
 import io.nlopez.asyncresult.NotStarted
 import io.nlopez.asyncresult.Success
+import assertk.assertions.containsExactly
+import assertk.assertions.isInstanceOf
 import kotlin.test.Test
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.test.runTest
 
 class AsyncResultEitherTest {
@@ -70,5 +73,107 @@ class AsyncResultEitherTest {
     val flow = flowOf<AsyncResult<Int>>(Error(throwable = error))
     val either = flow.toEither<String, Int> { "Custom: ${it.throwable?.message}" }
     assertThat(either).isEqualTo(Left("Custom: boom"))
+  }
+
+  // ==============================
+  // Flow<Either>.asAsyncResult
+  // ==============================
+
+  @Test
+  fun `Flow Either asAsyncResult converts Right to Success with Loading start`() = runTest {
+    val results = flowOf(Right(1), Right(2), Right(3)).asAsyncResult().toList()
+
+    assertThat(results).containsExactly(Loading, Success(1), Success(2), Success(3))
+  }
+
+  @Test
+  fun `Flow Either asAsyncResult converts Left to ErrorWithMetadata`() = runTest {
+    val results = flowOf<Either<String, Int>>(Left("error")).asAsyncResult().toList()
+
+    assertThat(results.size).isEqualTo(2)
+    assertThat(results[0]).isEqualTo(Loading)
+    assertThat(results[1]).isInstanceOf<Error>()
+    assertThat((results[1] as Error).metadataOrNull<String>()).isEqualTo("error")
+  }
+
+  @Test
+  fun `Flow Either asAsyncResult handles mixed Left and Right`() = runTest {
+    val results =
+        flowOf<Either<String, Int>>(Right(1), Left("error"), Right(2))
+            .asAsyncResult()
+            .toList()
+
+    assertThat(results.size).isEqualTo(4)
+    assertThat(results[0]).isEqualTo(Loading)
+    assertThat(results[1]).isEqualTo(Success(1))
+    assertThat(results[2]).isInstanceOf<Error>()
+    assertThat((results[2] as Error).metadataOrNull<String>()).isEqualTo("error")
+    assertThat(results[3]).isEqualTo(Success(2))
+  }
+
+  @Test
+  fun `Flow Either asAsyncResult without Loading start`() = runTest {
+    val results =
+        flowOf<Either<String, Int>>(Right(42))
+            .asAsyncResult(startWithLoading = false)
+            .toList()
+
+    assertThat(results).containsExactly(Success(42))
+  }
+
+  @Test
+  fun `Flow Either asAsyncResult handles empty flow with Loading`() = runTest {
+    val results = flowOf<Either<String, Int>>().asAsyncResult().toList()
+
+    assertThat(results).containsExactly(Loading)
+  }
+
+  @Test
+  fun `Flow Either asAsyncResult handles empty flow without Loading`() = runTest {
+    val results = flowOf<Either<String, Int>>().asAsyncResult(startWithLoading = false).toList()
+
+    assertThat(results).containsExactly()
+  }
+
+  // ==============================
+  // Flow<Either<Throwable, R>>.asAsyncResult
+  // ==============================
+
+  @Test
+  fun `Flow Either Throwable asAsyncResult converts Left throwable to Error throwable`() =
+      runTest {
+        val exception = RuntimeException("boom")
+        val results =
+            flowOf<Either<Throwable, Int>>(Left(exception))
+                .asAsyncResult()
+                .toList()
+
+        assertThat(results.size).isEqualTo(2)
+        assertThat(results[0]).isEqualTo(Loading)
+        assertThat(results[1]).isInstanceOf<Error>()
+        assertThat((results[1] as Error).throwable).isEqualTo(exception)
+      }
+
+  @Test
+  fun `Flow Either Throwable asAsyncResult converts Right to Success`() = runTest {
+    val results =
+        flowOf<Either<Throwable, Int>>(Right(42))
+            .asAsyncResult()
+            .toList()
+
+    assertThat(results).containsExactly(Loading, Success(42))
+  }
+
+  @Test
+  fun `Flow Either Throwable asAsyncResult without Loading start`() = runTest {
+    val exception = IllegalStateException("error")
+    val results =
+        flowOf<Either<Throwable, Int>>(Left(exception))
+            .asAsyncResult(startWithLoading = false)
+            .toList()
+
+    assertThat(results.size).isEqualTo(1)
+    assertThat(results[0]).isInstanceOf<Error>()
+    assertThat((results[0] as Error).throwable).isEqualTo(exception)
   }
 }
