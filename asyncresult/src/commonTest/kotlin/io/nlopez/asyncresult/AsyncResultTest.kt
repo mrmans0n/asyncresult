@@ -482,19 +482,125 @@ class AsyncResultTest {
   }
 
   @Test
-  fun `getAllErrors returns all errors from a list of AsyncResult`() {
-    val error1 = Throwable()
-    val error2 = Throwable()
+  fun `errors on iterable returns only Error items from mixed collection`() {
+    val error1 = Error(Throwable("error1"))
+    val error2 = Error(Throwable("error2"), "bleh")
+    val results: Iterable<AsyncResult<*>> =
+        listOf(
+            Success(10),
+            error1,
+            Loading,
+            NotStarted,
+            error2,
+            Success("abc"),
+        )
+
+    assertThat(results.errors()).containsExactly(error1, error2)
+  }
+
+  @Test
+  fun `errors on sequence returns only Error items from mixed collection`() {
+    val error1 = Error(Throwable("error1"))
+    val error2 = Error(Throwable("error2"), "bleh")
+    val results: Sequence<AsyncResult<*>> =
+        sequenceOf(
+            Success(10),
+            error1,
+            Loading,
+            NotStarted,
+            error2,
+            Success("abc"),
+        )
+
+    assertThat(results.errors()).containsExactly(error1, error2)
+  }
+
+  @Test
+  fun `errors on array returns only Error items from mixed collection`() {
+    val error1 = Error(Throwable("error1"))
+    val error2 = Error(Throwable("error2"), "bleh")
+    val results: Array<AsyncResult<*>> =
+        arrayOf(
+            Success(10),
+            error1,
+            Loading,
+            NotStarted,
+            error2,
+            Success("abc"),
+        )
+
+    assertThat(results.errors()).containsExactly(error1, error2)
+  }
+
+  @Suppress("DEPRECATION")
+  @Test
+  fun `getAllErrors still works`() {
+    val error1 = Error(Throwable("error1"))
+    val error2 = Error(Throwable("error2"), "bleh")
     val results =
         listOf(
             Success(10),
-            Error(error1),
+            error1,
             Loading,
             NotStarted,
-            Error(error2, "bleh"),
+            error2,
             Success("abc"),
         )
-    assertThat(results.getAllErrors()).containsExactly(Error(error1), Error(error2, "bleh"))
+
+    assertThat(results.getAllErrors()).containsExactly(error1, error2)
+  }
+
+  @Test
+  fun `successes on iterable returns only Success values from mixed collection`() {
+    val results: Iterable<AsyncResult<Int>> =
+        listOf(
+            Success(10),
+            Error(Throwable("error1")),
+            Loading,
+            NotStarted,
+            Success(20),
+        )
+
+    assertThat(results.successes()).containsExactly(10, 20)
+  }
+
+  @Test
+  fun `successes on sequence returns only Success values from mixed collection`() {
+    val results: Sequence<AsyncResult<Int>> =
+        sequenceOf(
+            Success(10),
+            Error(Throwable("error1")),
+            Loading,
+            NotStarted,
+            Success(20),
+        )
+
+    assertThat(results.successes()).containsExactly(10, 20)
+  }
+
+  @Test
+  fun `successes on array returns only Success values from mixed collection`() {
+    val results: Array<AsyncResult<Int>> =
+        arrayOf(
+            Success(10),
+            Error(Throwable("error1")),
+            Loading,
+            NotStarted,
+            Success(20),
+        )
+
+    assertThat(results.successes()).containsExactly(10, 20)
+  }
+
+  @Test
+  fun `errors and successes return empty list for empty collections`() {
+    assertThat(emptyList<AsyncResult<*>>().errors()).isEmpty()
+    assertThat(emptySequence<AsyncResult<*>>().errors()).isEmpty()
+    assertThat(emptyArray<AsyncResult<*>>().errors()).isEmpty()
+
+    assertThat(emptyList<AsyncResult<Int>>().successes()).isEmpty()
+    assertThat(emptySequence<AsyncResult<Int>>().successes()).isEmpty()
+    assertThat(emptyArray<AsyncResult<Int>>().successes()).isEmpty()
   }
 
   @Test
