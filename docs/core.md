@@ -135,6 +135,50 @@ val user = result.expect { "User should be loaded by now" }
 val error = result.expectError { "Expected failure" }
 ```
 
+## Monad comprehension DSL: `result { ... }`
+
+AsyncResult includes an inline comprehension DSL inspired by Arrow Raise.
+It lets you write sequential code and short-circuit on the first non-success state.
+
+```kotlin
+val userSummary: AsyncResult<String> = result {
+    val user = fetchUser().bind()
+    val permissions = fetchPermissions(user.id).bind()
+
+    ensure(permissions.canViewProfile) { IllegalStateException("Unauthorized") }
+
+    "${user.name} (${permissions.role})"
+}
+```
+
+### DSL primitives
+
+Inside `result {}` you can use:
+
+- `bind()` - Extracts from `Success`, short-circuits on `Error`, `Loading`, or `NotStarted`
+- `error(Throwable)` - Short-circuits with `Error`
+- `loading()` - Short-circuits with `Loading`
+- `ensure(condition) { throwable }` - Validates a condition or short-circuits with `Error`
+- `ensureNotNull(value) { throwable }` - Validates nullability or short-circuits with `Error`
+
+### Why `inline` (not `suspend`)
+
+The builder is intentionally `inline` and not `suspend` so it works in both contexts:
+
+- In non-suspend code, you get regular synchronous composition
+- In suspend code, the inlined block inherits the caller's suspend context automatically
+
+```kotlin
+// Non-suspend usage
+val parsed = result { parse(input).bind() }
+
+// Suspend usage
+suspend fun load(): AsyncResult<Data> = result {
+    val token = loadToken().bind()
+    api.fetch(token).bind()
+}
+```
+
 ## Combining results
 
 ### Zipping

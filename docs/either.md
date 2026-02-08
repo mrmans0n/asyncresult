@@ -86,6 +86,23 @@ val result: AsyncResult<Either<Throwable, User>> = Success(Left(IOException()))
 val bound: AsyncResult<User> = result.bind() // Error with throwable set
 ```
 
+## Raise interop
+
+If you're using Arrow's Raise DSL, you can bind an `AsyncResult<T>` directly in a `Raise<Error>` context:
+
+```kotlin
+import arrow.core.raise.either
+
+val either = either<Error, User> {
+    repository.getUser().bind()
+}
+```
+
+Behavior:
+- `Success(value)` returns `value`
+- `Error` raises that same error
+- `Loading` and `NotStarted` raise an `Error` with the state stored in metadata
+
 ## Converting Flow to Either
 
 Transform a `Flow<AsyncResult<R>>` into an `Either`:

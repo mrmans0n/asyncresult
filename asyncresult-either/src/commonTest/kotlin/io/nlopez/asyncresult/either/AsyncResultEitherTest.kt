@@ -5,6 +5,7 @@ package io.nlopez.asyncresult.either
 import arrow.core.Either
 import arrow.core.Either.Left
 import arrow.core.Either.Right
+import arrow.core.raise.either
 import assertk.assertThat
 import assertk.assertions.containsExactly
 import assertk.assertions.isEqualTo
@@ -164,5 +165,18 @@ class AsyncResultEitherTest {
     assertThat(results.size).isEqualTo(1)
     assertThat(results[0]).isInstanceOf<Error>()
     assertThat((results[0] as Error).throwable).isEqualTo(exception)
+  }
+
+  @Test
+  fun `Raise bind with Success returns Right value`() {
+    val either = either<Error, Int> { bind(Success(42)) }
+    assertThat(either).isEqualTo(Right(42))
+  }
+
+  @Test
+  fun `Raise bind with Error raises Left error`() {
+    val throwable = IllegalStateException("boom")
+    val either = either<Error, Int> { bind(Error(throwable)) }
+    assertThat(either).isEqualTo(Left(Error(throwable)))
   }
 }
