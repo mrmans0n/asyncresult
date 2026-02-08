@@ -217,9 +217,10 @@ val (userResult, settingsResult) = pairResult.spread()
 Utilities for handling multiple results:
 
 ```kotlin
-val results: List<AsyncResult<*>> = listOf(result1, result2, result3)
+val results: List<AsyncResult<Int>> = listOf(result1, result2, result3)
 
-val errors: List<Error> = results.getAllErrors()
+val errors: List<Error> = results.errors()
+val successes: List<Int> = results.successes()
 val throwables: List<Throwable> = results.getAllThrowables()
 val isAnyLoading: Boolean = results.anyLoading()
 val isAnyIncomplete: Boolean = results.anyIncomplete()
