@@ -221,7 +221,8 @@ val results: List<AsyncResult<Int>> = listOf(result1, result2, result3)
 
 val errors: List<Error> = results.errors()
 val successes: List<Int> = results.successes()
-val throwables: List<Throwable> = results.getAllThrowables()
+val throwables: List<Throwable> = results.throwables()
+val incompletes: List<Incomplete> = results.incompletes()
 val isAnyLoading: Boolean = results.anyLoading()
 val isAnyIncomplete: Boolean = results.anyIncomplete()
 ```

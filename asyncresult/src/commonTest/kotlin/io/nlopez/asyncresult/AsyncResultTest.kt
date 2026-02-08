@@ -413,10 +413,10 @@ class AsyncResultTest {
   }
 
   @Test
-  fun `getAllThrowables returns all errors with throwables from a list of AsyncResult`() {
+  fun `throwables returns all errors with throwables from iterable sequence and array`() {
     val error1 = Throwable()
     val error2 = Throwable()
-    val results =
+    val mixed =
         listOf(
             Success(10),
             Error(error1),
@@ -425,7 +425,60 @@ class AsyncResultTest {
             Error(error2),
             Success("abc"),
         )
-    assertThat(results.getAllThrowables()).containsExactly(error1, error2)
+
+    assertThat(mixed.throwables()).containsExactly(error1, error2)
+    assertThat(mixed.asSequence().throwables()).containsExactly(error1, error2)
+    assertThat(mixed.toTypedArray().throwables()).containsExactly(error1, error2)
+  }
+
+  @Suppress("DEPRECATION")
+  @Test
+  fun `getAllThrowables still works for backwards compatibility`() {
+    val error1 = Throwable()
+    val error2 = Throwable()
+    val mixed =
+        listOf(
+            Success(10),
+            Error(error1),
+            Loading,
+            NotStarted,
+            Error(error2),
+            Success("abc"),
+        )
+
+    assertThat(mixed.getAllThrowables()).containsExactly(error1, error2)
+  }
+
+  @Test
+  fun `throwables and incompletes return empty lists for empty collections`() {
+    val emptyList = emptyList<AsyncResult<*>>()
+    val emptySequence = emptySequence<AsyncResult<*>>()
+    val emptyArray = emptyArray<AsyncResult<*>>()
+
+    assertThat(emptyList.throwables()).isEmpty()
+    assertThat(emptySequence.throwables()).isEmpty()
+    assertThat(emptyArray.throwables()).isEmpty()
+
+    assertThat(emptyList.incompletes()).isEmpty()
+    assertThat(emptySequence.incompletes()).isEmpty()
+    assertThat(emptyArray.incompletes()).isEmpty()
+  }
+
+  @Test
+  fun `incompletes returns loading and not started from iterable sequence and array`() {
+    val mixed =
+        listOf<AsyncResult<*>>(
+            Success(10),
+            Loading,
+            Error(Throwable()),
+            NotStarted,
+            Success("abc"),
+            Loading,
+        )
+
+    assertThat(mixed.incompletes()).containsExactly(Loading, NotStarted, Loading)
+    assertThat(mixed.asSequence().incompletes()).containsExactly(Loading, NotStarted, Loading)
+    assertThat(mixed.toTypedArray().incompletes()).containsExactly(Loading, NotStarted, Loading)
   }
 
   @Test
