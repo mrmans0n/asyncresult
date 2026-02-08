@@ -71,3 +71,4 @@ docs/api/
 
 # MkDocs build
 site/
+.pr_body.md
