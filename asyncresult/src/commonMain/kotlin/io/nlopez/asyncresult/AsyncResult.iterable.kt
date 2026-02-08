@@ -6,12 +6,34 @@ package io.nlopez.asyncresult
 
 import kotlin.jvm.JvmName
 
-/** Returns a list of al the [Error]s from a list of [AsyncResult] items. */
-public inline fun Iterable<AsyncResult<*>>.getAllErrors(): List<Error> = filterIsInstance<Error>()
+/** Returns a list of all the [Error]s from a list of [AsyncResult] items. */
+public inline fun Iterable<AsyncResult<*>>.errors(): List<Error> = filterIsInstance<Error>()
+
+/** Returns a list of all the [Error]s from a sequence of [AsyncResult] items. */
+public inline fun Sequence<AsyncResult<*>>.errors(): List<Error> =
+    filterIsInstance<Error>().toList()
+
+/** Returns a list of all the [Error]s from an array of [AsyncResult] items. */
+public inline fun Array<out AsyncResult<*>>.errors(): List<Error> = filterIsInstance<Error>()
+
+/** Returns a list of all the [Error]s from a list of [AsyncResult] items. */
+@Deprecated("Use errors()", ReplaceWith("errors()"))
+public inline fun Iterable<AsyncResult<*>>.getAllErrors(): List<Error> = errors()
 
 /** Returns a list of all the [Error]s from the given [AsyncResult] items. */
-public inline fun errorsFrom(vararg lcrs: AsyncResult<*>): List<Error> =
-    lcrs.filterIsInstance<Error>()
+public inline fun errorsFrom(vararg lcrs: AsyncResult<*>): List<Error> = lcrs.errors()
+
+/** Returns all [Success] values from a list of [AsyncResult] items. */
+public inline fun <T> Iterable<AsyncResult<T>>.successes(): List<T> =
+    filterIsInstance<Success<T>>().map { it.value }
+
+/** Returns all [Success] values from a sequence of [AsyncResult] items. */
+public inline fun <T> Sequence<AsyncResult<T>>.successes(): List<T> =
+    filterIsInstance<Success<T>>().map { it.value }.toList()
+
+/** Returns all [Success] values from an array of [AsyncResult] items. */
+public inline fun <T> Array<out AsyncResult<T>>.successes(): List<T> =
+    filterIsInstance<Success<T>>().map { it.value }
 
 /** Returns true if any of the given [AsyncResult] items is an [Error]. */
 public inline fun anyError(vararg lcrs: AsyncResult<*>): Boolean = lcrs.any { it is Error }
@@ -21,7 +43,7 @@ public inline fun anyError(vararg lcrs: AsyncResult<*>): Boolean = lcrs.any { it
  */
 @JvmName("iterableMetadata")
 public inline fun <reified T> Iterable<AsyncResult<Error>>.metadata(): List<T> =
-    getAllErrors().metadata<T>()
+    errors().metadata<T>()
 
 /** Returns a list of metadata objects of type [T] from a list of [Error] items. */
 public inline fun <reified T> Iterable<Error>.metadata(): List<T> = mapNotNull {
@@ -30,7 +52,7 @@ public inline fun <reified T> Iterable<Error>.metadata(): List<T> = mapNotNull {
 
 /** Returns a list of al the [Throwable]s inside of [Error]s from a list of [AsyncResult] items. */
 public inline fun Iterable<AsyncResult<*>>.getAllThrowables(): List<Throwable> =
-    getAllErrors().mapNotNull { it.throwable }
+    errors().mapNotNull { it.throwable }
 
 /** Returns true if any of the [AsyncResult] instances are [Loading]. */
 public inline fun Iterable<AsyncResult<*>>.anyLoading(): Boolean = any { it is Loading }
