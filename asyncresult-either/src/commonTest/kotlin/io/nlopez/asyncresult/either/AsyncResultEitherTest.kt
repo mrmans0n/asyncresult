@@ -169,14 +169,14 @@ class AsyncResultEitherTest {
 
   @Test
   fun `Raise bind with Success returns Right value`() {
-    val either = either<Error, Int> { Success(42).bind() }
+    val either = either<Error, Int> { bind(Success(42)) }
     assertThat(either).isEqualTo(Right(42))
   }
 
   @Test
   fun `Raise bind with Error raises Left error`() {
     val throwable = IllegalStateException("boom")
-    val either = either<Error, Int> { Error(throwable).bind() }
+    val either = either<Error, Int> { bind(Error(throwable)) }
     assertThat(either).isEqualTo(Left(Error(throwable)))
   }
 }

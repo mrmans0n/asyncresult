@@ -56,10 +56,11 @@ class AsyncResultResultDslTest {
     assertThat(success).isEqualTo(Success(42))
 
     val throwable = IllegalStateException("invalid")
-    val failure = result<Int> {
-      ensure(condition = false) { throwable }
-      42
-    }
+    val failure =
+        result<Int> {
+          ensure(condition = false) { throwable }
+          42
+        }
     assertThat(failure).isEqualTo(Error(throwable))
   }
 
@@ -78,34 +79,28 @@ class AsyncResultResultDslTest {
 
   @Test
   fun `nested result blocks work correctly`() {
-    val result =
-        result {
-          val first = Success(1).bind()
-          val second = result { Success(2).bind() }.bind()
-          first + second
-        }
+    val result = result {
+      val first = Success(1).bind()
+      val second = result { Success(2).bind() }.bind()
+      first + second
+    }
 
     assertThat(result).isEqualTo(Success(3))
   }
 
   @Test
   fun `normal exceptions inside block are not caught and propagate`() {
-    assertFailsWith<IllegalStateException> {
-      result<Int> {
-        throw IllegalStateException("boom")
-      }
-    }
+    assertFailsWith<IllegalStateException> { result<Int> { throw IllegalStateException("boom") } }
   }
 
   @Test
   fun `suspend calls inside result from suspend context work`() = runTest {
     suspend fun plusOne(value: Int): Int = value + 1
 
-    val result =
-        result {
-          val value = Success(1).bind()
-          plusOne(value)
-        }
+    val result = result {
+      val value = Success(1).bind()
+      plusOne(value)
+    }
 
     assertThat(result).isEqualTo(Success(2))
   }
@@ -119,25 +114,23 @@ class AsyncResultResultDslTest {
   @Test
   fun `multiple binds short-circuit on first non-success`() {
     val throwable = Throwable("boom")
-    val result =
-        result {
-          val first = Success(1).bind()
-          Error(throwable).bind()
-          val second = Success(2).bind()
-          first + second
-        }
+    val result = result {
+      val first = Success(1).bind()
+      Error(throwable).bind()
+      val second = Success(2).bind()
+      first + second
+    }
 
     assertThat(result).isEqualTo(Error(throwable))
   }
 
   @Test
   fun `result with all Success binds returns computed Success`() {
-    val result =
-        result {
-          val first = Success(2).bind()
-          val second = Success(3).bind()
-          first * second
-        }
+    val result = result {
+      val first = Success(2).bind()
+      val second = Success(3).bind()
+      first * second
+    }
 
     assertThat(result).isEqualTo(Success(6))
   }
