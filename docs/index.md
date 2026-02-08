@@ -34,6 +34,7 @@ The library provides a rich set of operators for transforming, combining, and ex
 The core module contains the type hierarchy and all essential utilities:
 
 - **Transformations** - `mapSuccess`, `mapError`, `flatMap`, `fold`, `orError`, `filterOrError`, `castOrError`
+- **Monad comprehension DSL** - `result { }`, `bind()`, `ensure()`, `ensureNotNull()`, `error()`, `loading()`
 - **Value extraction** - `getOrNull`, `getOrDefault`, `getOrElse`, `getOrThrow`, `getOrEmpty`
 - **Side effects** - `onSuccess`, `onLoading`, `onError`, `onNotStarted`
 - **Unwrapping** - `unwrap`, `unwrapError`, `expect`, `expectError` (Rust-style extraction)
