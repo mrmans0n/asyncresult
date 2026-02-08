@@ -1130,7 +1130,7 @@
 <span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expectError</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Expected failure&quot;</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
 <h2 id="monad-comprehension-dsl-result">Monad comprehension DSL: <code>result { ... }</code><a class="headerlink" href="#monad-comprehension-dsl-result" title="Permanent link">&para;</a></h2>
-<p>AsyncResult includes an inline comprehension DSL inspired by Arrow Raise.
+<p>AsyncResult includes an inline comprehension DSL inspired by Arrow <a href="https://apidocs.arrow-kt.io/arrow-core/arrow.core.raise/-raise/index.html">Raise</a>.
 It lets you write sequential code and short-circuit on the first non-success state.</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">userSummary</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchUser</span><span class="p">().</span><span class="na">bind</span><span class="p">()</span>
@@ -1142,7 +1142,7 @@ It lets you write sequential code and short-circuit on the first non-success sta
 <span class="p">}</span>
 </code></pre></div>
 <h3 id="dsl-primitives">DSL primitives<a class="headerlink" href="#dsl-primitives" title="Permanent link">&para;</a></h3>
-<p>Inside <code>result {}</code> you can use:</p>
+<p>Inside the <code>result</code> function you can use:</p>
 <ul>
 <li><code>bind()</code> - Extracts from <code>Success</code>, short-circuits on <code>Error</code>, <code>Loading</code>, or <code>NotStarted</code></li>
 <li><code>error(Throwable)</code> - Short-circuits with <code>Error</code></li>
