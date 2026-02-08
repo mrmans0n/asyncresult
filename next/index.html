@@ -657,6 +657,7 @@ It captures the common states you deal with in UI and data layers:</p>
 <p>The core module contains the type hierarchy and all essential utilities:</p>
 <ul>
 <li><strong>Transformations</strong> - <code>mapSuccess</code>, <code>mapError</code>, <code>flatMap</code>, <code>fold</code>, <code>orError</code>, <code>filterOrError</code>, <code>castOrError</code></li>
+<li><strong>Monad comprehension DSL</strong> - <code>result { }</code>, <code>bind()</code>, <code>ensure()</code>, <code>ensureNotNull()</code>, <code>error()</code>, <code>loading()</code></li>
 <li><strong>Value extraction</strong> - <code>getOrNull</code>, <code>getOrDefault</code>, <code>getOrElse</code>, <code>getOrThrow</code>, <code>getOrEmpty</code></li>
 <li><strong>Side effects</strong> - <code>onSuccess</code>, <code>onLoading</code>, <code>onError</code>, <code>onNotStarted</code></li>
 <li><strong>Unwrapping</strong> - <code>unwrap</code>, <code>unwrapError</code>, <code>expect</code>, <code>expectError</code> (Rust-style extraction)</li>

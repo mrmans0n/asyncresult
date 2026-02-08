@@ -447,6 +447,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#raise-interop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raise interop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#converting-flow-to-either" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -630,6 +641,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#raise-interop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Raise interop
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#converting-flow-to-either" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -741,6 +763,18 @@
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Throwable</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Success</span><span class="p">(</span><span class="n">Left</span><span class="p">(</span><span class="n">IOException</span><span class="p">()))</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">bound</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">bind</span><span class="p">()</span><span class="w"> </span><span class="c1">// Error with throwable set</span>
 </code></pre></div>
+<h2 id="raise-interop">Raise interop<a class="headerlink" href="#raise-interop" title="Permanent link">&para;</a></h2>
+<p>If you're using Arrow's Raise DSL, you can bind an <code>AsyncResult&lt;T&gt;</code> directly in a <code>Raise&lt;Error&gt;</code> context:</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">arrow.core.raise.either</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">either</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">either</span><span class="o">&lt;</span><span class="n">Error</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">repository</span><span class="p">.</span><span class="na">getUser</span><span class="p">().</span><span class="na">bind</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Behavior:
+- <code>Success(value)</code> returns <code>value</code>
+- <code>Error</code> raises that same error
+- <code>Loading</code> and <code>NotStarted</code> raise an <code>Error</code> with the state stored in metadata</p>
 <h2 id="converting-flow-to-either">Converting Flow to Either<a class="headerlink" href="#converting-flow-to-either" title="Permanent link">&para;</a></h2>
 <p>Transform a <code>Flow&lt;AsyncResult&lt;R&gt;&gt;</code> into an <code>Either</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">flow</span><span class="p">:</span><span class="w"> </span><span class="n">Flow</span><span class="o">&lt;</span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userFlow</span>

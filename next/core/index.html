@@ -458,6 +458,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#monad-comprehension-dsl-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monad comprehension DSL: result { ... }
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monad comprehension DSL: result { ... }">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dsl-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DSL primitives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-inline-not-suspend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why inline (not suspend)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#combining-results" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -811,6 +850,45 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#monad-comprehension-dsl-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monad comprehension DSL: result { ... }
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monad comprehension DSL: result { ... }">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dsl-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DSL primitives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-inline-not-suspend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why inline (not suspend)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#combining-results" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1050,6 +1128,42 @@
 <p>With custom error messages:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;User should be loaded by now&quot;</span><span class="w"> </span><span class="p">}</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expectError</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Expected failure&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h2 id="monad-comprehension-dsl-result">Monad comprehension DSL: <code>result { ... }</code><a class="headerlink" href="#monad-comprehension-dsl-result" title="Permanent link">&para;</a></h2>
+<p>AsyncResult includes an inline comprehension DSL inspired by Arrow Raise.
+It lets you write sequential code and short-circuit on the first non-success state.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">userSummary</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchUser</span><span class="p">().</span><span class="na">bind</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">permissions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchPermissions</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">id</span><span class="p">).</span><span class="na">bind</span><span class="p">()</span>
+
+<span class="w">    </span><span class="n">ensure</span><span class="p">(</span><span class="n">permissions</span><span class="p">.</span><span class="na">canViewProfile</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;Unauthorized&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="s">&quot;</span><span class="si">${</span><span class="n">user</span><span class="p">.</span><span class="na">name</span><span class="si">}</span><span class="s"> (</span><span class="si">${</span><span class="n">permissions</span><span class="p">.</span><span class="na">role</span><span class="si">}</span><span class="s">)&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="dsl-primitives">DSL primitives<a class="headerlink" href="#dsl-primitives" title="Permanent link">&para;</a></h3>
+<p>Inside <code>result {}</code> you can use:</p>
+<ul>
+<li><code>bind()</code> - Extracts from <code>Success</code>, short-circuits on <code>Error</code>, <code>Loading</code>, or <code>NotStarted</code></li>
+<li><code>error(Throwable)</code> - Short-circuits with <code>Error</code></li>
+<li><code>loading()</code> - Short-circuits with <code>Loading</code></li>
+<li><code>ensure(condition) { throwable }</code> - Validates a condition or short-circuits with <code>Error</code></li>
+<li><code>ensureNotNull(value) { throwable }</code> - Validates nullability or short-circuits with <code>Error</code></li>
+</ul>
+<h3 id="why-inline-not-suspend">Why <code>inline</code> (not <code>suspend</code>)<a class="headerlink" href="#why-inline-not-suspend" title="Permanent link">&para;</a></h3>
+<p>The builder is intentionally <code>inline</code> and not <code>suspend</code> so it works in both contexts:</p>
+<ul>
+<li>In non-suspend code, you get regular synchronous composition</li>
+<li>In suspend code, the inlined block inherits the caller's suspend context automatically</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// Non-suspend usage</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">parsed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">parse</span><span class="p">(</span><span class="n">input</span><span class="p">).</span><span class="na">bind</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// Suspend usage</span>
+<span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">load</span><span class="p">():</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">loadToken</span><span class="p">().</span><span class="na">bind</span><span class="p">()</span>
+<span class="w">    </span><span class="n">api</span><span class="p">.</span><span class="na">fetch</span><span class="p">(</span><span class="n">token</span><span class="p">).</span><span class="na">bind</span><span class="p">()</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="combining-results">Combining results<a class="headerlink" href="#combining-results" title="Permanent link">&para;</a></h2>
 <h3 id="zipping">Zipping<a class="headerlink" href="#zipping" title="Permanent link">&para;</a></h3>
