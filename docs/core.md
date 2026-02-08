@@ -137,7 +137,7 @@ val error = result.expectError { "Expected failure" }
 
 ## Monad comprehension DSL: `result { ... }`
 
-AsyncResult includes an inline comprehension DSL inspired by Arrow Raise.
+AsyncResult includes an inline comprehension DSL inspired by Arrow [Raise](https://apidocs.arrow-kt.io/arrow-core/arrow.core.raise/-raise/index.html).
 It lets you write sequential code and short-circuit on the first non-success state.
 
 ```kotlin
@@ -153,7 +153,7 @@ val userSummary: AsyncResult<String> = result {
 
 ### DSL primitives
 
-Inside `result {}` you can use:
+Inside the `result` function you can use:
 
 - `bind()` - Extracts from `Success`, short-circuits on `Error`, `Loading`, or `NotStarted`
 - `error(Throwable)` - Short-circuits with `Error`
