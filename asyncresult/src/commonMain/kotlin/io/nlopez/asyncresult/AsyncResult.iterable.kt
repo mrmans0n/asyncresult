@@ -28,9 +28,47 @@ public inline fun <reified T> Iterable<Error>.metadata(): List<T> = mapNotNull {
   it.metadataOrNull<T>()
 }
 
-/** Returns a list of al the [Throwable]s inside of [Error]s from a list of [AsyncResult] items. */
-public inline fun Iterable<AsyncResult<*>>.getAllThrowables(): List<Throwable> =
+/** Returns a list of all the [Throwable]s inside of [Error]s from a list of [AsyncResult] items. */
+public inline fun Iterable<AsyncResult<*>>.throwables(): List<Throwable> =
     getAllErrors().mapNotNull { it.throwable }
+
+/**
+ * Returns a list of all the [Throwable]s inside of [Error]s from a [Sequence] of [AsyncResult]
+ * items.
+ */
+public inline fun Sequence<AsyncResult<*>>.throwables(): List<Throwable> =
+    filterIsInstance<Error>().mapNotNull { it.throwable }.toList()
+
+/**
+ * Returns a list of all the [Throwable]s inside of [Error]s from an [Array] of [AsyncResult] items.
+ */
+public inline fun Array<out AsyncResult<*>>.throwables(): List<Throwable> =
+    filterIsInstance<Error>().mapNotNull { it.throwable }
+
+/** Returns a list of all the [Throwable]s inside of [Error]s from a list of [AsyncResult] items. */
+@Deprecated("Use throwables() instead", ReplaceWith("throwables()"))
+public inline fun Iterable<AsyncResult<*>>.getAllThrowables(): List<Throwable> = throwables()
+
+/**
+ * Returns a list of [Incomplete] items ([Loading] and [NotStarted]) from a list of [AsyncResult]
+ * items.
+ */
+public inline fun Iterable<AsyncResult<*>>.incompletes(): List<Incomplete> =
+    filterIsInstance<Incomplete>()
+
+/**
+ * Returns a list of [Incomplete] items ([Loading] and [NotStarted]) from a [Sequence] of
+ * [AsyncResult] items.
+ */
+public inline fun Sequence<AsyncResult<*>>.incompletes(): List<Incomplete> =
+    filterIsInstance<Incomplete>().toList()
+
+/**
+ * Returns a list of [Incomplete] items ([Loading] and [NotStarted]) from an [Array] of
+ * [AsyncResult] items.
+ */
+public inline fun Array<out AsyncResult<*>>.incompletes(): List<Incomplete> =
+    filterIsInstance<Incomplete>()
 
 /** Returns true if any of the [AsyncResult] instances are [Loading]. */
 public inline fun Iterable<AsyncResult<*>>.anyLoading(): Boolean = any { it is Loading }

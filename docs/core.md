@@ -220,7 +220,8 @@ Utilities for handling multiple results:
 val results: List<AsyncResult<*>> = listOf(result1, result2, result3)
 
 val errors: List<Error> = results.getAllErrors()
-val throwables: List<Throwable> = results.getAllThrowables()
+val throwables: List<Throwable> = results.throwables()
+val incompletes: List<Incomplete> = results.incompletes()
 val isAnyLoading: Boolean = results.anyLoading()
 val isAnyIncomplete: Boolean = results.anyIncomplete()
 ```
