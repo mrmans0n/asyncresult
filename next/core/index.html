@@ -419,6 +419,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -451,6 +462,28 @@
     <span class="md-ellipsis">
       
         Unwrapping (Rust-style)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative results
       
     </span>
   </a>
@@ -524,6 +557,17 @@
     <span class="md-ellipsis">
       
         Spreading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combining-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining collections
       
     </span>
   </a>
@@ -811,6 +855,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -843,6 +898,28 @@
     <span class="md-ellipsis">
       
         Unwrapping (Rust-style)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative results
       
     </span>
   </a>
@@ -916,6 +993,17 @@
     <span class="md-ellipsis">
       
         Spreading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combining-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining collections
       
     </span>
   </a>
@@ -1049,10 +1137,23 @@
 <li><strong><code>NotStarted</code></strong> - Idle state before an operation begins. Useful for user-initiated actions that haven't started yet.</li>
 <li><strong><code>Loading</code></strong> - The operation is in-flight.</li>
 <li><strong><code>Success&lt;T&gt;</code></strong> - The operation completed successfully, containing the result value.</li>
-<li><strong><code>Error</code></strong> - The operation failed. Can optionally contain a <code>Throwable</code> and typed metadata for context.</li>
+<li><strong><code>Error</code></strong> - The operation failed. Can optionally contain a <code>Throwable</code>, typed metadata, and an <code>ErrorId</code> for tracking.</li>
 <li><strong><code>Incomplete</code></strong> - A marker interface implemented by both <code>NotStarted</code> and <code>Loading</code>, useful for bundling them in exhaustive <code>when</code> statements.</li>
 </ul>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Loading</span>
+
+<span class="c1">// Error with metadata</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ErrorWithMetadata</span><span class="p">(</span><span class="n">NetworkFailure</span><span class="p">(</span><span class="s">&quot;timeout&quot;</span><span class="p">))</span>
+
+<span class="c1">// Error with ID for tracking</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ErrorWithId</span><span class="p">(</span><span class="n">ErrorId</span><span class="p">(</span><span class="s">&quot;req-123&quot;</span><span class="p">))</span>
+
+<span class="c1">// Error with both</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Error</span><span class="p">(</span>
+<span class="w">    </span><span class="n">throwable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IOException</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NetworkFailure</span><span class="p">(</span><span class="s">&quot;timeout&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="n">errorId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ErrorId</span><span class="p">(</span><span class="s">&quot;req-123&quot;</span><span class="p">)</span>
+<span class="p">)</span>
 </code></pre></div>
 <h2 id="transforming-values">Transforming values<a class="headerlink" href="#transforming-values" title="Permanent link">&para;</a></h2>
 <h3 id="mapping">Mapping<a class="headerlink" href="#mapping" title="Permanent link">&para;</a></h3>
@@ -1063,6 +1164,12 @@
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">enrichedResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">mapError</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
 <span class="w">    </span><span class="n">error</span><span class="p">.</span><span class="na">withMetadata</span><span class="p">(</span><span class="n">NetworkFailure</span><span class="p">)</span><span class="w"> </span>
 <span class="p">}</span>
+
+<span class="c1">// Transform both at once</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">transformed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">bimap</span><span class="p">(</span>
+<span class="w">    </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">withMetadata</span><span class="p">(</span><span class="s">&quot;Failed to load&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span>
 </code></pre></div>
 <h3 id="folding">Folding<a class="headerlink" href="#folding" title="Permanent link">&para;</a></h3>
 <p>Generate a value from any state:</p>
@@ -1078,6 +1185,9 @@
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">profile</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">Profile</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userResult</span><span class="p">.</span><span class="na">flatMap</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">-&gt;</span>
 <span class="w">    </span><span class="n">fetchProfile</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">id</span><span class="p">)</span>
 <span class="p">}</span>
+
+<span class="c1">// Unwrap nested AsyncResult</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">unwrapped</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nestedResult</span><span class="p">.</span><span class="na">flatten</span><span class="p">()</span>
 </code></pre></div>
 <p>Use <code>andThen</code> for explicit chaining:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchUser</span><span class="p">().</span><span class="na">andThen</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
@@ -1091,6 +1201,20 @@
 </code></pre></div>
 <p>Handle nullable values:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">nonNull</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nullableResult</span><span class="p">.</span><span class="na">orError</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h3>
+<p>Convert success to error based on predicates:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Convert to error if predicate is true</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">validated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">toErrorIf</span><span class="p">(</span>
+<span class="w">    </span><span class="n">predicate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Error</span><span class="p">(</span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;Must be 18+&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1">// Convert to error unless predicate is true</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">validated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">toErrorUnless</span><span class="p">(</span>
+<span class="w">    </span><span class="n">predicate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">isValid</span><span class="p">()</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Error</span><span class="p">.</span><span class="na">Empty</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span>
 </code></pre></div>
 <h2 id="getting-values">Getting values<a class="headerlink" href="#getting-values" title="Permanent link">&para;</a></h2>
 <p>Extract the underlying value in different ways:</p>
@@ -1106,6 +1230,7 @@
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="p">:</span><span class="w"> </span><span class="n">Error? </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">errorOrNull</span><span class="p">()</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">throwable</span><span class="p">:</span><span class="w"> </span><span class="n">Throwable? </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">throwableOrNull</span><span class="p">()</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">metadata</span><span class="p">:</span><span class="w"> </span><span class="n">MyError? </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">errorWithMetadataOrNull</span><span class="o">&lt;</span><span class="n">MyError</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">errorId</span><span class="p">:</span><span class="w"> </span><span class="n">ErrorId? </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">errorIdOrNull</span><span class="p">()</span>
 </code></pre></div>
 <h2 id="side-effects">Side effects<a class="headerlink" href="#side-effects" title="Permanent link">&para;</a></h2>
 <p>Run code based on the current state:</p>
@@ -1114,7 +1239,7 @@
 <span class="w">    </span><span class="p">.</span><span class="na">onLoading</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showSpinner</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">.</span><span class="na">onSuccess</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">render</span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">.</span><span class="na">onError</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
-<span class="w">    </span><span class="p">.</span><span class="na">onErrorWithMetadata</span><span class="o">&lt;</span><span class="n">R</span><span class="p">,</span><span class="w"> </span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">throwable</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">    </span><span class="p">.</span><span class="na">onErrorWithMetadata</span><span class="o">&lt;</span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">throwable</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
 <span class="w">        </span><span class="n">showNetworkError</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span><span class="w"> </span>
 <span class="w">    </span><span class="p">}</span>
 </code></pre></div>
@@ -1124,10 +1249,40 @@
 <span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="p">:</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">unwrapError</span><span class="p">()</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">throwable</span><span class="p">:</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">unwrapThrowable</span><span class="p">()</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">metadata</span><span class="p">:</span><span class="w"> </span><span class="n">MyError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">unwrapMetadata</span><span class="o">&lt;</span><span class="n">MyError</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">errorId</span><span class="p">:</span><span class="w"> </span><span class="n">ErrorId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">unwrapErrorId</span><span class="p">()</span>
 </code></pre></div>
 <p>With custom error messages:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;User should be loaded by now&quot;</span><span class="w"> </span><span class="p">}</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expectError</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Expected failure&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">throwable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expectThrowable</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Expected throwable&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expectMetadata</span><span class="o">&lt;</span><span class="n">MyError</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Expected metadata&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">errorId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expectErrorId</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Expected error ID&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h2 id="recovery">Recovery<a class="headerlink" href="#recovery" title="Permanent link">&para;</a></h2>
+<p>Convert errors back to success values:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Recover from any error</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">recovered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">recover</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">    </span><span class="n">User</span><span class="p">.</span><span class="na">guest</span><span class="p">()</span><span class="w"> </span>
+<span class="p">}</span>
+
+<span class="c1">// Recover only from specific error types</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">recovered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">recoverIf</span><span class="o">&lt;</span><span class="n">User</span><span class="p">,</span><span class="w"> </span><span class="n">NotFoundError</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">User</span><span class="p">.</span><span class="na">guest</span><span class="p">()</span><span class="w"> </span><span class="c1">// only recovers from NotFoundError</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="alternative-results">Alternative results<a class="headerlink" href="#alternative-results" title="Permanent link">&para;</a></h2>
+<p>Provide fallback results when errors occur:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Eager evaluation</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">primaryResult</span><span class="p">.</span><span class="na">or</span><span class="p">(</span><span class="n">fallbackResult</span><span class="p">)</span>
+
+<span class="c1">// Lazy evaluation</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">primaryResult</span><span class="p">.</span><span class="na">orElse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="na">throwable</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">NetworkException</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fetchFromCache</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Success</span><span class="p">(</span><span class="n">defaultValue</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
 <h2 id="monad-comprehension-dsl-result">Monad comprehension DSL: <code>result { ... }</code><a class="headerlink" href="#monad-comprehension-dsl-result" title="Permanent link">&para;</a></h2>
 <p>AsyncResult includes an inline comprehension DSL inspired by Arrow <a href="https://apidocs.arrow-kt.io/arrow-core/arrow.core.raise/-raise/index.html">Raise</a>.
@@ -1185,20 +1340,45 @@ It lets you write sequential code and short-circuit on the first non-success sta
 <p>Split a result containing a <code>Pair</code> or <code>Triple</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="p">(</span><span class="nv">userResult</span><span class="p">,</span><span class="w"> </span><span class="nv">settingsResult</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pairResult</span><span class="p">.</span><span class="na">spread</span><span class="p">()</span>
 </code></pre></div>
+<h3 id="combining-collections">Combining collections<a class="headerlink" href="#combining-collections" title="Permanent link">&para;</a></h3>
+<p>Convert a list of results into a result of a list:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">results</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Success</span><span class="p">(</span><span class="m">1</span><span class="p">),</span><span class="w"> </span>
+<span class="w">    </span><span class="n">Success</span><span class="p">(</span><span class="m">2</span><span class="p">),</span><span class="w"> </span>
+<span class="w">    </span><span class="n">Success</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">combined</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">combine</span><span class="p">()</span><span class="w"> </span><span class="c1">// Success(listOf(1, 2, 3))</span>
+
+<span class="c1">// Also works as sequence()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">sequenced</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">sequence</span><span class="p">()</span>
+</code></pre></div>
+<p>Behavior:
+- Returns first <code>Error</code> if any result is an error
+- Returns <code>Loading</code> if any result is loading
+- Returns <code>NotStarted</code> if any result is not started
+- Returns <code>Success&lt;List&lt;T&gt;&gt;</code> only if all results are successful</p>
 <h2 id="working-with-collections">Working with collections<a class="headerlink" href="#working-with-collections" title="Permanent link">&para;</a></h2>
 <p>Utilities for handling multiple results:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">results</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="w"> </span><span class="n">result2</span><span class="p">,</span><span class="w"> </span><span class="n">result3</span><span class="p">)</span>
 
+<span class="c1">// Extract specific states</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">errors</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Error</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">errors</span><span class="p">()</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">successes</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">successes</span><span class="p">()</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">throwables</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Throwable</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">throwables</span><span class="p">()</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">incompletes</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Incomplete</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">incompletes</span><span class="p">()</span>
+
+<span class="c1">// Extract typed metadata from errors</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">metadata</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">metadata</span><span class="o">&lt;</span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="p">()</span>
+
+<span class="c1">// Check states</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">isAnyLoading</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">anyLoading</span><span class="p">()</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">isAnyIncomplete</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">anyIncomplete</span><span class="p">()</span>
 </code></pre></div>
 <p>Standalone functions:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">hasError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anyError</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="w"> </span><span class="n">result2</span><span class="p">,</span><span class="w"> </span><span class="n">result3</span><span class="p">)</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">hasLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anyLoading</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="w"> </span><span class="n">result2</span><span class="p">,</span><span class="w"> </span><span class="n">result3</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">hasIncomplete</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anyIncomplete</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="w"> </span><span class="n">result2</span><span class="p">,</span><span class="w"> </span><span class="n">result3</span><span class="p">)</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">errors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">errorsFrom</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="w"> </span><span class="n">result2</span><span class="p">,</span><span class="w"> </span><span class="n">result3</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="flow-helpers">Flow helpers<a class="headerlink" href="#flow-helpers" title="Permanent link">&para;</a></h2>
@@ -1265,19 +1445,28 @@ It lets you write sequential code and short-circuit on the first non-success sta
 <h3 id="timeout">Timeout<a class="headerlink" href="#timeout" title="Permanent link">&para;</a></h3>
 <p>Convert slow operations to errors:</p>
 <div class="highlight"><pre><span></span><code><span class="n">flow</span><span class="p">.</span><span class="na">timeoutToError</span><span class="p">(</span><span class="m">5.</span><span class="n">seconds</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
-<span class="w">    </span><span class="n">TimeoutException</span><span class="p">(</span><span class="s">&quot;Request timed out&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="n">Error</span><span class="p">(</span><span class="n">TimeoutException</span><span class="p">(</span><span class="s">&quot;Request timed out&quot;</span><span class="p">))</span>
 <span class="p">}</span>
 </code></pre></div>
 <p>If no <code>Success</code> or <code>Error</code> is emitted within the timeout, an <code>Error</code> with the provided throwable is emitted.</p>
 <h3 id="retry">Retry<a class="headerlink" href="#retry" title="Permanent link">&para;</a></h3>
 <p>Automatically retry on errors:</p>
-<div class="highlight"><pre><span></span><code><span class="n">flow</span><span class="p">.</span><span class="na">retryOnError</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// Basic retry</span>
+<span class="n">flow</span><span class="p">.</span><span class="na">retryOnError</span><span class="p">(</span>
 <span class="w">    </span><span class="n">maxRetries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
 <span class="w">    </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.</span><span class="n">seconds</span><span class="p">,</span>
 <span class="w">    </span><span class="n">predicate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
 <span class="w">        </span><span class="n">error</span><span class="p">.</span><span class="na">throwable</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">IOException</span><span class="w">  </span><span class="c1">// Only retry network errors</span>
 <span class="w">    </span><span class="p">}</span>
 <span class="p">)</span>
+
+<span class="c1">// Retry based on typed metadata</span>
+<span class="n">flow</span><span class="p">.</span><span class="na">retryOnErrorWithMetadata</span><span class="o">&lt;</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">    </span><span class="n">maxRetries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.</span><span class="n">seconds</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">networkError</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">networkError</span><span class="p">.</span><span class="na">isRetryable</span><span class="w"> </span><span class="c1">// Only retry specific error types</span>
+<span class="p">}</span>
 </code></pre></div>
 <p>The flow will restart from the beginning on each retry attempt.</p>
 
