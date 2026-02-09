@@ -227,6 +227,16 @@ val isAnyLoading: Boolean = results.anyLoading()
 val isAnyIncomplete: Boolean = results.anyIncomplete()
 ```
 
+Extract typed metadata from errors:
+
+```kotlin
+sealed interface ApiError
+data class NotFoundError(val id: String) : ApiError
+
+val results: List<AsyncResult<User>> = listOf(result1, result2)
+val apiErrors: List<NotFoundError> = results.metadata<NotFoundError>()
+```
+
 Standalone functions:
 
 ```kotlin
@@ -234,6 +244,29 @@ val hasError = anyError(result1, result2, result3)
 val hasLoading = anyLoading(result1, result2, result3)
 val errors = errorsFrom(result1, result2, result3)
 ```
+
+### Combining collections
+
+Convert a list of results into a single result containing a list:
+
+```kotlin
+val results = listOf(
+    Success(1),
+    Success(2),
+    Success(3)
+)
+
+val combined: AsyncResult<List<Int>> = results.combine() // Success(listOf(1, 2, 3))
+
+// Also works as sequence()
+val sequenced = results.sequence()
+```
+
+The behavior is:
+- If any item is an `Error`, returns the first error
+- If any item is `Loading`, returns `Loading`
+- If any item is `NotStarted`, returns `NotStarted`
+- If all items are `Success`, returns `Success` with a list of all values
 
 ## Flow helpers
 
@@ -345,3 +378,21 @@ flow.retryOnError(
 ```
 
 The flow will restart from the beginning on each retry attempt.
+
+Retry only for errors with specific metadata types:
+
+```kotlin
+sealed class NetworkError {
+    data class Timeout(val ms: Long) : NetworkError()
+    data class ServerError(val code: Int) : NetworkError()
+}
+
+flow.retryOnErrorWithMetadata<User, NetworkError.Timeout>(
+    maxRetries = 3,
+    delay = 1.seconds
+) { timeout ->
+    timeout.ms < 5000  // Only retry short timeouts
+}
+```
+
+This is useful when you want to retry only for specific error categories while letting other errors propagate immediately.

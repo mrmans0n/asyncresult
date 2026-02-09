@@ -9,7 +9,7 @@ It captures the common states you deal with in UI and data layers:
 - `NotStarted` - The operation hasn't begun yet
 - `Loading` - The operation is in progress
 - `Success` - The operation completed successfully with a value
-- `Error` - The operation failed, optionally with a throwable and metadata
+- `Error` - The operation failed, optionally with a throwable, metadata, and error ID
 
 The library provides a rich set of operators for transforming, combining, and extracting values from these states, making it easy to handle async operations in a type-safe way.
 
@@ -19,15 +19,16 @@ The library provides a rich set of operators for transforming, combining, and ex
 
 The core module contains the type hierarchy and all essential utilities:
 
-- **Transformations** - `mapSuccess`, `mapError`, `flatMap`, `bimap`, `fold`, `orError`, `filterOrError`, `castOrError`
-- **Value extraction** - `getOrNull`, `getOrDefault`, `getOrElse`, `getOrThrow`, `getOrEmpty`
-- **Side effects** - `onSuccess`, `onLoading`, `onError`, `onNotStarted`
-- **Unwrapping** - `unwrap`, `unwrapError`, `expect`, `expectError` (Rust-style extraction)
+- **Transformations** - `mapSuccess`, `mapError`, `flatMap`, `flatten`, `bimap`, `fold`, `orError`, `filterOrError`, `castOrError`
+- **Value extraction** - `getOrNull`, `getOrDefault`, `getOrElse`, `getOrThrow`, `getOrEmpty`, `errorOrNull`, `errorWithMetadataOrNull`, `throwableOrNull`, `errorIdOrNull`
+- **Side effects** - `onSuccess`, `onLoading`, `onError`, `onErrorWithMetadata`, `onNotStarted`
+- **Unwrapping** - `unwrap`, `unwrapError`, `unwrapThrowable`, `unwrapMetadata`, `unwrapErrorId`, `expect`, `expectError`, `expectThrowable`, `expectMetadata`, `expectErrorId` (Rust-style extraction)
 - **Combining** - `zip`, `zipWith`, `and`, `andThen`, `spread`, `combine`, `sequence`
 - **Recovery** - `recover`, `recoverIf`, `or`, `orElse`
 - **Validation** - `toErrorIf`, `toErrorUnless`
-- **Flow helpers** - `asAsyncResult`, `onLoading`, `onSuccess`, `onError`, `skipWhileLoading`, `cacheLatestSuccess`, `timeoutToError`, `retryOnError`
-- **Collection utilities** - `getAllErrors`, `anyLoading`, `anyIncomplete`
+- **Monad DSL** - `result { }` comprehension with `bind()`, `error()`, `loading()`, `ensure()`, `ensureNotNull()`
+- **Flow helpers** - `asAsyncResult`, `onLoading`, `onSuccess`, `onError`, `skipWhileLoading`, `filterNotLoading`, `cacheLatestSuccess`, `timeoutToError`, `retryOnError`, `retryOnErrorWithMetadata`
+- **Collection utilities** - `errors`, `successes`, `throwables`, `incompletes`, `metadata`, `anyLoading`, `anyIncomplete`, `anyError`, `errorsFrom`
 
 ### asyncresult-either
 
