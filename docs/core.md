@@ -9,11 +9,24 @@ The library provides a sealed class hierarchy to represent the different states:
 - **`NotStarted`** - Idle state before an operation begins. Useful for user-initiated actions that haven't started yet.
 - **`Loading`** - The operation is in-flight.
 - **`Success<T>`** - The operation completed successfully, containing the result value.
-- **`Error`** - The operation failed. Can optionally contain a `Throwable` and typed metadata for context.
+- **`Error`** - The operation failed. Can optionally contain a `Throwable`, typed metadata, and an `ErrorId` for tracking.
 - **`Incomplete`** - A marker interface implemented by both `NotStarted` and `Loading`, useful for bundling them in exhaustive `when` statements.
 
 ```kotlin
 val result: AsyncResult<User> = Loading
+
+// Error with metadata
+val error = ErrorWithMetadata(NetworkFailure("timeout"))
+
+// Error with ID for tracking
+val error = ErrorWithId(ErrorId("req-123"))
+
+// Error with both
+val error = Error(
+    throwable = IOException(),
+    metadata = NetworkFailure("timeout"),
+    errorId = ErrorId("req-123")
+)
 ```
 
 ## Transforming values
@@ -32,6 +45,12 @@ Transform errors:
 val enrichedResult = result.mapError { error -> 
     error.withMetadata(NetworkFailure) 
 }
+
+// Transform both at once
+val transformed = result.bimap(
+    success = { it.name },
+    error = { it.withMetadata("Failed to load") }
+)
 ```
 
 ### Folding
@@ -55,6 +74,9 @@ Chain operations that return `AsyncResult`:
 val profile: AsyncResult<Profile> = userResult.flatMap { user ->
     fetchProfile(user.id)
 }
+
+// Unwrap nested AsyncResult
+val unwrapped: AsyncResult<User> = nestedResult.flatten()
 ```
 
 Use `andThen` for explicit chaining:
@@ -80,6 +102,24 @@ Handle nullable values:
 val nonNull: AsyncResult<User> = nullableResult.orError()
 ```
 
+### Validation
+
+Convert success to error based on predicates:
+
+```kotlin
+// Convert to error if predicate is true
+val validated = result.toErrorIf(
+    predicate = { it.age < 18 },
+    error = { Error(IllegalArgumentException("Must be 18+")) }
+)
+
+// Convert to error unless predicate is true
+val validated = result.toErrorUnless(
+    predicate = { it.isValid() },
+    error = { Error.Empty }
+)
+```
+
 ## Getting values
 
 Extract the underlying value in different ways:
@@ -100,6 +140,7 @@ Extract error information:
 val error: Error? = result.errorOrNull()
 val throwable: Throwable? = result.throwableOrNull()
 val metadata: MyError? = result.errorWithMetadataOrNull<MyError>()
+val errorId: ErrorId? = result.errorIdOrNull()
 ```
 
 ## Side effects
@@ -112,7 +153,7 @@ result
     .onLoading { showSpinner() }
     .onSuccess { user -> render(user) }
     .onError { showError(it) }
-    .onErrorWithMetadata<R, NetworkError> { throwable, metadata -> 
+    .onErrorWithMetadata<NetworkError> { throwable, metadata -> 
         showNetworkError(metadata) 
     }
 ```
@@ -126,6 +167,7 @@ val user: User = result.unwrap() // throws UnwrapException if not Success
 val error: Error = result.unwrapError()
 val throwable: Throwable = result.unwrapThrowable()
 val metadata: MyError = result.unwrapMetadata<MyError>()
+val errorId: ErrorId = result.unwrapErrorId()
 ```
 
 With custom error messages:
@@ -133,6 +175,43 @@ With custom error messages:
 ```kotlin
 val user = result.expect { "User should be loaded by now" }
 val error = result.expectError { "Expected failure" }
+val throwable = result.expectThrowable { "Expected throwable" }
+val metadata = result.expectMetadata<MyError> { "Expected metadata" }
+val errorId = result.expectErrorId { "Expected error ID" }
+```
+
+## Recovery
+
+Convert errors back to success values:
+
+```kotlin
+// Recover from any error
+val recovered = result.recover { error -> 
+    User.guest() 
+}
+
+// Recover only from specific error types
+val recovered = result.recoverIf<User, NotFoundError> { error ->
+    User.guest() // only recovers from NotFoundError
+}
+```
+
+## Alternative results
+
+Provide fallback results when errors occur:
+
+```kotlin
+// Eager evaluation
+val result = primaryResult.or(fallbackResult)
+
+// Lazy evaluation
+val result = primaryResult.orElse { error -> 
+    if (error.throwable is NetworkException) {
+        fetchFromCache()
+    } else {
+        Success(defaultValue)
+    }
+}
 ```
 
 ## Monad comprehension DSL: `result { ... }`
@@ -212,6 +291,29 @@ Split a result containing a `Pair` or `Triple`:
 val (userResult, settingsResult) = pairResult.spread()
 ```
 
+### Combining collections
+
+Convert a list of results into a result of a list:
+
+```kotlin
+val results: List<AsyncResult<Int>> = listOf(
+    Success(1), 
+    Success(2), 
+    Success(3)
+)
+
+val combined: AsyncResult<List<Int>> = results.combine() // Success(listOf(1, 2, 3))
+
+// Also works as sequence()
+val sequenced: AsyncResult<List<Int>> = results.sequence()
+```
+
+Behavior:
+- Returns first `Error` if any result is an error
+- Returns `Loading` if any result is loading
+- Returns `NotStarted` if any result is not started
+- Returns `Success<List<T>>` only if all results are successful
+
 ## Working with collections
 
 Utilities for handling multiple results:
@@ -219,10 +321,16 @@ Utilities for handling multiple results:
 ```kotlin
 val results: List<AsyncResult<Int>> = listOf(result1, result2, result3)
 
+// Extract specific states
 val errors: List<Error> = results.errors()
 val successes: List<Int> = results.successes()
 val throwables: List<Throwable> = results.throwables()
 val incompletes: List<Incomplete> = results.incompletes()
+
+// Extract typed metadata from errors
+val metadata: List<NetworkError> = results.metadata<NetworkError>()
+
+// Check states
 val isAnyLoading: Boolean = results.anyLoading()
 val isAnyIncomplete: Boolean = results.anyIncomplete()
 ```
@@ -232,6 +340,7 @@ Standalone functions:
 ```kotlin
 val hasError = anyError(result1, result2, result3)
 val hasLoading = anyLoading(result1, result2, result3)
+val hasIncomplete = anyIncomplete(result1, result2, result3)
 val errors = errorsFrom(result1, result2, result3)
 ```
 
@@ -324,7 +433,7 @@ Convert slow operations to errors:
 
 ```kotlin
 flow.timeoutToError(5.seconds) { 
-    TimeoutException("Request timed out") 
+    Error(TimeoutException("Request timed out"))
 }
 ```
 
@@ -335,6 +444,7 @@ If no `Success` or `Error` is emitted within the timeout, an `Error` with the pr
 Automatically retry on errors:
 
 ```kotlin
+// Basic retry
 flow.retryOnError(
     maxRetries = 3,
     delay = 1.seconds,
@@ -342,6 +452,14 @@ flow.retryOnError(
         error.throwable is IOException  // Only retry network errors
     }
 )
+
+// Retry based on typed metadata
+flow.retryOnErrorWithMetadata<_, NetworkError>(
+    maxRetries = 3,
+    delay = 1.seconds
+) { networkError ->
+    networkError.isRetryable // Only retry specific error types
+}
 ```
 
 The flow will restart from the beginning on each retry attempt.
