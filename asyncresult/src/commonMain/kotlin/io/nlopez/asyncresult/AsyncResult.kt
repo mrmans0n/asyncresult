@@ -81,3 +81,7 @@ public inline val <R> AsyncResult<R>.isIncomplete: Boolean
 /** Returns true if the [AsyncResult] is [Success], false otherwise. */
 public inline val <R> AsyncResult<R>.isSuccess: Boolean
   get() = this is Success
+
+/** Returns true if the [AsyncResult] is [Error], false otherwise. */
+public inline val <R> AsyncResult<R>.isError: Boolean
+  get() = this is Error
