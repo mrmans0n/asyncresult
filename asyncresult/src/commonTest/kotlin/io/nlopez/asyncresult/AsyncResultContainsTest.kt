@@ -44,4 +44,18 @@ class AsyncResultContainsTest {
     assertThat(result.contains(null)).isTrue()
     assertThat(result.contains(42)).isFalse()
   }
+
+  @Test
+  fun `in operator works for Success with matching value`() {
+    val result: AsyncResult<Int> = Success(42)
+    assertThat(42 in result).isTrue()
+    assertThat(99 in result).isFalse()
+  }
+
+  @Test
+  fun `in operator returns false for non-Success states`() {
+    assertThat(42 in (Error() as AsyncResult<Int>)).isFalse()
+    assertThat(42 in (Loading as AsyncResult<Int>)).isFalse()
+    assertThat(42 in (NotStarted as AsyncResult<Int>)).isFalse()
+  }
 }
