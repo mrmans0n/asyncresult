@@ -364,6 +364,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#checking-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking state
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checking state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conditional-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditional checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#transforming-values" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -800,6 +828,34 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#checking-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking state
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checking state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conditional-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditional checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#transforming-values" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1155,6 +1211,31 @@
 <span class="w">    </span><span class="n">errorId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ErrorId</span><span class="p">(</span><span class="s">&quot;req-123&quot;</span><span class="p">)</span>
 <span class="p">)</span>
 </code></pre></div>
+<h2 id="checking-state">Checking state<a class="headerlink" href="#checking-state" title="Permanent link">&para;</a></h2>
+<p>Query the current state of an <code>AsyncResult</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchUser</span><span class="p">()</span>
+
+<span class="c1">// Simple state checks</span>
+<span class="n">result</span><span class="p">.</span><span class="na">isSuccess</span><span class="w">      </span><span class="c1">// true if Success</span>
+<span class="n">result</span><span class="p">.</span><span class="na">isError</span><span class="w">        </span><span class="c1">// true if Error</span>
+<span class="n">result</span><span class="p">.</span><span class="na">isIncomplete</span><span class="w">   </span><span class="c1">// true if Loading or NotStarted</span>
+</code></pre></div>
+<h3 id="conditional-checks">Conditional checks<a class="headerlink" href="#conditional-checks" title="Permanent link">&para;</a></h3>
+<p>Inspired by Rust's <code>is_ok_and</code> and <code>is_err_and</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Check if Success and the value matches a predicate</span>
+<span class="n">result</span><span class="p">.</span><span class="na">isSuccessAnd</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">isAdmin</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// true if Success AND user is admin</span>
+
+<span class="c1">// Check if Success contains a specific value</span>
+<span class="n">result</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">expectedUser</span><span class="p">)</span><span class="w">  </span><span class="c1">// true if Success AND value == expectedUser</span>
+
+<span class="c1">// Check if Error and the throwable matches a predicate</span>
+<span class="n">result</span><span class="p">.</span><span class="na">isErrorAnd</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// true if Error AND throwable is IOException</span>
+
+<span class="c1">// Check if Error with typed metadata matching a predicate</span>
+<span class="n">result</span><span class="p">.</span><span class="na">isErrorWithMetadataAnd</span><span class="o">&lt;</span><span class="n">User</span><span class="p">,</span><span class="w"> </span><span class="n">NetworkFailure</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">throwable</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">metadata</span><span class="o">?.</span><span class="na">isRetryable</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
 <h2 id="transforming-values">Transforming values<a class="headerlink" href="#transforming-values" title="Permanent link">&para;</a></h2>
 <h3 id="mapping">Mapping<a class="headerlink" href="#mapping" title="Permanent link">&para;</a></h3>
 <p>Transform the success value while preserving the result state:</p>
@@ -1237,6 +1318,7 @@
 <div class="highlight"><pre><span></span><code><span class="n">result</span>
 <span class="w">    </span><span class="p">.</span><span class="na">onNotStarted</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showPlaceholder</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">.</span><span class="na">onLoading</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showSpinner</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">onIncomplete</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showPlaceholder</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// runs for both Loading and NotStarted</span>
 <span class="w">    </span><span class="p">.</span><span class="na">onSuccess</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">render</span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">.</span><span class="na">onError</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">.</span><span class="na">onErrorWithMetadata</span><span class="o">&lt;</span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">throwable</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
@@ -1374,6 +1456,9 @@ It lets you write sequential code and short-circuit on the first non-success sta
 <span class="c1">// Check states</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">isAnyLoading</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">anyLoading</span><span class="p">()</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">isAnyIncomplete</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">anyIncomplete</span><span class="p">()</span>
+
+<span class="c1">// Split into successes and errors (incomplete items are ignored)</span>
+<span class="kd">val</span><span class="w"> </span><span class="p">(</span><span class="nv">values</span><span class="p">,</span><span class="w"> </span><span class="nv">errors</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">partition</span><span class="p">()</span>
 </code></pre></div>
 <p>Standalone functions:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">hasError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anyError</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="w"> </span><span class="n">result2</span><span class="p">,</span><span class="w"> </span><span class="n">result3</span><span class="p">)</span>
@@ -1416,6 +1501,7 @@ It lets you write sequential code and short-circuit on the first non-success sta
 <p>Extensions for <code>Flow&lt;AsyncResult&lt;T&gt;&gt;</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="n">flowOf</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 <span class="w">    </span><span class="p">.</span><span class="na">onLoading</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showSpinner</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">onIncomplete</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showPlaceholder</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">.</span><span class="na">onSuccess</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">render</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 <span class="w">    </span><span class="p">.</span><span class="na">onError</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
 </code></pre></div>
