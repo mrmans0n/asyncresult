@@ -20,15 +20,16 @@ The library provides a rich set of operators for transforming, combining, and ex
 The core module contains the type hierarchy and all essential utilities:
 
 - **Transformations** - `mapSuccess`, `mapError`, `flatMap`, `flatten`, `bimap`, `fold`, `orError`, `filterOrError`, `castOrError`
+- **State checks** - `isSuccess`, `isError`, `isIncomplete`, `isSuccessAnd`, `isErrorAnd`, `isErrorWithMetadataAnd`, `contains`
 - **Value extraction** - `getOrNull`, `getOrDefault`, `getOrElse`, `getOrThrow`, `getOrEmpty`, `errorOrNull`, `errorWithMetadataOrNull`, `throwableOrNull`, `errorIdOrNull`
-- **Side effects** - `onSuccess`, `onLoading`, `onError`, `onErrorWithMetadata`, `onNotStarted`
+- **Side effects** - `onSuccess`, `onLoading`, `onError`, `onErrorWithMetadata`, `onNotStarted`, `onIncomplete`
 - **Unwrapping** - `unwrap`, `unwrapError`, `unwrapThrowable`, `unwrapMetadata`, `unwrapErrorId`, `expect`, `expectError`, `expectThrowable`, `expectMetadata`, `expectErrorId` (Rust-style extraction)
 - **Combining** - `zip`, `zipWith`, `and`, `andThen`, `spread`, `combine`, `sequence`
 - **Recovery** - `recover`, `recoverIf`, `or`, `orElse`
 - **Validation** - `toErrorIf`, `toErrorUnless`
 - **Monad DSL** - `result { }` comprehension with `bind()`, `error()`, `loading()`, `ensure()`, `ensureNotNull()`
-- **Flow helpers** - `asAsyncResult`, `onLoading`, `onSuccess`, `onError`, `skipWhileLoading`, `filterNotLoading`, `cacheLatestSuccess`, `timeoutToError`, `retryOnError`, `retryOnErrorWithMetadata`
-- **Collection utilities** - `errors`, `successes`, `throwables`, `incompletes`, `metadata`, `anyLoading`, `anyIncomplete`, `anyError`, `errorsFrom`
+- **Flow helpers** - `asAsyncResult`, `onLoading`, `onSuccess`, `onError`, `onIncomplete`, `skipWhileLoading`, `filterNotLoading`, `cacheLatestSuccess`, `timeoutToError`, `retryOnError`, `retryOnErrorWithMetadata`
+- **Collection utilities** - `errors`, `successes`, `throwables`, `incompletes`, `metadata`, `anyLoading`, `anyIncomplete`, `anyError`, `errorsFrom`, `partition`
 
 ### asyncresult-either
 

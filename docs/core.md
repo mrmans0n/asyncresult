@@ -29,6 +29,39 @@ val error = Error(
 )
 ```
 
+## Checking state
+
+Query the current state of an `AsyncResult`:
+
+```kotlin
+val result: AsyncResult<User> = fetchUser()
+
+// Simple state checks
+result.isSuccess      // true if Success
+result.isError        // true if Error
+result.isIncomplete   // true if Loading or NotStarted
+```
+
+### Conditional checks
+
+Inspired by Rust's `is_ok_and` and `is_err_and`:
+
+```kotlin
+// Check if Success and the value matches a predicate
+result.isSuccessAnd { it.isAdmin }  // true if Success AND user is admin
+
+// Check if Success contains a specific value
+result.contains(expectedUser)  // true if Success AND value == expectedUser
+
+// Check if Error and the throwable matches a predicate
+result.isErrorAnd { it is IOException }  // true if Error AND throwable is IOException
+
+// Check if Error with typed metadata matching a predicate
+result.isErrorWithMetadataAnd<User, NetworkFailure> { throwable, metadata ->
+    metadata?.isRetryable == true
+}
+```
+
 ## Transforming values
 
 ### Mapping
@@ -151,6 +184,7 @@ Run code based on the current state:
 result
     .onNotStarted { showPlaceholder() }
     .onLoading { showSpinner() }
+    .onIncomplete { showPlaceholder() }  // runs for both Loading and NotStarted
     .onSuccess { user -> render(user) }
     .onError { showError(it) }
     .onErrorWithMetadata<NetworkError> { throwable, metadata -> 
@@ -333,6 +367,9 @@ val metadata: List<NetworkError> = results.metadata<NetworkError>()
 // Check states
 val isAnyLoading: Boolean = results.anyLoading()
 val isAnyIncomplete: Boolean = results.anyIncomplete()
+
+// Split into successes and errors (incomplete items are ignored)
+val (values, errors) = results.partition()
 ```
 
 Standalone functions:
@@ -388,6 +425,7 @@ Extensions for `Flow<AsyncResult<T>>`:
 ```kotlin
 flowOf(result)
     .onLoading { showSpinner() }
+    .onIncomplete { showPlaceholder() }
     .onSuccess { render(it) }
     .onError { showError(it) }
 ```
