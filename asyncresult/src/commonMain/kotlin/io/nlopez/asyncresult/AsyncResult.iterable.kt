@@ -193,3 +193,36 @@ public inline fun <T> List<AsyncResult<T>>.sequence(): AsyncResult<List<T>> = co
  * @return A single [AsyncResult] containing the list of all success values, or the first error
  */
 public fun <T> Sequence<AsyncResult<T>>.combine(): AsyncResult<List<T>> = toList().combine()
+
+/**
+ * Partitions a collection of [AsyncResult] items into successful values and errors.
+ *
+ * Incomplete items ([Loading] and [NotStarted]) are ignored.
+ *
+ * @return A [Pair] where the first element is a list of success values and the second is a list of
+ *   errors
+ */
+public inline fun <T> Iterable<AsyncResult<T>>.partition(): Pair<List<T>, List<Error>> =
+    successes() to errors()
+
+/**
+ * Partitions a sequence of [AsyncResult] items into successful values and errors.
+ *
+ * Incomplete items ([Loading] and [NotStarted]) are ignored.
+ *
+ * @return A [Pair] where the first element is a list of success values and the second is a list of
+ *   errors
+ */
+public inline fun <T> Sequence<AsyncResult<T>>.partition(): Pair<List<T>, List<Error>> =
+    successes() to errors()
+
+/**
+ * Partitions an array of [AsyncResult] items into successful values and errors.
+ *
+ * Incomplete items ([Loading] and [NotStarted]) are ignored.
+ *
+ * @return A [Pair] where the first element is a list of success values and the second is a list of
+ *   errors
+ */
+public inline fun <T> Array<out AsyncResult<T>>.partition(): Pair<List<T>, List<Error>> =
+    successes() to errors()
