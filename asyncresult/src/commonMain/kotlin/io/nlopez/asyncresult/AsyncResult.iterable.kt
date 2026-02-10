@@ -202,18 +202,8 @@ public fun <T> Sequence<AsyncResult<T>>.combine(): AsyncResult<List<T>> = toList
  * @return A [Pair] where the first element is a list of success values and the second is a list of
  *   errors
  */
-public inline fun <T> Iterable<AsyncResult<T>>.partition(): Pair<List<T>, List<Error>> {
-  val successes = mutableListOf<T>()
-  val errors = mutableListOf<Error>()
-  for (item in this) {
-    when (item) {
-      is Success -> successes.add(item.value)
-      is Error -> errors.add(item)
-      else -> Unit
-    }
-  }
-  return successes to errors
-}
+public inline fun <T> Iterable<AsyncResult<T>>.partition(): Pair<List<T>, List<Error>> =
+    successes() to errors()
 
 /**
  * Partitions a sequence of [AsyncResult] items into successful values and errors.
@@ -223,18 +213,8 @@ public inline fun <T> Iterable<AsyncResult<T>>.partition(): Pair<List<T>, List<E
  * @return A [Pair] where the first element is a list of success values and the second is a list of
  *   errors
  */
-public inline fun <T> Sequence<AsyncResult<T>>.partition(): Pair<List<T>, List<Error>> {
-  val successes = mutableListOf<T>()
-  val errors = mutableListOf<Error>()
-  for (item in this) {
-    when (item) {
-      is Success -> successes.add(item.value)
-      is Error -> errors.add(item)
-      else -> Unit
-    }
-  }
-  return successes to errors
-}
+public inline fun <T> Sequence<AsyncResult<T>>.partition(): Pair<List<T>, List<Error>> =
+    successes() to errors()
 
 /**
  * Partitions an array of [AsyncResult] items into successful values and errors.
@@ -244,15 +224,5 @@ public inline fun <T> Sequence<AsyncResult<T>>.partition(): Pair<List<T>, List<E
  * @return A [Pair] where the first element is a list of success values and the second is a list of
  *   errors
  */
-public inline fun <T> Array<out AsyncResult<T>>.partition(): Pair<List<T>, List<Error>> {
-  val successes = mutableListOf<T>()
-  val errors = mutableListOf<Error>()
-  for (item in this) {
-    when (item) {
-      is Success -> successes.add(item.value)
-      is Error -> errors.add(item)
-      else -> Unit
-    }
-  }
-  return successes to errors
-}
+public inline fun <T> Array<out AsyncResult<T>>.partition(): Pair<List<T>, List<Error>> =
+    successes() to errors()

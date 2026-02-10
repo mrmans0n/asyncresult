@@ -4,7 +4,5 @@
 
 package io.nlopez.asyncresult
 
-// Equivalent to isSuccessAnd { it == value } (once PR #38 is merged)
 /** Returns true if this [AsyncResult] is a [Success] containing the given [value]. */
-public inline fun <T> AsyncResult<T>.contains(value: T): Boolean =
-    this is Success<T> && this.value == value
+public inline fun <T> AsyncResult<T>.contains(value: T): Boolean = isSuccessAnd { it == value }
