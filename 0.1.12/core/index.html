@@ -1,0 +1,1614 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Kotlin Multiplatform utilities to model asynchronous results">
+      
+      
+        <meta name="author" content="Nacho Lopez">
+      
+      
+        <link rel="canonical" href="https://mrmans0n.github.io/asyncresult/0.1.12/core/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../either/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Core API - AsyncResult</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="red">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#core-api" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="AsyncResult" class="md-header__button md-logo" aria-label="AsyncResult" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            AsyncResult
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Core API
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="deep-orange" data-md-color-accent="red"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="deep-orange" data-md-color-accent="red"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mrmans0n/asyncresult" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    AsyncResult
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="AsyncResult" class="md-nav__button md-logo" aria-label="AsyncResult" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"/></svg>
+
+    </a>
+    AsyncResult
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mrmans0n/asyncresult" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    AsyncResult
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core API
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Core API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking state
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checking state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conditional-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditional checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transforming-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transforming values
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transforming values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#folding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Folding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flatmap-and-chaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FlatMap and chaining
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtering-and-casting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtering and casting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting values
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#side-effects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Side effects
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unwrapping-rust-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unwrapping (Rust-style)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative results
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monad-comprehension-dsl-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monad comprehension DSL: result { ... }
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monad comprehension DSL: result { ... }">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dsl-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DSL primitives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-inline-not-suspend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why inline (not suspend)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combining-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Combining results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zipping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zipping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spreading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spreading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combining-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining collections
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working with collections
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flow helpers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flow helpers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#converting-to-asyncresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting to AsyncResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#side-effects_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Side effects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../either/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Arrow Either
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Testing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    API Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Types
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#checking-state" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking state
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Checking state">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#conditional-checks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conditional checks
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#transforming-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Transforming values
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Transforming values">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mapping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mapping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#folding" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Folding
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flatmap-and-chaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        FlatMap and chaining
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtering-and-casting" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtering and casting
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#validation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Validation
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#getting-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting values
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#side-effects" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Side effects
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#unwrapping-rust-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Unwrapping (Rust-style)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recovery
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Alternative results
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#monad-comprehension-dsl-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monad comprehension DSL: result { ... }
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monad comprehension DSL: result { ... }">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dsl-primitives" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        DSL primitives
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-inline-not-suspend" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why inline (not suspend)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#combining-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining results
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Combining results">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#zipping" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Zipping
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spreading" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Spreading
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combining-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combining collections
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#working-with-collections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Working with collections
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#flow-helpers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Flow helpers
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Flow helpers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#converting-to-asyncresult" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting to AsyncResult
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#side-effects_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Side effects
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#filtering" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Filtering
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#caching" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Caching
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timeout" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Timeout
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#retry" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Retry
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="core-api">Core API<a class="headerlink" href="#core-api" title="Permanent link">&para;</a></h1>
+<p>The <code>asyncresult</code> artifact contains the core types and utilities for modeling asynchronous operations.</p>
+<h2 id="types">Types<a class="headerlink" href="#types" title="Permanent link">&para;</a></h2>
+<p>The library provides a sealed class hierarchy to represent the different states:</p>
+<ul>
+<li><strong><code>NotStarted</code></strong> - Idle state before an operation begins. Useful for user-initiated actions that haven't started yet.</li>
+<li><strong><code>Loading</code></strong> - The operation is in-flight.</li>
+<li><strong><code>Success&lt;T&gt;</code></strong> - The operation completed successfully, containing the result value.</li>
+<li><strong><code>Error</code></strong> - The operation failed. Can optionally contain a <code>Throwable</code>, typed metadata, and an <code>ErrorId</code> for tracking.</li>
+<li><strong><code>Incomplete</code></strong> - A marker interface implemented by both <code>NotStarted</code> and <code>Loading</code>, useful for bundling them in exhaustive <code>when</code> statements.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Loading</span>
+
+<span class="c1">// Error with metadata</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ErrorWithMetadata</span><span class="p">(</span><span class="n">NetworkFailure</span><span class="p">(</span><span class="s">&quot;timeout&quot;</span><span class="p">))</span>
+
+<span class="c1">// Error with ID for tracking</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ErrorWithId</span><span class="p">(</span><span class="n">ErrorId</span><span class="p">(</span><span class="s">&quot;req-123&quot;</span><span class="p">))</span>
+
+<span class="c1">// Error with both</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Error</span><span class="p">(</span>
+<span class="w">    </span><span class="n">throwable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IOException</span><span class="p">(),</span>
+<span class="w">    </span><span class="n">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NetworkFailure</span><span class="p">(</span><span class="s">&quot;timeout&quot;</span><span class="p">),</span>
+<span class="w">    </span><span class="n">errorId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ErrorId</span><span class="p">(</span><span class="s">&quot;req-123&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2 id="checking-state">Checking state<a class="headerlink" href="#checking-state" title="Permanent link">&para;</a></h2>
+<p>Query the current state of an <code>AsyncResult</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchUser</span><span class="p">()</span>
+
+<span class="c1">// Simple state checks</span>
+<span class="n">result</span><span class="p">.</span><span class="na">isSuccess</span><span class="w">      </span><span class="c1">// true if Success</span>
+<span class="n">result</span><span class="p">.</span><span class="na">isError</span><span class="w">        </span><span class="c1">// true if Error</span>
+<span class="n">result</span><span class="p">.</span><span class="na">isIncomplete</span><span class="w">   </span><span class="c1">// true if Loading or NotStarted</span>
+</code></pre></div>
+<h3 id="conditional-checks">Conditional checks<a class="headerlink" href="#conditional-checks" title="Permanent link">&para;</a></h3>
+<p>Inspired by Rust's <code>is_ok_and</code> and <code>is_err_and</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Check if Success and the value matches a predicate</span>
+<span class="n">result</span><span class="p">.</span><span class="na">isSuccessAnd</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">isAdmin</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// true if Success AND user is admin</span>
+
+<span class="c1">// Check if Success contains a specific value</span>
+<span class="n">result</span><span class="p">.</span><span class="na">contains</span><span class="p">(</span><span class="n">expectedUser</span><span class="p">)</span><span class="w">  </span><span class="c1">// true if Success AND value == expectedUser</span>
+
+<span class="c1">// Check if Error and the throwable matches a predicate</span>
+<span class="n">result</span><span class="p">.</span><span class="na">isErrorAnd</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">IOException</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// true if Error AND throwable is IOException</span>
+
+<span class="c1">// Check if Error with typed metadata matching a predicate</span>
+<span class="n">result</span><span class="p">.</span><span class="na">isErrorWithMetadataAnd</span><span class="o">&lt;</span><span class="n">User</span><span class="p">,</span><span class="w"> </span><span class="n">NetworkFailure</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">throwable</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">metadata</span><span class="o">?.</span><span class="na">isRetryable</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">true</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="transforming-values">Transforming values<a class="headerlink" href="#transforming-values" title="Permanent link">&para;</a></h2>
+<h3 id="mapping">Mapping<a class="headerlink" href="#mapping" title="Permanent link">&para;</a></h3>
+<p>Transform the success value while preserving the result state:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">userName</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userResult</span><span class="p">.</span><span class="na">mapSuccess</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Transform errors:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">enrichedResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">mapError</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">    </span><span class="n">error</span><span class="p">.</span><span class="na">withMetadata</span><span class="p">(</span><span class="n">NetworkFailure</span><span class="p">)</span><span class="w"> </span>
+<span class="p">}</span>
+
+<span class="c1">// Transform both at once</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">transformed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">bimap</span><span class="p">(</span>
+<span class="w">    </span><span class="n">success</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">withMetadata</span><span class="p">(</span><span class="s">&quot;Failed to load&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="folding">Folding<a class="headerlink" href="#folding" title="Permanent link">&para;</a></h3>
+<p>Generate a value from any state:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">fold</span><span class="p">(</span>
+<span class="w">    </span><span class="n">ifNotStarted</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Waiting&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">ifLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Loading...&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">ifSuccess</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Hello </span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">name</span><span class="si">}</span><span class="s">&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">ifError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Error: </span><span class="si">${</span><span class="nb">it</span><span class="p">.</span><span class="na">throwable</span><span class="o">?.</span><span class="na">message</span><span class="si">}</span><span class="s">&quot;</span><span class="w"> </span><span class="p">},</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="flatmap-and-chaining">FlatMap and chaining<a class="headerlink" href="#flatmap-and-chaining" title="Permanent link">&para;</a></h3>
+<p>Chain operations that return <code>AsyncResult</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">profile</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">Profile</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userResult</span><span class="p">.</span><span class="na">flatMap</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">fetchProfile</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">id</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Unwrap nested AsyncResult</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">unwrapped</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nestedResult</span><span class="p">.</span><span class="na">flatten</span><span class="p">()</span>
+</code></pre></div>
+<p>Use <code>andThen</code> for explicit chaining:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchUser</span><span class="p">().</span><span class="na">andThen</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">    </span><span class="n">fetchPermissions</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">id</span><span class="p">)</span><span class="w"> </span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="filtering-and-casting">Filtering and casting<a class="headerlink" href="#filtering-and-casting" title="Permanent link">&para;</a></h3>
+<p>Filter values or convert to errors:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">admin</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userResult</span><span class="p">.</span><span class="na">filterOrError</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">isAdmin</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">typed</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">Admin</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">castOrError</span><span class="o">&lt;</span><span class="n">Admin</span><span class="o">&gt;</span><span class="p">()</span>
+</code></pre></div>
+<p>Handle nullable values:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">nonNull</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nullableResult</span><span class="p">.</span><span class="na">orError</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="validation">Validation<a class="headerlink" href="#validation" title="Permanent link">&para;</a></h3>
+<p>Convert success to error based on predicates:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Convert to error if predicate is true</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">validated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">toErrorIf</span><span class="p">(</span>
+<span class="w">    </span><span class="n">predicate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="m">18</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Error</span><span class="p">(</span><span class="n">IllegalArgumentException</span><span class="p">(</span><span class="s">&quot;Must be 18+&quot;</span><span class="p">))</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1">// Convert to error unless predicate is true</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">validated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">toErrorUnless</span><span class="p">(</span>
+<span class="w">    </span><span class="n">predicate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nb">it</span><span class="p">.</span><span class="na">isValid</span><span class="p">()</span><span class="w"> </span><span class="p">},</span>
+<span class="w">    </span><span class="n">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">Error</span><span class="p">.</span><span class="na">Empty</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2 id="getting-values">Getting values<a class="headerlink" href="#getting-values" title="Permanent link">&para;</a></h2>
+<p>Extract the underlying value in different ways:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">User? </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">getOrNull</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">getOrDefault</span><span class="p">(</span><span class="n">defaultUser</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">getOrElse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">fallbackUser</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">getOrThrow</span><span class="p">()</span><span class="w"> </span><span class="c1">// throws if not Success</span>
+
+<span class="c1">// For collections</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">items</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Item</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listResult</span><span class="p">.</span><span class="na">getOrEmpty</span><span class="p">()</span>
+</code></pre></div>
+<p>Extract error information:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="p">:</span><span class="w"> </span><span class="n">Error? </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">errorOrNull</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">throwable</span><span class="p">:</span><span class="w"> </span><span class="n">Throwable? </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">throwableOrNull</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">metadata</span><span class="p">:</span><span class="w"> </span><span class="n">MyError? </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">errorWithMetadataOrNull</span><span class="o">&lt;</span><span class="n">MyError</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">errorId</span><span class="p">:</span><span class="w"> </span><span class="n">ErrorId? </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">errorIdOrNull</span><span class="p">()</span>
+</code></pre></div>
+<h2 id="side-effects">Side effects<a class="headerlink" href="#side-effects" title="Permanent link">&para;</a></h2>
+<p>Run code based on the current state:</p>
+<div class="highlight"><pre><span></span><code><span class="n">result</span>
+<span class="w">    </span><span class="p">.</span><span class="na">onNotStarted</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showPlaceholder</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">onLoading</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showSpinner</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">onIncomplete</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showPlaceholder</span><span class="p">()</span><span class="w"> </span><span class="p">}</span><span class="w">  </span><span class="c1">// runs for both Loading and NotStarted</span>
+<span class="w">    </span><span class="p">.</span><span class="na">onSuccess</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">user</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">render</span><span class="p">(</span><span class="n">user</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">onError</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">onErrorWithMetadata</span><span class="o">&lt;</span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">throwable</span><span class="p">,</span><span class="w"> </span><span class="n">metadata</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">        </span><span class="n">showNetworkError</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<h2 id="unwrapping-rust-style">Unwrapping (Rust-style)<a class="headerlink" href="#unwrapping-rust-style" title="Permanent link">&para;</a></h2>
+<p>For when you're certain about the state and want to extract values directly:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">user</span><span class="p">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">unwrap</span><span class="p">()</span><span class="w"> </span><span class="c1">// throws UnwrapException if not Success</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="p">:</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">unwrapError</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">throwable</span><span class="p">:</span><span class="w"> </span><span class="n">Throwable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">unwrapThrowable</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">metadata</span><span class="p">:</span><span class="w"> </span><span class="n">MyError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">unwrapMetadata</span><span class="o">&lt;</span><span class="n">MyError</span><span class="o">&gt;</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">errorId</span><span class="p">:</span><span class="w"> </span><span class="n">ErrorId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">unwrapErrorId</span><span class="p">()</span>
+</code></pre></div>
+<p>With custom error messages:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;User should be loaded by now&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expectError</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Expected failure&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">throwable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expectThrowable</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Expected throwable&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expectMetadata</span><span class="o">&lt;</span><span class="n">MyError</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Expected metadata&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">errorId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">expectErrorId</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s">&quot;Expected error ID&quot;</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h2 id="recovery">Recovery<a class="headerlink" href="#recovery" title="Permanent link">&para;</a></h2>
+<p>Convert errors back to success values:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Recover from any error</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">recovered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">recover</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">    </span><span class="n">User</span><span class="p">.</span><span class="na">guest</span><span class="p">()</span><span class="w"> </span>
+<span class="p">}</span>
+
+<span class="c1">// Recover only from specific error types</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">recovered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">recoverIf</span><span class="o">&lt;</span><span class="n">User</span><span class="p">,</span><span class="w"> </span><span class="n">NotFoundError</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">User</span><span class="p">.</span><span class="na">guest</span><span class="p">()</span><span class="w"> </span><span class="c1">// only recovers from NotFoundError</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="alternative-results">Alternative results<a class="headerlink" href="#alternative-results" title="Permanent link">&para;</a></h2>
+<p>Provide fallback results when errors occur:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Eager evaluation</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">primaryResult</span><span class="p">.</span><span class="na">or</span><span class="p">(</span><span class="n">fallbackResult</span><span class="p">)</span>
+
+<span class="c1">// Lazy evaluation</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">primaryResult</span><span class="p">.</span><span class="na">orElse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="na">throwable</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">NetworkException</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">fetchFromCache</span><span class="p">()</span>
+<span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="n">Success</span><span class="p">(</span><span class="n">defaultValue</span><span class="p">)</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="monad-comprehension-dsl-result">Monad comprehension DSL: <code>result { ... }</code><a class="headerlink" href="#monad-comprehension-dsl-result" title="Permanent link">&para;</a></h2>
+<p>AsyncResult includes an inline comprehension DSL inspired by Arrow <a href="https://apidocs.arrow-kt.io/arrow-core/arrow.core.raise/-raise/index.html">Raise</a>.
+It lets you write sequential code and short-circuit on the first non-success state.</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">userSummary</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchUser</span><span class="p">().</span><span class="na">bind</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">permissions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchPermissions</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="na">id</span><span class="p">).</span><span class="na">bind</span><span class="p">()</span>
+
+<span class="w">    </span><span class="n">ensure</span><span class="p">(</span><span class="n">permissions</span><span class="p">.</span><span class="na">canViewProfile</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&quot;Unauthorized&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+
+<span class="w">    </span><span class="s">&quot;</span><span class="si">${</span><span class="n">user</span><span class="p">.</span><span class="na">name</span><span class="si">}</span><span class="s"> (</span><span class="si">${</span><span class="n">permissions</span><span class="p">.</span><span class="na">role</span><span class="si">}</span><span class="s">)&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="dsl-primitives">DSL primitives<a class="headerlink" href="#dsl-primitives" title="Permanent link">&para;</a></h3>
+<p>Inside the <code>result</code> function you can use:</p>
+<ul>
+<li><code>bind()</code> - Extracts from <code>Success</code>, short-circuits on <code>Error</code>, <code>Loading</code>, or <code>NotStarted</code></li>
+<li><code>error(Throwable)</code> - Short-circuits with <code>Error</code></li>
+<li><code>loading()</code> - Short-circuits with <code>Loading</code></li>
+<li><code>ensure(condition) { throwable }</code> - Validates a condition or short-circuits with <code>Error</code></li>
+<li><code>ensureNotNull(value) { throwable }</code> - Validates nullability or short-circuits with <code>Error</code></li>
+</ul>
+<h3 id="why-inline-not-suspend">Why <code>inline</code> (not <code>suspend</code>)<a class="headerlink" href="#why-inline-not-suspend" title="Permanent link">&para;</a></h3>
+<p>The builder is intentionally <code>inline</code> and not <code>suspend</code> so it works in both contexts:</p>
+<ul>
+<li>In non-suspend code, you get regular synchronous composition</li>
+<li>In suspend code, the inlined block inherits the caller's suspend context automatically</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="c1">// Non-suspend usage</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">parsed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">parse</span><span class="p">(</span><span class="n">input</span><span class="p">).</span><span class="na">bind</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// Suspend usage</span>
+<span class="kd">suspend</span><span class="w"> </span><span class="kd">fun</span><span class="w"> </span><span class="nf">load</span><span class="p">():</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">Data</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">loadToken</span><span class="p">().</span><span class="na">bind</span><span class="p">()</span>
+<span class="w">    </span><span class="n">api</span><span class="p">.</span><span class="na">fetch</span><span class="p">(</span><span class="n">token</span><span class="p">).</span><span class="na">bind</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="combining-results">Combining results<a class="headerlink" href="#combining-results" title="Permanent link">&para;</a></h2>
+<h3 id="zipping">Zipping<a class="headerlink" href="#zipping" title="Permanent link">&para;</a></h3>
+<p>Combine multiple results into one:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">combined</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">zip</span><span class="p">(</span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">userResult</span><span class="w"> </span><span class="p">},</span><span class="w"> </span>
+<span class="w">    </span><span class="p">{</span><span class="w"> </span><span class="n">permissionsResult</span><span class="w"> </span><span class="p">}</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">permissions</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">UserWithPermissions</span><span class="p">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">permissions</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Or using the <code>zipWith</code> extension:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">combined</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">userResult</span><span class="p">.</span><span class="na">zipWith</span><span class="p">(</span><span class="n">permissionsResult</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">permissions</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">UserWithPermissions</span><span class="p">(</span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">permissions</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Supports up to 4 results.</p>
+<h3 id="spreading">Spreading<a class="headerlink" href="#spreading" title="Permanent link">&para;</a></h3>
+<p>Split a result containing a <code>Pair</code> or <code>Triple</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="p">(</span><span class="nv">userResult</span><span class="p">,</span><span class="w"> </span><span class="nv">settingsResult</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pairResult</span><span class="p">.</span><span class="na">spread</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="combining-collections">Combining collections<a class="headerlink" href="#combining-collections" title="Permanent link">&para;</a></h3>
+<p>Convert a list of results into a result of a list:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">results</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span>
+<span class="w">    </span><span class="n">Success</span><span class="p">(</span><span class="m">1</span><span class="p">),</span><span class="w"> </span>
+<span class="w">    </span><span class="n">Success</span><span class="p">(</span><span class="m">2</span><span class="p">),</span><span class="w"> </span>
+<span class="w">    </span><span class="n">Success</span><span class="p">(</span><span class="m">3</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">combined</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">combine</span><span class="p">()</span><span class="w"> </span><span class="c1">// Success(listOf(1, 2, 3))</span>
+
+<span class="c1">// Also works as sequence()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">sequenced</span><span class="p">:</span><span class="w"> </span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">sequence</span><span class="p">()</span>
+</code></pre></div>
+<p>Behavior:
+- Returns first <code>Error</code> if any result is an error
+- Returns <code>Loading</code> if any result is loading
+- Returns <code>NotStarted</code> if any result is not started
+- Returns <code>Success&lt;List&lt;T&gt;&gt;</code> only if all results are successful</p>
+<h2 id="working-with-collections">Working with collections<a class="headerlink" href="#working-with-collections" title="Permanent link">&para;</a></h2>
+<p>Utilities for handling multiple results:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">results</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="w"> </span><span class="n">result2</span><span class="p">,</span><span class="w"> </span><span class="n">result3</span><span class="p">)</span>
+
+<span class="c1">// Extract specific states</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">errors</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Error</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">errors</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">successes</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">successes</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">throwables</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Throwable</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">throwables</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">incompletes</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Incomplete</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">incompletes</span><span class="p">()</span>
+
+<span class="c1">// Extract typed metadata from errors</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">metadata</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">metadata</span><span class="o">&lt;</span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="p">()</span>
+
+<span class="c1">// Check states</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">isAnyLoading</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">anyLoading</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">isAnyIncomplete</span><span class="p">:</span><span class="w"> </span><span class="kt">Boolean</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">anyIncomplete</span><span class="p">()</span>
+
+<span class="c1">// Split into successes and errors (incomplete items are ignored)</span>
+<span class="kd">val</span><span class="w"> </span><span class="p">(</span><span class="nv">values</span><span class="p">,</span><span class="w"> </span><span class="nv">errors</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">results</span><span class="p">.</span><span class="na">partition</span><span class="p">()</span>
+</code></pre></div>
+<p>Standalone functions:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">hasError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anyError</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="w"> </span><span class="n">result2</span><span class="p">,</span><span class="w"> </span><span class="n">result3</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">hasLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anyLoading</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="w"> </span><span class="n">result2</span><span class="p">,</span><span class="w"> </span><span class="n">result3</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">hasIncomplete</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">anyIncomplete</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="w"> </span><span class="n">result2</span><span class="p">,</span><span class="w"> </span><span class="n">result3</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">errors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">errorsFrom</span><span class="p">(</span><span class="n">result1</span><span class="p">,</span><span class="w"> </span><span class="n">result2</span><span class="p">,</span><span class="w"> </span><span class="n">result3</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="flow-helpers">Flow helpers<a class="headerlink" href="#flow-helpers" title="Permanent link">&para;</a></h2>
+<h3 id="converting-to-asyncresult">Converting to AsyncResult<a class="headerlink" href="#converting-to-asyncresult" title="Permanent link">&para;</a></h3>
+<p>Transform a regular <code>Flow&lt;T&gt;</code> into <code>Flow&lt;AsyncResult&lt;T&gt;&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Basic conversion with automatic loading state</span>
+<span class="n">flowOf</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="m">2</span><span class="p">,</span><span class="w"> </span><span class="m">3</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">asAsyncResult</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="c1">// Emits: Loading, Success(1), Success(2), Success(3)</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="c1">// Without initial loading state</span>
+<span class="n">fetchDataFlow</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">asAsyncResult</span><span class="p">(</span><span class="n">startWithLoading</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="c1">// Emits: Success(data1), Success(data2), ...</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="c1">// Errors are automatically wrapped</span>
+<span class="n">flow</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">emit</span><span class="p">(</span><span class="m">42</span><span class="p">)</span>
+<span class="w">    </span><span class="k">throw</span><span class="w"> </span><span class="n">IOException</span><span class="p">(</span><span class="s">&quot;Network error&quot;</span><span class="p">)</span>
+<span class="p">}.</span><span class="na">asAsyncResult</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="c1">// Emits: Loading, Success(42), Error(IOException)</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>The <code>asAsyncResult()</code> extension:
+- Wraps each emitted value in <code>Success</code>
+- Catches exceptions (except <code>CancellationException</code>) and wraps them in <code>Error</code>
+- Optionally starts with a <code>Loading</code> emission (default: <code>true</code>)
+- Preserves coroutine cancellation by rethrowing <code>CancellationException</code></p>
+<h3 id="side-effects_1">Side effects<a class="headerlink" href="#side-effects_1" title="Permanent link">&para;</a></h3>
+<p>Extensions for <code>Flow&lt;AsyncResult&lt;T&gt;&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="n">flowOf</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="w">    </span><span class="p">.</span><span class="na">onLoading</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showSpinner</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">onIncomplete</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showPlaceholder</span><span class="p">()</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">onSuccess</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">render</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+<span class="w">    </span><span class="p">.</span><span class="na">onError</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">showError</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<p>Extract values from flows:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="p">.</span><span class="na">getOrThrow</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">User? </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="p">.</span><span class="na">getOrNull</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">value</span><span class="p">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="p">.</span><span class="na">getOrElse</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">fallbackUser</span><span class="w"> </span><span class="p">}</span>
+</code></pre></div>
+<h3 id="filtering">Filtering<a class="headerlink" href="#filtering" title="Permanent link">&para;</a></h3>
+<p>Skip loading states entirely:</p>
+<div class="highlight"><pre><span></span><code><span class="n">flow</span><span class="p">.</span><span class="na">skipWhileLoading</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="c1">// Only receives NotStarted, Success, or Error</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="c1">// Alias</span>
+<span class="n">flow</span><span class="p">.</span><span class="na">filterNotLoading</span><span class="p">()</span>
+</code></pre></div>
+<h3 id="caching">Caching<a class="headerlink" href="#caching" title="Permanent link">&para;</a></h3>
+<p>Cache the latest success value and emit it during reloads:</p>
+<div class="highlight"><pre><span></span><code><span class="n">flow</span><span class="p">.</span><span class="na">cacheLatestSuccess</span><span class="p">()</span>
+<span class="w">    </span><span class="p">.</span><span class="na">collect</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">        </span><span class="c1">// During reload: shows cached Success instead of Loading</span>
+<span class="w">    </span><span class="p">}</span>
+</code></pre></div>
+<p>This is useful for "stale-while-revalidate" patterns where you want to show existing data while fetching updates.</p>
+<h3 id="timeout">Timeout<a class="headerlink" href="#timeout" title="Permanent link">&para;</a></h3>
+<p>Convert slow operations to errors:</p>
+<div class="highlight"><pre><span></span><code><span class="n">flow</span><span class="p">.</span><span class="na">timeoutToError</span><span class="p">(</span><span class="m">5.</span><span class="n">seconds</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span>
+<span class="w">    </span><span class="n">Error</span><span class="p">(</span><span class="n">TimeoutException</span><span class="p">(</span><span class="s">&quot;Request timed out&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>If no <code>Success</code> or <code>Error</code> is emitted within the timeout, an <code>Error</code> with the provided throwable is emitted.</p>
+<h3 id="retry">Retry<a class="headerlink" href="#retry" title="Permanent link">&para;</a></h3>
+<p>Automatically retry on errors:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Basic retry</span>
+<span class="n">flow</span><span class="p">.</span><span class="na">retryOnError</span><span class="p">(</span>
+<span class="w">    </span><span class="n">maxRetries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.</span><span class="n">seconds</span><span class="p">,</span>
+<span class="w">    </span><span class="n">predicate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+<span class="w">        </span><span class="n">error</span><span class="p">.</span><span class="na">throwable</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">IOException</span><span class="w">  </span><span class="c1">// Only retry network errors</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1">// Retry based on typed metadata</span>
+<span class="n">flow</span><span class="p">.</span><span class="na">retryOnErrorWithMetadata</span><span class="o">&lt;</span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="p">(</span>
+<span class="w">    </span><span class="n">maxRetries</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3</span><span class="p">,</span>
+<span class="w">    </span><span class="n">delay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">1.</span><span class="n">seconds</span>
+<span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">networkError</span><span class="w"> </span><span class="o">-&gt;</span>
+<span class="w">    </span><span class="n">networkError</span><span class="p">.</span><span class="na">isRetryable</span><span class="w"> </span><span class="c1">// Only retry specific error types</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The flow will restart from the beginning on each retry attempt.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": [], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "latest", "provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
