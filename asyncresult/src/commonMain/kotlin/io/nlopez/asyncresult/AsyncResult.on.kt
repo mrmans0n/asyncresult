@@ -45,3 +45,11 @@ public inline fun <R> AsyncResult<R>.onNotStarted(block: () -> Unit): AsyncResul
   }
   return this
 }
+
+/** Runs the [block] when the result is [Incomplete] ([Loading] or [NotStarted]). */
+public inline fun <R> AsyncResult<R>.onIncomplete(block: () -> Unit): AsyncResult<R> {
+  if (this is Incomplete) {
+    block()
+  }
+  return this
+}

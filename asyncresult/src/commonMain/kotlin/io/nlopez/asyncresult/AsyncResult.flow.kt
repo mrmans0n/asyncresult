@@ -100,6 +100,15 @@ public fun <R> Flow<AsyncResult<R>>.onError(action: suspend (Error) -> Unit): Fl
       if (it is Error) action(it)
     }
 
+/**
+ * It invokes the given [action] **before** each value of the upstream flow is emitted downstream,
+ * **IF** the emitted value is [Incomplete] ([Loading] or [NotStarted]).
+ */
+public fun <R> Flow<AsyncResult<R>>.onIncomplete(action: suspend () -> Unit): Flow<AsyncResult<R>> =
+    onEach {
+      if (it is Incomplete) action()
+    }
+
 @PublishedApi
 internal suspend inline fun <R> Flow<AsyncResult<R>>.firstTerminalResult(): AsyncResult<R> = first {
   it is Success || it is Error
