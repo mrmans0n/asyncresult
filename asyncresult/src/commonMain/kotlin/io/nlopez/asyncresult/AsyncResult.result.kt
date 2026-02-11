@@ -5,16 +5,12 @@
 package io.nlopez.asyncresult
 
 /**
- * Scope for the [result] DSL block. Provides [bind], [error], [loading], [notStarted],
- * [errorWithMetadata], [ensure], and [ensureNotNull] for short-circuit evaluation of
- * [AsyncResult] values.
+ * Scope for the [result] DSL block. Provides [bind], [error], [loading], [notStarted], [ensure],
+ * and [ensureNotNull] for short-circuit evaluation of [AsyncResult] values.
  */
 public interface ResultScope {
   /** Extracts the [Success] value, or short-circuits with the non-success state. */
   public fun <T> AsyncResult<T>.bind(): T
-
-  /** Short-circuits with [Error] wrapping the given [error]. */
-  public fun error(error: Throwable): Nothing
 
   /** Short-circuits with the given [Error] instance. */
   public fun error(error: Error): Nothing
@@ -25,15 +21,20 @@ public interface ResultScope {
   /** Short-circuits with [NotStarted]. */
   public fun notStarted(): Nothing
 
-  /** Short-circuits with an [Error] carrying typed [metadata]. */
-  public fun <T> errorWithMetadata(metadata: T, errorId: ErrorId? = null): Nothing
+  /** Ensures [condition] is true, or short-circuits with the [Error] from [lazyError]. */
+  public fun ensure(condition: Boolean, lazyError: () -> Error)
 
-  /** Ensures [condition] is true, or short-circuits with [Error] from [lazyError]. */
-  public fun ensure(condition: Boolean, lazyError: () -> Throwable)
-
-  /** Ensures [value] is not null, or short-circuits with [Error] from [lazyError]. */
-  public fun <T> ensureNotNull(value: T?, lazyError: () -> Throwable): T
+  /** Ensures [value] is not null, or short-circuits with the [Error] from [lazyError]. */
+  public fun <T> ensureNotNull(value: T?, lazyError: () -> Error): T
 }
+
+/** Short-circuits with [Error] wrapping the given [error] and optional [errorId]. */
+public fun ResultScope.error(error: Throwable, errorId: ErrorId? = null): Nothing =
+    error(Error(error, errorId = errorId))
+
+/** Short-circuits with an [Error] carrying typed [metadata]. */
+public fun <T> ResultScope.errorWithMetadata(metadata: T, errorId: ErrorId? = null): Nothing =
+    error(ErrorWithMetadata(metadata as Any, errorId))
 
 /**
  * Monad comprehension DSL for [AsyncResult].
@@ -81,11 +82,6 @@ internal class ResultScopeImpl : ResultScope {
         }
       }
 
-  override fun error(error: Throwable): Nothing {
-    shortCircuitResult = Error(error)
-    throw ResultShortCircuit()
-  }
-
   override fun error(error: Error): Nothing {
     shortCircuitResult = error
     throw ResultShortCircuit()
@@ -101,19 +97,20 @@ internal class ResultScopeImpl : ResultScope {
     throw ResultShortCircuit()
   }
 
-  override fun <T> errorWithMetadata(metadata: T, errorId: ErrorId?): Nothing {
-    shortCircuitResult = ErrorWithMetadata(metadata as Any, errorId)
-    throw ResultShortCircuit()
-  }
-
-  override fun ensure(condition: Boolean, lazyError: () -> Throwable) {
+  override fun ensure(condition: Boolean, lazyError: () -> Error) {
     if (!condition) {
-      error(lazyError())
+      shortCircuitResult = lazyError()
+      throw ResultShortCircuit()
     }
   }
 
-  override fun <T> ensureNotNull(value: T?, lazyError: () -> Throwable): T =
-      value ?: error(lazyError())
+  override fun <T> ensureNotNull(value: T?, lazyError: () -> Error): T {
+    if (value == null) {
+      shortCircuitResult = lazyError()
+      throw ResultShortCircuit()
+    }
+    return value
+  }
 }
 
 @PublishedApi internal class ResultShortCircuit : Exception()

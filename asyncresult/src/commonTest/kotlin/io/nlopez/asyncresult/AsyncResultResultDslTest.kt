@@ -47,13 +47,6 @@ class AsyncResultResultDslTest {
   }
 
   @Test
-  fun `error short-circuits to Error with given Throwable`() {
-    val throwable = Throwable("boom")
-    val result = result<Int> { error(throwable) }
-    assertThat(result).isEqualTo(Error(throwable))
-  }
-
-  @Test
   fun `error short-circuits with given Error instance`() {
     val throwable = Throwable("boom")
     val errorId = ErrorId("test-error")
@@ -63,12 +56,28 @@ class AsyncResultResultDslTest {
   }
 
   @Test
+  fun `error with Throwable short-circuits to Error`() {
+    val throwable = Throwable("boom")
+    val result = result<Int> { error(throwable) }
+    assertThat(result).isEqualTo(Error(throwable))
+  }
+
+  @Test
+  fun `error with Throwable and errorId short-circuits with both`() {
+    val throwable = Throwable("boom")
+    val errorId = ErrorId("err-123")
+    val result = result<Int> { error(throwable, errorId) }
+    assertThat(result).isEqualTo(Error(throwable, errorId = errorId))
+  }
+
+  @Test
   fun `errorWithMetadata short-circuits with Error containing typed metadata`() {
     data class MyMetadata(val code: Int, val message: String)
+
     val metadata = MyMetadata(404, "Not Found")
     val errorId = ErrorId("not-found")
     val result = result<Int> { errorWithMetadata(metadata, errorId) }
-    
+
     assertThat(result).isEqualTo(ErrorWithMetadata(metadata, errorId))
     assertThat((result as Error).metadataOrNull<MyMetadata>()).isEqualTo(metadata)
     assertThat(result.errorId).isEqualTo(errorId)
@@ -78,7 +87,7 @@ class AsyncResultResultDslTest {
   fun `errorWithMetadata without errorId works`() {
     val metadata = "Simple error"
     val result = result<Int> { errorWithMetadata(metadata) }
-    
+
     assertThat((result as Error).metadataOrNull<String>()).isEqualTo(metadata)
     assertThat(result.errorId).isEqualTo(null)
   }
@@ -86,31 +95,31 @@ class AsyncResultResultDslTest {
   @Test
   fun `ensure true continues and ensure false short-circuits`() {
     val success = result {
-      ensure(condition = true) { IllegalArgumentException("should not happen") }
+      ensure(condition = true) { Error.Empty }
       42
     }
     assertThat(success).isEqualTo(Success(42))
 
-    val throwable = IllegalStateException("invalid")
+    val errorInstance = ErrorWithMetadata("validation failed", ErrorId("val-001"))
     val failure =
         result<Int> {
-          ensure(condition = false) { throwable }
+          ensure(condition = false) { errorInstance }
           42
         }
-    assertThat(failure).isEqualTo(Error(throwable))
+    assertThat(failure).isEqualTo(errorInstance)
   }
 
   @Test
   fun `ensureNotNull returns value and null short-circuits`() {
     val success = result {
-      val value = ensureNotNull("hello") { IllegalStateException("null") }
+      val value = ensureNotNull("hello") { Error.Empty }
       value.length
     }
     assertThat(success).isEqualTo(Success(5))
 
-    val throwable = IllegalStateException("null")
-    val failure = result<Int> { ensureNotNull(null as String?) { throwable }.length }
-    assertThat(failure).isEqualTo(Error(throwable))
+    val errorInstance = ErrorWithMetadata("value is null", ErrorId("null-001"))
+    val failure = result<Int> { ensureNotNull(null as String?) { errorInstance }.length }
+    assertThat(failure).isEqualTo(errorInstance)
   }
 
   @Test
@@ -169,39 +178,5 @@ class AsyncResultResultDslTest {
     }
 
     assertThat(result).isEqualTo(Success(6))
-  }
-
-  @Test
-  fun `notStarted short-circuits to NotStarted`() {
-    val result = result<Int> { notStarted() }
-    assertThat(result).isEqualTo(NotStarted)
-  }
-
-  @Test
-  fun `error with Error instance short-circuits to that Error`() {
-    val throwable = Throwable("boom")
-    val errorId = ErrorId("error-123")
-    val errorInstance = Error(throwable, "custom metadata", errorId)
-    val result = result<Int> { error(errorInstance) }
-    assertThat(result).isEqualTo(errorInstance)
-  }
-
-  @Test
-  fun `errorWithMetadata short-circuits with Error carrying typed metadata`() {
-    data class ErrorData(val code: Int, val message: String)
-    val metadata = ErrorData(404, "Not Found")
-    val errorId = ErrorId("err-404")
-
-    val result = result<Int> { errorWithMetadata(metadata, errorId) }
-
-    assertThat(result).isEqualTo(ErrorWithMetadata(metadata, errorId))
-  }
-
-  @Test
-  fun `errorWithMetadata without errorId short-circuits with Error carrying metadata only`() {
-    val metadata = "Simple error message"
-    val result = result<Int> { errorWithMetadata(metadata) }
-
-    assertThat(result).isEqualTo(ErrorWithMetadata(metadata, null))
   }
 }
