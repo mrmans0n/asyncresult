@@ -41,6 +41,12 @@ class AsyncResultResultDslTest {
   }
 
   @Test
+  fun `notStarted short-circuits to NotStarted`() {
+    val result = result<Int> { notStarted() }
+    assertThat(result).isEqualTo(NotStarted)
+  }
+
+  @Test
   fun `error short-circuits to Error with given Throwable`() {
     val throwable = Throwable("boom")
     val result = result<Int> { error(throwable) }

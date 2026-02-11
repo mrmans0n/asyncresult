@@ -5,8 +5,8 @@
 package io.nlopez.asyncresult
 
 /**
- * Scope for the [result] DSL block. Provides [bind], [error], [loading], [ensure], and
- * [ensureNotNull] for short-circuit evaluation of [AsyncResult] values.
+ * Scope for the [result] DSL block. Provides [bind], [error], [loading], [notStarted], [ensure],
+ * and [ensureNotNull] for short-circuit evaluation of [AsyncResult] values.
  */
 public interface ResultScope {
   /** Extracts the [Success] value, or short-circuits with the non-success state. */
@@ -17,6 +17,9 @@ public interface ResultScope {
 
   /** Short-circuits with [Loading]. */
   public fun loading(): Nothing
+
+  /** Short-circuits with [NotStarted]. */
+  public fun notStarted(): Nothing
 
   /** Ensures [condition] is true, or short-circuits with [Error] from [lazyError]. */
   public fun ensure(condition: Boolean, lazyError: () -> Throwable)
@@ -78,6 +81,11 @@ internal class ResultScopeImpl : ResultScope {
 
   override fun loading(): Nothing {
     shortCircuitResult = Loading
+    throw ResultShortCircuit()
+  }
+
+  override fun notStarted(): Nothing {
+    shortCircuitResult = NotStarted
     throw ResultShortCircuit()
   }
 
