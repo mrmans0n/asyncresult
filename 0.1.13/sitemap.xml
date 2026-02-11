@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://mrmans0n.github.io/asyncresult/0.1.13/</loc>
+         <lastmod>2026-02-11</lastmod>
+    </url>
+    <url>
+         <loc>https://mrmans0n.github.io/asyncresult/0.1.13/core/</loc>
+         <lastmod>2026-02-11</lastmod>
+    </url>
+    <url>
+         <loc>https://mrmans0n.github.io/asyncresult/0.1.13/either/</loc>
+         <lastmod>2026-02-11</lastmod>
+    </url>
+    <url>
+         <loc>https://mrmans0n.github.io/asyncresult/0.1.13/testing/</loc>
+         <lastmod>2026-02-11</lastmod>
+    </url>
+</urlset>
