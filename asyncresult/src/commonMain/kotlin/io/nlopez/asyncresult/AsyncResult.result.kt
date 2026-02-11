@@ -31,8 +31,14 @@ public interface ResultScope {
   /** Ensures [condition] is true, or short-circuits with [Error] from [lazyError]. */
   public fun ensure(condition: Boolean, lazyError: () -> Throwable)
 
+  /** Ensures [condition] is true, or short-circuits with [Error] from [lazyError]. */
+  public fun ensure(condition: Boolean, lazyError: () -> Error)
+
   /** Ensures [value] is not null, or short-circuits with [Error] from [lazyError]. */
   public fun <T> ensureNotNull(value: T?, lazyError: () -> Throwable): T
+
+  /** Ensures [value] is not null, or short-circuits with [Error] from [lazyError]. */
+  public fun <T> ensureNotNull(value: T?, lazyError: () -> Error): T
 }
 
 /**
@@ -112,8 +118,23 @@ internal class ResultScopeImpl : ResultScope {
     }
   }
 
+  override fun ensure(condition: Boolean, lazyError: () -> Error) {
+    if (!condition) {
+      shortCircuitResult = lazyError()
+      throw ResultShortCircuit()
+    }
+  }
+
   override fun <T> ensureNotNull(value: T?, lazyError: () -> Throwable): T =
       value ?: error(lazyError())
+
+  override fun <T> ensureNotNull(value: T?, lazyError: () -> Error): T {
+    if (value == null) {
+      shortCircuitResult = lazyError()
+      throw ResultShortCircuit()
+    }
+    return value
+  }
 }
 
 @PublishedApi internal class ResultShortCircuit : Exception()
