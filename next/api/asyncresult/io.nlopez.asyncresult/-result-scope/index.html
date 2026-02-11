@@ -94,10 +94,10 @@
   <div class="breadcrumbs"><a href="../../index.html">asyncresult</a><span class="delimiter">/</span><a href="../index.html">io.nlopez.asyncresult</a><span class="delimiter">/</span><span class="current">ResultScope</span></div>
   <div class="cover ">
     <h1 class="cover"><span>Result</span><wbr><span><span>Scope</span></span></h1>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">ResultScope</a></div><p class="paragraph">Scope for the <a href="../result.html">result</a> DSL block. Provides <a href="bind.html">bind</a>, <a href="error.html">error</a>, <a href="loading.html">loading</a>, <a href="not-started.html">notStarted</a>, <a href="error-with-metadata.html">errorWithMetadata</a>, <a href="ensure.html">ensure</a>, and <a href="ensure-not-null.html">ensureNotNull</a> for short-circuit evaluation of <a href="../-async-result/index.html">AsyncResult</a> values.</p></div></div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">ResultScope</a></div><p class="paragraph">Scope for the <a href="../result.html">result</a> DSL block. Provides <a href="bind.html">bind</a>, <a href="error.html">error</a>, <a href="loading.html">loading</a>, <a href="not-started.html">notStarted</a>, <a href="ensure.html">ensure</a>, and <a href="ensure-not-null.html">ensureNotNull</a> for short-circuit evaluation of <a href="../-async-result/index.html">AsyncResult</a> values.</p></div></div>
   </div>
   <div class="tabbedcontent">
-    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
     <div class="tabs-section-body">
       <div data-togglable="FUNCTION">
         <h2 class="tableheader">Functions</h2>
@@ -116,62 +116,77 @@
               </div>
             </div>
           </div>
-<a data-name="568438369%2FFunctions%2F-1874162030" anchor-label="ensure" id="568438369%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+<a data-name="-1406280005%2FFunctions%2F-1874162030" anchor-label="ensure" id="-1406280005%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="ensure.html"><span><span>ensure</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="568438369%2FFunctions%2F-1874162030"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1406280005%2FFunctions%2F-1874162030"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="ensure.html"><span class="token function">ensure</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">condition<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">lazyError<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Ensures <a href="ensure.html">condition</a> is true, or short-circuits with <a href="../-error/index.html">Error</a> from <a href="ensure.html">lazyError</a>.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="ensure.html"><span class="token function">ensure</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">condition<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">lazyError<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../-error/index.html">Error</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Ensures <a href="ensure.html">condition</a> is true, or short-circuits with the <a href="../-error/index.html">Error</a> from <a href="ensure.html">lazyError</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-489650849%2FFunctions%2F-1874162030" anchor-label="ensureNotNull" id="-489650849%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+<a data-name="-855679747%2FFunctions%2F-1874162030" anchor-label="ensureNotNull" id="-855679747%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="ensure-not-null.html"><span>ensure</span><wbr><span>Not</span><wbr><span><span>Null</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-489650849%2FFunctions%2F-1874162030"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-855679747%2FFunctions%2F-1874162030"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="ensure-not-null.html">T</a><span class="token operator">&gt; </span><a href="ensure-not-null.html"><span class="token function">ensureNotNull</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="ensure-not-null.html">T</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">lazyError<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="ensure-not-null.html">T</a></div><div class="brief "><p class="paragraph">Ensures <a href="ensure-not-null.html">value</a> is not null, or short-circuits with <a href="../-error/index.html">Error</a> from <a href="ensure-not-null.html">lazyError</a>.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="ensure-not-null.html">T</a><span class="token operator">&gt; </span><a href="ensure-not-null.html"><span class="token function">ensureNotNull</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="ensure-not-null.html">T</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">lazyError<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../-error/index.html">Error</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="ensure-not-null.html">T</a></div><div class="brief "><p class="paragraph">Ensures <a href="ensure-not-null.html">value</a> is not null, or short-circuits with the <a href="../-error/index.html">Error</a> from <a href="ensure-not-null.html">lazyError</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="-501018014%2FFunctions%2F-1874162030" anchor-label="error" id="-501018014%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+<a data-name="-133412724%2FFunctions%2F-1874162030" anchor-label="error" id="-133412724%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
           <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
                   <div><a href="error.html"><span><span>error</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-501018014%2FFunctions%2F-1874162030"></span>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-133412724%2FFunctions%2F-1874162030"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="error.html"><span class="token function">error</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">error<span class="token operator">: </span><a href="../-error/index.html">Error</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-nothing/index.html">Nothing</a></div><div class="brief "><p class="paragraph">Short-circuits with the given <a href="../-error/index.html">Error</a> instance.</p></div><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="error.html"><span class="token function">error</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">error<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-nothing/index.html">Nothing</a></div><div class="brief "><p class="paragraph">Short-circuits with <a href="../-error/index.html">Error</a> wrapping the given <a href="error.html">error</a>.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="error.html"><span class="token function">error</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">error<span class="token operator">: </span><a href="../-error/index.html">Error</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-nothing/index.html">Nothing</a></div><div class="brief "><p class="paragraph">Short-circuits with the given <a href="../-error/index.html">Error</a> instance.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
-<a data-name="1514547582%2FFunctions%2F-1874162030" anchor-label="errorWithMetadata" id="1514547582%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
-          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+<a data-name="-1532089377%2FFunctions%2F-1874162030" anchor-label="error" id="-1532089377%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
             <div class="main-subrow keyValue ">
               <div class=""><span class="inline-flex">
-                  <div><a href="error-with-metadata.html"><span>error</span><wbr><span>With</span><wbr><span><span>Metadata</span></span></a></div>
-<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1514547582%2FFunctions%2F-1874162030"></span>
+                  <div><a href="../error.html"><span><span>error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1532089377%2FFunctions%2F-1874162030"></span>
                     <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
                   </span></span></div>
               <div>
                 <div class="title">
-                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="error-with-metadata.html">T</a><span class="token operator">&gt; </span><a href="error-with-metadata.html"><span class="token function">errorWithMetadata</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">metadata<span class="token operator">: </span><a href="error-with-metadata.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">errorId<span class="token operator">: </span><a href="../-error-id/index.html">ErrorId</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-nothing/index.html">Nothing</a></div><div class="brief "><p class="paragraph">Short-circuits with an <a href="../-error/index.html">Error</a> carrying typed <a href="error-with-metadata.html">metadata</a>.</p></div></div></div>
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><a href="index.html">ResultScope</a><span class="token punctuation">.</span><a href="../error.html"><span class="token function">error</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">error<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token punctuation">, </span></span><span class="parameter ">errorId<span class="token operator">: </span><a href="../-error-id/index.html">ErrorId</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-nothing/index.html">Nothing</a></div><div class="brief "><p class="paragraph">Short-circuits with <a href="../-error/index.html">Error</a> wrapping the given <a href="../error.html">error</a> and optional <a href="../error.html">errorId</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-605465213%2FFunctions%2F-1874162030" anchor-label="errorWithMetadata" id="-605465213%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../error-with-metadata.html"><span>error</span><wbr><span>With</span><wbr><span><span>Metadata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-605465213%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../error-with-metadata.html">T</a><span class="token operator">&gt; </span><a href="index.html">ResultScope</a><span class="token punctuation">.</span><a href="../error-with-metadata.html"><span class="token function">errorWithMetadata</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">metadata<span class="token operator">: </span><a href="../error-with-metadata.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">errorId<span class="token operator">: </span><a href="../-error-id/index.html">ErrorId</a><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-nothing/index.html">Nothing</a></div><div class="brief "><p class="paragraph">Short-circuits with an <a href="../-error/index.html">Error</a> carrying typed <a href="../error-with-metadata.html">metadata</a>.</p></div></div></div>
                 </div>
               </div>
             </div>
