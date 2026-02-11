@@ -5,8 +5,9 @@
 package io.nlopez.asyncresult
 
 /**
- * Scope for the [result] DSL block. Provides [bind], [error], [loading], [notStarted], [ensure],
- * and [ensureNotNull] for short-circuit evaluation of [AsyncResult] values.
+ * Scope for the [result] DSL block. Provides [bind], [error], [loading], [notStarted],
+ * [errorWithMetadata], [ensure], and [ensureNotNull] for short-circuit evaluation of
+ * [AsyncResult] values.
  */
 public interface ResultScope {
   /** Extracts the [Success] value, or short-circuits with the non-success state. */
@@ -15,11 +16,17 @@ public interface ResultScope {
   /** Short-circuits with [Error] wrapping the given [error]. */
   public fun error(error: Throwable): Nothing
 
+  /** Short-circuits with the given [Error] instance. */
+  public fun error(error: Error): Nothing
+
   /** Short-circuits with [Loading]. */
   public fun loading(): Nothing
 
   /** Short-circuits with [NotStarted]. */
   public fun notStarted(): Nothing
+
+  /** Short-circuits with an [Error] carrying typed [metadata]. */
+  public fun <T> errorWithMetadata(metadata: T, errorId: ErrorId? = null): Nothing
 
   /** Ensures [condition] is true, or short-circuits with [Error] from [lazyError]. */
   public fun ensure(condition: Boolean, lazyError: () -> Throwable)
@@ -79,6 +86,11 @@ internal class ResultScopeImpl : ResultScope {
     throw ResultShortCircuit()
   }
 
+  override fun error(error: Error): Nothing {
+    shortCircuitResult = error
+    throw ResultShortCircuit()
+  }
+
   override fun loading(): Nothing {
     shortCircuitResult = Loading
     throw ResultShortCircuit()
@@ -86,6 +98,11 @@ internal class ResultScopeImpl : ResultScope {
 
   override fun notStarted(): Nothing {
     shortCircuitResult = NotStarted
+    throw ResultShortCircuit()
+  }
+
+  override fun <T> errorWithMetadata(metadata: T, errorId: ErrorId?): Nothing {
+    shortCircuitResult = ErrorWithMetadata(metadata as Any, errorId)
     throw ResultShortCircuit()
   }
 
