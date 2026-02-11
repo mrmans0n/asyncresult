@@ -47,7 +47,16 @@ class AsyncResultResultDslTest {
   }
 
   @Test
-  fun `error short-circuits to Error with given Throwable`() {
+  fun `error short-circuits with given Error instance`() {
+    val throwable = Throwable("boom")
+    val errorId = ErrorId("test-error")
+    val errorInstance = Error(throwable, metadata = "metadata", errorId = errorId)
+    val result = result<Int> { error(errorInstance) }
+    assertThat(result).isEqualTo(errorInstance)
+  }
+
+  @Test
+  fun `error with Throwable short-circuits to Error`() {
     val throwable = Throwable("boom")
     val result = result<Int> { error(throwable) }
     assertThat(result).isEqualTo(Error(throwable))
@@ -59,15 +68,6 @@ class AsyncResultResultDslTest {
     val errorId = ErrorId("err-123")
     val result = result<Int> { error(throwable, errorId) }
     assertThat(result).isEqualTo(Error(throwable, errorId = errorId))
-  }
-
-  @Test
-  fun `error short-circuits with given Error instance`() {
-    val throwable = Throwable("boom")
-    val errorId = ErrorId("test-error")
-    val errorInstance = Error(throwable, metadata = "metadata", errorId = errorId)
-    val result = result<Int> { error(errorInstance) }
-    assertThat(result).isEqualTo(errorInstance)
   }
 
   @Test
@@ -95,25 +95,7 @@ class AsyncResultResultDslTest {
   @Test
   fun `ensure true continues and ensure false short-circuits`() {
     val success = result {
-      ensure(condition = true) { IllegalArgumentException("should not happen") }
-      42
-    }
-    assertThat(success).isEqualTo(Success(42))
-
-    val throwable = IllegalStateException("invalid")
-    val failure =
-        result<Int> {
-          ensure(condition = false) { throwable }
-          42
-        }
-    assertThat(failure).isEqualTo(Error(throwable))
-  }
-
-  @Test
-  fun `ensure with Error overload continues when true and short-circuits when false`() {
-    val success = result {
-      val errorProvider: () -> Error = { ErrorWithMetadata("should not happen") }
-      ensure(condition = true, lazyError = errorProvider)
+      ensure(condition = true) { Error.Empty }
       42
     }
     assertThat(success).isEqualTo(Success(42))
@@ -121,8 +103,7 @@ class AsyncResultResultDslTest {
     val errorInstance = ErrorWithMetadata("validation failed", ErrorId("val-001"))
     val failure =
         result<Int> {
-          val errorProvider: () -> Error = { errorInstance }
-          ensure(condition = false, lazyError = errorProvider)
+          ensure(condition = false) { errorInstance }
           42
         }
     assertThat(failure).isEqualTo(errorInstance)
@@ -131,28 +112,13 @@ class AsyncResultResultDslTest {
   @Test
   fun `ensureNotNull returns value and null short-circuits`() {
     val success = result {
-      val value = ensureNotNull("hello") { IllegalStateException("null") }
-      value.length
-    }
-    assertThat(success).isEqualTo(Success(5))
-
-    val throwable = IllegalStateException("null")
-    val failure = result<Int> { ensureNotNull(null as String?) { throwable }.length }
-    assertThat(failure).isEqualTo(Error(throwable))
-  }
-
-  @Test
-  fun `ensureNotNull with Error overload returns value and short-circuits on null`() {
-    val success = result {
-      val errorProvider: () -> Error = { ErrorWithMetadata("null value") }
-      val value = ensureNotNull("hello", lazyError = errorProvider)
+      val value = ensureNotNull("hello") { Error.Empty }
       value.length
     }
     assertThat(success).isEqualTo(Success(5))
 
     val errorInstance = ErrorWithMetadata("value is null", ErrorId("null-001"))
-    val errorProvider: () -> Error = { errorInstance }
-    val failure = result<Int> { ensureNotNull(null as String?, lazyError = errorProvider).length }
+    val failure = result<Int> { ensureNotNull(null as String?) { errorInstance }.length }
     assertThat(failure).isEqualTo(errorInstance)
   }
 
