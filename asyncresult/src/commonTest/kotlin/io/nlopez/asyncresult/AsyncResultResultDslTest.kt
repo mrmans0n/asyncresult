@@ -73,10 +73,11 @@ class AsyncResultResultDslTest {
   @Test
   fun `errorWithMetadata short-circuits with Error containing typed metadata`() {
     data class MyMetadata(val code: Int, val message: String)
+
     val metadata = MyMetadata(404, "Not Found")
     val errorId = ErrorId("not-found")
     val result = result<Int> { errorWithMetadata(metadata, errorId) }
-    
+
     assertThat(result).isEqualTo(ErrorWithMetadata(metadata, errorId))
     assertThat((result as Error).metadataOrNull<MyMetadata>()).isEqualTo(metadata)
     assertThat(result.errorId).isEqualTo(errorId)
@@ -86,7 +87,7 @@ class AsyncResultResultDslTest {
   fun `errorWithMetadata without errorId works`() {
     val metadata = "Simple error"
     val result = result<Int> { errorWithMetadata(metadata) }
-    
+
     assertThat((result as Error).metadataOrNull<String>()).isEqualTo(metadata)
     assertThat(result.errorId).isEqualTo(null)
   }
@@ -109,6 +110,25 @@ class AsyncResultResultDslTest {
   }
 
   @Test
+  fun `ensure with Error overload continues when true and short-circuits when false`() {
+    val success = result {
+      val errorProvider: () -> Error = { ErrorWithMetadata("should not happen") }
+      ensure(condition = true, lazyError = errorProvider)
+      42
+    }
+    assertThat(success).isEqualTo(Success(42))
+
+    val errorInstance = ErrorWithMetadata("validation failed", ErrorId("val-001"))
+    val failure =
+        result<Int> {
+          val errorProvider: () -> Error = { errorInstance }
+          ensure(condition = false, lazyError = errorProvider)
+          42
+        }
+    assertThat(failure).isEqualTo(errorInstance)
+  }
+
+  @Test
   fun `ensureNotNull returns value and null short-circuits`() {
     val success = result {
       val value = ensureNotNull("hello") { IllegalStateException("null") }
@@ -119,6 +139,21 @@ class AsyncResultResultDslTest {
     val throwable = IllegalStateException("null")
     val failure = result<Int> { ensureNotNull(null as String?) { throwable }.length }
     assertThat(failure).isEqualTo(Error(throwable))
+  }
+
+  @Test
+  fun `ensureNotNull with Error overload returns value and short-circuits on null`() {
+    val success = result {
+      val errorProvider: () -> Error = { ErrorWithMetadata("null value") }
+      val value = ensureNotNull("hello", lazyError = errorProvider)
+      value.length
+    }
+    assertThat(success).isEqualTo(Success(5))
+
+    val errorInstance = ErrorWithMetadata("value is null", ErrorId("null-001"))
+    val errorProvider: () -> Error = { errorInstance }
+    val failure = result<Int> { ensureNotNull(null as String?, lazyError = errorProvider).length }
+    assertThat(failure).isEqualTo(errorInstance)
   }
 
   @Test
