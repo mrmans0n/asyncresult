@@ -128,3 +128,18 @@ val either: Either<NetworkError, User> = flow.toEither { error ->
 ```
 
 By default, it attempts to extract the error type from the `Error.metadata`.
+
+## Arrow Raise integration
+
+Use `AsyncResult` inside Arrow's `Raise` context (e.g., `either { }` or `result { }` blocks):
+
+```kotlin
+import io.nlopez.asyncresult.either.bind
+
+val either: Either<Error, User> = either {
+    val user = fetchUser().bind()  // extracts Success or raises Error
+    user
+}
+```
+
+The `Raise<Error>.bind()` extension extracts the value from `Success`, or raises (`shift`) the `Error` for non-success states (`Loading` and `NotStarted` raise `Error.Empty`).

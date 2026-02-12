@@ -27,6 +27,10 @@ val error = Error(
     metadata = NetworkFailure("timeout"),
     errorId = ErrorId("req-123")
 )
+
+// Compose errors with the + operator
+val error = Error(IOException()) + NetworkFailure("timeout") // adds metadata
+val error = Error(IOException()) + ErrorId("req-123")        // adds error ID
 ```
 
 ## Checking state
@@ -317,12 +321,19 @@ val combined = userResult.zipWith(permissionsResult) { user, permissions ->
 
 Supports up to 4 results.
 
-### Spreading
+### Spreading and destructuring
 
 Split a result containing a `Pair` or `Triple`:
 
 ```kotlin
 val (userResult, settingsResult) = pairResult.spread()
+```
+
+You can also destructure directly without calling `spread()`:
+
+```kotlin
+val (first, second) = pairResult            // component1(), component2()
+val (a, b, c) = tripleResult                // component1(), component2(), component3()
 ```
 
 ### Combining collections
