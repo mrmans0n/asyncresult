@@ -1,0 +1,990 @@
+<!doctype html>
+<html class="no-js" lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Success</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js", "js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+      if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      } else {
+        const savedDarkMode = JSON.parse(storage)
+        if (savedDarkMode === true) {
+          document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+      }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/safe-local-storage_blocking.js"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script></head>
+<body>
+<div class="root">
+    <header class="navigation theme-dark" id="navigation-wrapper" role="banner">
+<a class="library-name--link" href="../../../index.html" tabindex="1">
+                    AsyncResult
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.1.14-SNAPSHOT
+        </div>
+        <div class="navigation-controls">
+        <ul class="filter-section filter-section_loading" id="filter-section" aria-label="Target filter">
+                <button class="platform-tag platform-selector common-like" data-active="" aria-pressed="true" data-filter=":asyncresult/commonMain">common</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox" aria-label="Target filter">
+                    <div class="dropdown--header"><span>Target filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close target filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option common-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id=":asyncresult/commonMain" data-filter=":asyncresult/commonMain">
+                                <span class="checkbox--icon"></span>
+                                common
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </ul>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </header>
+    <div id="container">
+        <nav id="leftColumn" class="sidebar" data-item-type="SECTION" data-item-config="{&quot;defaultSize&quot;: 280, &quot;minSize&quot;: 200, &quot;maxSize&quot;: 400}">
+            <a class="toc--skip-link" href="#main">Skip to content</a>
+            <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox" aria-label="Table of contents">
+                    <div class="dropdown--header">
+                            <span>
+                                    AsyncResult
+                            </span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                    <div class="sidebar--inner" id="sideMenu"></div>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </nav>
+        <div id="resizer" class="resizer" data-item-type="BAR"></div>
+        <div id="main" data-item-type="SECTION" role="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="asyncresult::io.nlopez.asyncresult/Success///PointingToDeclaration//-1874162030">
+  <div class="breadcrumbs"><a href="../../index.html">asyncresult</a><span class="delimiter">/</span><a href="../index.html">io.nlopez.asyncresult</a><span class="delimiter">/</span><span class="current">Success</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Success</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="index.html">Success</a><span class="token operator">&lt;</span><span class="token keyword">out </span><a href="index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>value<span class="token operator">: </span><a href="index.html">S</a></span></span><span class="token punctuation">)</span> : <a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="index.html">S</a><span class="token operator">&gt; </span></div><p class="paragraph">A successful request, containing the resulting <a href="../../../asyncresult/io.nlopez.asyncresult/-success/--root--.html">value</a>.</p></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="tableheader">Constructors</h2>
+        <div class="table"><a data-name="-375971120%2FConstructors%2F-1874162030" anchor-label="Success" id="-375971120%2FConstructors%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="CONSTRUCTOR" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-success.html"><span><span>Success</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-375971120%2FConstructors%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="index.html">S</a></span></span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="tableheader">Properties</h2>
+        <div class="table"><a data-name="-298134488%2FProperties%2F-1874162030" anchor-label="isError" id="-298134488%2FProperties%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../is-error.html"><span>is</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-298134488%2FProperties%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><span class="token operator">&lt;</span><a href="../is-error.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../is-error.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../is-error.html">isError</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="../-error/index.html">Error</a>, false otherwise.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1618662576%2FProperties%2F-1874162030" anchor-label="isIncomplete" id="-1618662576%2FProperties%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../is-incomplete.html"><span>is</span><wbr><span><span>Incomplete</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1618662576%2FProperties%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><span class="token operator">&lt;</span><a href="../is-incomplete.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../is-incomplete.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../is-incomplete.html">isIncomplete</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="../-incomplete/index.html">Incomplete</a>, false otherwise.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="652693773%2FProperties%2F-1874162030" anchor-label="isSuccess" id="652693773%2FProperties%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-togglable="EXTENSION_PROPERTY" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../is-success.html"><span>is</span><wbr><span><span>Success</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="652693773%2FProperties%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">val </span><span class="token operator">&lt;</span><a href="../is-success.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../is-success.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../is-success.html">isSuccess</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="index.html">Success</a>, false otherwise.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1043385504%2FProperties%2F-1874162030" anchor-label="value" id="1043385504%2FProperties%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="value.html"><span><span>value</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1043385504%2FProperties%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="value.html">value</a><span class="token operator">: </span><a href="index.html">S</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="EXTENSION_FUNCTION">
+        <h2 class="tableheader">Functions</h2>
+        <div class="table"><a data-name="-1989058707%2FFunctions%2F-1874162030" anchor-label="and" id="-1989058707%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../and.html"><span><span>and</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1989058707%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../and.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../and.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../and.html"><span class="token function">and</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../and.html">R</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../and.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns the <a href="../and.html">result</a> if the receiver is <a href="index.html">Success</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1572879154%2FFunctions%2F-1874162030" anchor-label="andThen" id="-1572879154%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../and-then.html"><span>and</span><wbr><span><span>Then</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1572879154%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../and-then.html">R</a><span class="token punctuation">, </span><a href="../and-then.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../and-then.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../and-then.html"><span class="token function">andThen</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">noinline </span>transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../and-then.html">R</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../and-then.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../and-then.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns the <a href="../and-then.html">transform</a> result value if both the receiver and the transformed value are <a href="index.html">Success</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1213028942%2FFunctions%2F-1874162030" anchor-label="bimap" id="1213028942%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../bimap.html"><span><span>bimap</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1213028942%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../bimap.html">R</a><span class="token punctuation">, </span><a href="../bimap.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../bimap.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../bimap.html"><span class="token function">bimap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">success<span class="token operator">: </span><span class="token punctuation">(</span><a href="../bimap.html">R</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../bimap.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">error<span class="token operator">: </span><span class="token punctuation">(</span><a href="../-error/index.html">Error</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../-error/index.html">Error</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../bimap.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Transforms both <a href="index.html">Success</a> and <a href="../-error/index.html">Error</a> cases simultaneously.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="728079368%2FFunctions%2F-1874162030" anchor-label="castOrError" id="728079368%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../cast-or-error.html"><span>cast</span><wbr><span>Or</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="728079368%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../cast-or-error.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../cast-or-error.html"><span class="token function">castOrError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">noinline </span>lazyMetadata<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../cast-or-error.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Converts the current <a href="../-async-result/index.html">AsyncResult</a> to a <a href="../-async-result/index.html">AsyncResult</a> of type <a href="../cast-or-error.html">R</a> if the current value is of type <a href="../cast-or-error.html">R</a>. If the current value is not of type <a href="../cast-or-error.html">R</a>, it will return an <a href="../-error/index.html">Error</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="271771694%2FFunctions%2F-1874162030" anchor-label="component1" id="271771694%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../component1.html"><span><span>component1</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="271771694%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"component1Pair"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline operator </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../component1.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><a href="../component1.html">T</a><span class="token punctuation">, </span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../component1.html"><span class="token function">component1</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../component1.html">T</a><span class="token operator">&gt;</span></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"component1Triple"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline operator </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../component1.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-triple/index.html">Triple</a><span class="token operator">&lt;</span><a href="../component1.html">T</a><span class="token punctuation">, </span><span class="token operator">*</span><span class="token punctuation">, </span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../component1.html"><span class="token function">component1</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../component1.html">T</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1978848818%2FFunctions%2F-1874162030" anchor-label="component2" id="-1978848818%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../component2.html"><span><span>component2</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1978848818%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"component2Pair"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline operator </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../component2.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="../component2.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../component2.html"><span class="token function">component2</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../component2.html">T</a><span class="token operator">&gt;</span></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"component2Triple"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline operator </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../component2.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-triple/index.html">Triple</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><a href="../component2.html">T</a><span class="token punctuation">, </span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../component2.html"><span class="token function">component2</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../component2.html">T</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1684224611%2FFunctions%2F-1874162030" anchor-label="component3" id="1684224611%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../component3.html"><span><span>component3</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1684224611%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.jvm/-jvm-name/index.html"><span class="token annotation builtin">JvmName</span></a><span class="token punctuation">(</span><span>name<span class="token operator"> = </span><span class="breakable-word"><span class="token string">"component3Triple"</span></span></span><wbr><span class="token punctuation">)</span></div></div><span class="token keyword">inline operator </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../component3.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-triple/index.html">Triple</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token punctuation">, </span><span class="token operator">*</span><span class="token punctuation">, </span><a href="../component3.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../component3.html"><span class="token function">component3</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../component3.html">T</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1422550683%2FFunctions%2F-1874162030" anchor-label="contains" id="-1422550683%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../contains.html"><span><span>contains</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1422550683%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline operator </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../contains.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../contains.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../contains.html"><span class="token function">contains</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="../contains.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if this <a href="../-async-result/index.html">AsyncResult</a> is a <a href="index.html">Success</a> containing the given <a href="../contains.html">value</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-341092519%2FFunctions%2F-1874162030" anchor-label="errorIdOrNull" id="-341092519%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../error-id-or-null.html"><span>error</span><wbr><span>Id</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-341092519%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../error-id-or-null.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../error-id-or-null.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../error-id-or-null.html"><span class="token function">errorIdOrNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-error-id/index.html">ErrorId</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the <a href="../-error-id/index.html">ErrorId</a> if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="../-error/index.html">Error</a> and has an errorId, else returns null.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="338104564%2FFunctions%2F-1874162030" anchor-label="errorOrNull" id="338104564%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../error-or-null.html"><span>error</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="338104564%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../error-or-null.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../error-or-null.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../error-or-null.html"><span class="token function">errorOrNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-error/index.html">Error</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the <a href="../-error/index.html">Error</a> itself if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="../-error/index.html">Error</a> else returns null.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-959928519%2FFunctions%2F-1874162030" anchor-label="errorWithMetadataOrNull" id="-959928519%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../error-with-metadata-or-null.html"><span>error</span><wbr><span>With</span><wbr><span>Metadata</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-959928519%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../error-with-metadata-or-null.html">M</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../error-with-metadata-or-null.html"><span class="token function">errorWithMetadataOrNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../error-with-metadata-or-null.html">M</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the metadata value from the <a href="../-error/index.html">Error</a> if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="../-error/index.html">Error</a>, and has metadata or the requested type.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1256855343%2FFunctions%2F-1874162030" anchor-label="expect" id="-1256855343%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../expect.html"><span><span>expect</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1256855343%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../expect.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../expect.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../expect.html"><span class="token function">expect</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../expect.html">R</a></div><div class="brief "><p class="paragraph">Extracts the value from the <a href="../-async-result/index.html">AsyncResult</a> if it's a <a href="index.html">Success</a>, otherwise throws an <a href="../-unwrap-exception/index.html">UnwrapException</a> with the computed <a href="../expect.html">message</a> in it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="861405891%2FFunctions%2F-1874162030" anchor-label="expectError" id="861405891%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../expect-error.html"><span>expect</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="861405891%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../expect-error.html"><span class="token function">expectError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-error/index.html">Error</a></div><div class="brief "><p class="paragraph">Extracts the value from the <a href="../-async-result/index.html">AsyncResult</a> if it's an <a href="../-error/index.html">Error</a>, otherwise throws an <a href="../-unwrap-exception/index.html">UnwrapException</a> with the computed <a href="../expect-error.html">message</a> in it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1505491992%2FFunctions%2F-1874162030" anchor-label="expectErrorId" id="-1505491992%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../expect-error-id.html"><span>expect</span><wbr><span>Error</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1505491992%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../expect-error-id.html"><span class="token function">expectErrorId</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-error-id/index.html">ErrorId</a></div><div class="brief "><p class="paragraph">Extracts the <a href="../-error-id/index.html">ErrorId</a> from the <a href="../-async-result/index.html">AsyncResult</a> if it's an <a href="../-error/index.html">Error</a> with an <a href="../-error-id/index.html">ErrorId</a>, otherwise throws an <a href="../-unwrap-exception/index.html">UnwrapException</a> with the computed <a href="../expect-error-id.html">message</a> in it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1695027780%2FFunctions%2F-1874162030" anchor-label="expectMetadata" id="-1695027780%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../expect-metadata.html"><span>expect</span><wbr><span><span>Metadata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1695027780%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../expect-metadata.html">M</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../expect-metadata.html"><span class="token function">expectMetadata</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../expect-metadata.html">M</a></div><div class="brief "><p class="paragraph">Extracts the metadata from the <a href="../-async-result/index.html">AsyncResult</a> if it's an <a href="../-error/index.html">Error</a> with the metadata of type <a href="../expect-metadata.html">M</a>, otherwise throws an <a href="../-unwrap-exception/index.html">UnwrapException</a> with the computed <a href="../expect-metadata.html">message</a> in it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-988292469%2FFunctions%2F-1874162030" anchor-label="expectThrowable" id="-988292469%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../expect-throwable.html"><span>expect</span><wbr><span><span>Throwable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-988292469%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../expect-throwable.html"><span class="token function">expectThrowable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">crossinline </span>message<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></div><div class="brief "><p class="paragraph">Extracts the value from the <a href="../-async-result/index.html">AsyncResult</a> if it's an <a href="../-error/index.html">Error</a> with a <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a> in it, otherwise throws an <a href="../-unwrap-exception/index.html">UnwrapException</a> with the computed <a href="../expect-throwable.html">message</a> in it.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="48269%2FFunctions%2F-1874162030" anchor-label="filterOrError" id="48269%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../filter-or-error.html"><span>filter</span><wbr><span>Or</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="48269%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../filter-or-error.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../filter-or-error.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../filter-or-error.html"><span class="token function">filterOrError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">noinline </span>lazyMetadata<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><a href="../filter-or-error.html">R</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../filter-or-error.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns the current <a href="../-async-result/index.html">AsyncResult</a> if it matches the given <a href="../filter-or-error.html">predicate</a>, or an <a href="../-error/index.html">Error</a> if it does not.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2073328033%2FFunctions%2F-1874162030" anchor-label="flatMap" id="-2073328033%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../flat-map.html"><span>flat</span><wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2073328033%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../flat-map.html">R</a><span class="token punctuation">, </span><a href="../flat-map.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../flat-map.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../flat-map.html"><span class="token function">flatMap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../flat-map.html">R</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../flat-map.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../flat-map.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Transforms the current <a href="../-async-result/index.html">AsyncResult</a> to the result of <a href="../flat-map.html">transform</a> if it's a <a href="index.html">Success</a>, based on its contained value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1407114126%2FFunctions%2F-1874162030" anchor-label="flatten" id="1407114126%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../flatten.html"><span><span>flatten</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1407114126%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../flatten.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../flatten.html">R</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../flatten.html"><span class="token function">flatten</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../flatten.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Unwraps the <a href="../-async-result/index.html">AsyncResult</a> inside of the <a href="../-async-result/index.html">AsyncResult</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="477806719%2FFunctions%2F-1874162030" anchor-label="fold" id="477806719%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../fold.html"><span><span>fold</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="477806719%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../fold.html">R</a><span class="token punctuation">, </span><a href="../fold.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../fold.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../fold.html"><span class="token function">fold</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">ifNotStarted<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../fold.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">ifLoading<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../fold.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">ifSuccess<span class="token operator">: </span><span class="token punctuation">(</span><a href="../fold.html">R</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../fold.html">T</a><span class="token punctuation">, </span></span><span class="parameter ">ifError<span class="token operator">: </span><span class="token punctuation">(</span><a href="../-error/index.html">Error</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../fold.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../fold.html">T</a></div><div class="brief "><p class="paragraph">Generates a value of type <a href="../fold.html">T</a> from any state contained in <a href="../-async-result/index.html">AsyncResult</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-393232722%2FFunctions%2F-1874162030" anchor-label="getOrDefault" id="-393232722%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-or-default.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Default</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-393232722%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../get-or-default.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../get-or-default.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../get-or-default.html"><span class="token function">getOrDefault</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">default<span class="token operator">: </span><a href="../get-or-default.html">R</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../get-or-default.html">R</a></div><div class="brief "><p class="paragraph">Returns the value if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="index.html">Success</a> else returns the <a href="../get-or-default.html">default</a> value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-485655968%2FFunctions%2F-1874162030" anchor-label="getOrElse" id="-485655968%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-or-else.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Else</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-485655968%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../get-or-else.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../get-or-else.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../get-or-else.html"><span class="token function">getOrElse</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../get-or-else.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../get-or-else.html">R</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../get-or-else.html">R</a></div><div class="brief "><p class="paragraph">Returns the value if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="index.html">Success</a> else returns the result of the <a href="../get-or-else.html">transform</a> function.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2115871356%2FFunctions%2F-1874162030" anchor-label="getOrEmpty" id="2115871356%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-or-empty.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Empty</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2115871356%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../get-or-empty.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../get-or-empty.html">R</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../get-or-empty.html"><span class="token function">getOrEmpty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../get-or-empty.html">R</a><span class="token operator">&gt;</span></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../get-or-empty.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><a href="../get-or-empty.html">R</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../get-or-empty.html"><span class="token function">getOrEmpty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.sequences/-sequence/index.html">Sequence</a><span class="token operator">&lt;</span><a href="../get-or-empty.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns the value if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="index.html">Success</a> else returns an empty list.</p></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../get-or-empty.html">K</a><span class="token punctuation">, </span><a href="../get-or-empty.html">V</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="../get-or-empty.html">K</a><span class="token punctuation">, </span><a href="../get-or-empty.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../get-or-empty.html"><span class="token function">getOrEmpty</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="../get-or-empty.html">K</a><span class="token punctuation">, </span><a href="../get-or-empty.html">V</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns the value if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="index.html">Success</a> else returns an empty map.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="866325286%2FFunctions%2F-1874162030" anchor-label="getOrNull" id="866325286%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-or-null.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="866325286%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../get-or-null.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../get-or-null.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../get-or-null.html"><span class="token function">getOrNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../get-or-null.html">R</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the value if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="index.html">Success</a> else returns null.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1012281867%2FFunctions%2F-1874162030" anchor-label="getOrThrow" id="1012281867%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../get-or-throw.html"><span>get</span><wbr><span>Or</span><wbr><span><span>Throw</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1012281867%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../get-or-throw.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../get-or-throw.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../get-or-throw.html"><span class="token function">getOrThrow</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../get-or-throw.html">R</a></div><div class="brief "><p class="paragraph">Returns the value if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="index.html">Success</a> else returns null.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2113555572%2FFunctions%2F-1874162030" anchor-label="isErrorAnd" id="-2113555572%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../is-error-and.html"><span>is</span><wbr><span>Error</span><wbr><span><span>And</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2113555572%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../is-error-and.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../is-error-and.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../is-error-and.html"><span class="token function">isErrorAnd</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="../-error/index.html">Error</a> and the <a href="../is-error-and.html">predicate</a> returns true for the throwable.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="91755503%2FFunctions%2F-1874162030" anchor-label="isErrorWithMetadataAnd" id="91755503%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../is-error-with-metadata-and.html"><span>is</span><wbr><span>Error</span><wbr><span>With</span><wbr><span>Metadata</span><wbr><span><span>And</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="91755503%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../is-error-with-metadata-and.html">T</a><span class="token punctuation">, </span><a href="../is-error-with-metadata-and.html">E</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../is-error-with-metadata-and.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../is-error-with-metadata-and.html"><span class="token function">isErrorWithMetadataAnd</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token punctuation">, </span><a href="../is-error-with-metadata-and.html">E</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="../-error/index.html">Error</a> and the <a href="../is-error-with-metadata-and.html">predicate</a> returns true for the throwable and metadata.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-376769233%2FFunctions%2F-1874162030" anchor-label="isSuccessAnd" id="-376769233%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../is-success-and.html"><span>is</span><wbr><span>Success</span><wbr><span><span>And</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-376769233%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../is-success-and.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../is-success-and.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../is-success-and.html"><span class="token function">isSuccessAnd</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><a href="../is-success-and.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns true if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="index.html">Success</a> and the <a href="../is-success-and.html">predicate</a> returns true for the success value.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1202406776%2FFunctions%2F-1874162030" anchor-label="map" id="1202406776%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map.html"><span><span>map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1202406776%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../map.html">R</a><span class="token punctuation">, </span><a href="../map.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../map.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../map.html"><span class="token function">map</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../map.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../map.html">T</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../map.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Transforms the current <a href="../-async-result/index.html">AsyncResult</a> to the result of <a href="../map.html">transform</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1127824704%2FFunctions%2F-1874162030" anchor-label="mapError" id="1127824704%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map-error.html"><span>map</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1127824704%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../map-error.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../map-error.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../map-error.html"><span class="token function">mapError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../-error/index.html">Error</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../-error/index.html">Error</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../map-error.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Transforms the <a href="../-error/index.html">Error</a> value, if any, via <a href="../map-error.html">transform</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1331020927%2FFunctions%2F-1874162030" anchor-label="mapSuccess" id="-1331020927%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../map-success.html"><span>map</span><wbr><span><span>Success</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1331020927%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../map-success.html">R</a><span class="token punctuation">, </span><a href="../map-success.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../map-success.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../map-success.html"><span class="token function">mapSuccess</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../map-success.html">R</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../map-success.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../map-success.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Transforms the <a href="index.html">Success</a> value via <a href="../map-success.html">transform</a>. The <a href="../-async-result/index.html">AsyncResult</a> will change its containing type accordingly.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1986590518%2FFunctions%2F-1874162030" anchor-label="onError" id="-1986590518%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-error.html"><span>on</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1986590518%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../on-error.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../on-error.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../on-error.html"><span class="token function">onError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../on-error.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Runs the <a href="../on-error.html">block</a> when the result is <a href="../-error/index.html">Error</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-513579719%2FFunctions%2F-1874162030" anchor-label="onErrorWithMetadata" id="-513579719%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-error-with-metadata.html"><span>on</span><wbr><span>Error</span><wbr><span>With</span><wbr><span><span>Metadata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-513579719%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../on-error-with-metadata.html">R</a><span class="token punctuation">, </span><a href="../on-error-with-metadata.html">M</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../on-error-with-metadata.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../on-error-with-metadata.html"><span class="token function">onErrorWithMetadata</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token punctuation">(</span>throwable<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span><span class="token punctuation">, </span>metadata<span class="token operator">: </span><a href="../on-error-with-metadata.html">M</a><span class="token operator">?</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../on-error-with-metadata.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Runs the <a href="../on-error-with-metadata.html">block</a> when the result is <a href="../-error/index.html">Error</a> and has metadata of type <a href="../on-error-with-metadata.html">M</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="300870123%2FFunctions%2F-1874162030" anchor-label="onIncomplete" id="300870123%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-incomplete.html"><span>on</span><wbr><span><span>Incomplete</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="300870123%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../on-incomplete.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../on-incomplete.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../on-incomplete.html"><span class="token function">onIncomplete</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../on-incomplete.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Runs the <a href="../on-incomplete.html">block</a> when the result is <a href="../-incomplete/index.html">Incomplete</a> (<a href="../-loading/index.html">Loading</a> or <a href="../-not-started/index.html">NotStarted</a>).</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="308838589%2FFunctions%2F-1874162030" anchor-label="onLoading" id="308838589%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-loading.html"><span>on</span><wbr><span><span>Loading</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="308838589%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../on-loading.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../on-loading.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../on-loading.html"><span class="token function">onLoading</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../on-loading.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Runs the <a href="../on-loading.html">block</a> when the result is <a href="../-loading/index.html">Loading</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="797072059%2FFunctions%2F-1874162030" anchor-label="onNotStarted" id="797072059%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-not-started.html"><span>on</span><wbr><span>Not</span><wbr><span><span>Started</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="797072059%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../on-not-started.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../on-not-started.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../on-not-started.html"><span class="token function">onNotStarted</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../on-not-started.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Runs the <a href="../on-not-started.html">block</a> when the result is <a href="../-not-started/index.html">NotStarted</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1243008995%2FFunctions%2F-1874162030" anchor-label="onSuccess" id="-1243008995%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../on-success.html"><span>on</span><wbr><span><span>Success</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1243008995%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../on-success.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../on-success.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../on-success.html"><span class="token function">onSuccess</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><span class="token punctuation">(</span><a href="../on-success.html">R</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../on-success.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Runs the <a href="../on-success.html">block</a> when the value is <a href="index.html">Success</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-642958669%2FFunctions%2F-1874162030" anchor-label="or" id="-642958669%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../or.html"><span><span>or</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-642958669%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../or.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../or.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../or.html"><span class="token function">or</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../or.html">R</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../or.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns <a href="../or.html">other</a> if this is an <a href="../-error/index.html">Error</a>, otherwise returns this unchanged.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1385147611%2FFunctions%2F-1874162030" anchor-label="orElse" id="1385147611%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../or-else.html"><span>or</span><wbr><span><span>Else</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1385147611%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../or-else.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../or-else.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../or-else.html"><span class="token function">orElse</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../-error/index.html">Error</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../or-else.html">R</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../or-else.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Returns the result of <a href="../or-else.html">transform</a> if this is an <a href="../-error/index.html">Error</a>, otherwise returns this unchanged.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1093727300%2FFunctions%2F-1874162030" anchor-label="orError" id="1093727300%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../or-error.html"><span>or</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1093727300%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../or-error.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../or-error.html">R</a><span class="token operator">?</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../or-error.html"><span class="token function">orError</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">noinline </span>lazyMetadata<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">?</span><span class="token operator">?</span><span class="token operator"> = </span>null</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../or-error.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Transforms the type of <a href="../-async-result/index.html">AsyncResult</a> from nullable to non-nullable. If the value is null, it will return an <a href="../-error/index.html">Error</a>. It also allows adding specific metadata to disambiguate errors if necessary, via <a href="../or-error.html">lazyMetadata</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="666316525%2FFunctions%2F-1874162030" anchor-label="recover" id="666316525%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../recover.html"><span><span>recover</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="666316525%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../recover.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../recover.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../recover.html"><span class="token function">recover</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../-error/index.html">Error</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../recover.html">R</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../recover.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Converts an <a href="../-error/index.html">Error</a> to a <a href="index.html">Success</a> by applying <a href="../recover.html">transform</a> to the error.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="996503682%2FFunctions%2F-1874162030" anchor-label="recoverIf" id="996503682%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../recover-if.html"><span>recover</span><wbr><span><span>If</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="996503682%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../recover-if.html">R</a><span class="token punctuation">, </span><a href="../recover-if.html">E</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../recover-if.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../recover-if.html"><span class="token function">recoverIf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../recover-if.html">E</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../recover-if.html">R</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../recover-if.html">R</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Converts an <a href="../-error/index.html">Error</a> to a <a href="index.html">Success</a> only if the error metadata matches type <a href="../recover-if.html">E</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2114067480%2FFunctions%2F-1874162030" anchor-label="spread" id="-2114067480%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../spread.html"><span><span>spread</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2114067480%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../spread.html">A</a><span class="token punctuation">, </span><a href="../spread.html">B</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><a href="../spread.html">A</a><span class="token punctuation">, </span><a href="../spread.html">B</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../spread.html"><span class="token function">spread</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-pair/index.html">Pair</a><span class="token operator">&lt;</span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../spread.html">A</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../spread.html">B</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Spreads a <a href="../-async-result/index.html">AsyncResult</a> of a <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-pair/index.html">Pair</a> into a <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-pair/index.html">Pair</a> of <a href="../-async-result/index.html">AsyncResult</a>s.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../spread.html">A</a><span class="token punctuation">, </span><a href="../spread.html">B</a><span class="token punctuation">, </span><a href="../spread.html">C</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-triple/index.html">Triple</a><span class="token operator">&lt;</span><a href="../spread.html">A</a><span class="token punctuation">, </span><a href="../spread.html">B</a><span class="token punctuation">, </span><a href="../spread.html">C</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../spread.html"><span class="token function">spread</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-triple/index.html">Triple</a><span class="token operator">&lt;</span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../spread.html">A</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../spread.html">B</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../spread.html">C</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Spreads a <a href="../-async-result/index.html">AsyncResult</a> of a <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-triple/index.html">Triple</a> into a <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-triple/index.html">Triple</a> of <a href="../-async-result/index.html">AsyncResult</a>s.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="96175420%2FFunctions%2F-1874162030" anchor-label="throwableOrNull" id="96175420%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../throwable-or-null.html"><span>throwable</span><wbr><span>Or</span><wbr><span><span>Null</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="96175420%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../throwable-or-null.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../throwable-or-null.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../throwable-or-null.html"><span class="token function">throwableOrNull</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a><span class="token operator">?</span></div><div class="brief "><p class="paragraph">Returns the throwable if the <a href="../-async-result/index.html">AsyncResult</a> is <a href="../-error/index.html">Error</a> else returns null.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1911223425%2FFunctions%2F-1874162030" anchor-label="toErrorIf" id="1911223425%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../to-error-if.html"><span>to</span><wbr><span>Error</span><wbr><span><span>If</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1911223425%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../to-error-if.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../to-error-if.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../to-error-if.html"><span class="token function">toErrorIf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><a href="../to-error-if.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">error<span class="token operator">: </span><span class="token punctuation">(</span><a href="../to-error-if.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../-error/index.html">Error</a><span class="token operator"> = </span>{ Error.Empty }</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../to-error-if.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Converts a <a href="index.html">Success</a> to an <a href="../-error/index.html">Error</a> if the <a href="../to-error-if.html">predicate</a> returns true for the success value. Other states (<a href="../-loading/index.html">Loading</a>, <a href="../-not-started/index.html">NotStarted</a>, <a href="../-error/index.html">Error</a>) are returned unchanged.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-105108340%2FFunctions%2F-1874162030" anchor-label="toErrorUnless" id="-105108340%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../to-error-unless.html"><span>to</span><wbr><span>Error</span><wbr><span><span>Unless</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-105108340%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../to-error-unless.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../to-error-unless.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../to-error-unless.html"><span class="token function">toErrorUnless</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">predicate<span class="token operator">: </span><span class="token punctuation">(</span><a href="../to-error-unless.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">error<span class="token operator">: </span><span class="token punctuation">(</span><a href="../to-error-unless.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../-error/index.html">Error</a><span class="token operator"> = </span>{ Error.Empty }</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../to-error-unless.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Converts a <a href="index.html">Success</a> to an <a href="../-error/index.html">Error</a> if the <a href="../to-error-unless.html">predicate</a> returns false for the success value. This is the inverse of <a href="../to-error-if.html">toErrorIf</a>. Other states (<a href="../-loading/index.html">Loading</a>, <a href="../-not-started/index.html">NotStarted</a>, <a href="../-error/index.html">Error</a>) are returned unchanged.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-545382155%2FFunctions%2F-1874162030" anchor-label="unwrap" id="-545382155%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../unwrap.html"><span><span>unwrap</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-545382155%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../unwrap.html">R</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../unwrap.html">R</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../unwrap.html"><span class="token function">unwrap</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../unwrap.html">R</a></div><div class="brief "><p class="paragraph">Extracts the value from the <a href="../-async-result/index.html">AsyncResult</a> if it's a <a href="index.html">Success</a>, otherwise throws an <a href="../-unwrap-exception/index.html">UnwrapException</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1107997115%2FFunctions%2F-1874162030" anchor-label="unwrapError" id="1107997115%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../unwrap-error.html"><span>unwrap</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1107997115%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../unwrap-error.html"><span class="token function">unwrapError</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-error/index.html">Error</a></div><div class="brief "><p class="paragraph">Extracts the value from the <a href="../-async-result/index.html">AsyncResult</a> if it's an <a href="../-error/index.html">Error</a>, otherwise throws an <a href="../-unwrap-exception/index.html">UnwrapException</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1964199456%2FFunctions%2F-1874162030" anchor-label="unwrapErrorId" id="-1964199456%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../unwrap-error-id.html"><span>unwrap</span><wbr><span>Error</span><wbr><span><span>Id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1964199456%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../unwrap-error-id.html"><span class="token function">unwrapErrorId</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-error-id/index.html">ErrorId</a></div><div class="brief "><p class="paragraph">Extracts the <a href="../-error-id/index.html">ErrorId</a> from the <a href="../-async-result/index.html">AsyncResult</a> if it's an <a href="../-error/index.html">Error</a> with an <a href="../-error-id/index.html">ErrorId</a>, otherwise throws an <a href="../-unwrap-exception/index.html">UnwrapException</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-336736032%2FFunctions%2F-1874162030" anchor-label="unwrapMetadata" id="-336736032%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../unwrap-metadata.html"><span>unwrap</span><wbr><span><span>Metadata</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-336736032%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../unwrap-metadata.html">M</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../unwrap-metadata.html"><span class="token function">unwrapMetadata</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../unwrap-metadata.html">M</a></div><div class="brief "><p class="paragraph">Extracts the metadata from the <a href="../-async-result/index.html">AsyncResult</a> if it's an <a href="../-error/index.html">Error</a> with metadata of type <a href="../unwrap-metadata.html">M</a>, otherwise throws an <a href="../-unwrap-exception/index.html">UnwrapException</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1279373443%2FFunctions%2F-1874162030" anchor-label="unwrapThrowable" id="1279373443%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../unwrap-throwable.html"><span>unwrap</span><wbr><span><span>Throwable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1279373443%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../unwrap-throwable.html"><span class="token function">unwrapThrowable</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a></div><div class="brief "><p class="paragraph">Extracts the value from the <a href="../-async-result/index.html">AsyncResult</a> if it's an <a href="../-error/index.html">Error</a> with a <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-throwable/index.html">Throwable</a>, otherwise throws an <a href="../-unwrap-exception/index.html">UnwrapException</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1319508255%2FFunctions%2F-1874162030" anchor-label="zipWith" id="-1319508255%2FFunctions%2F-1874162030" data-filterable-set=":asyncresult/commonMain"></a>
+          <div class="table-row table-row_content" data-filterable-current=":asyncresult/commonMain" data-filterable-set=":asyncresult/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../zip-with.html"><span>zip</span><wbr><span><span>With</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1319508255%2FFunctions%2F-1874162030"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":asyncresult/commonMain"><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../zip-with.html">R1</a><span class="token punctuation">, </span><a href="../zip-with.html">R2</a><span class="token punctuation">, </span><a href="../zip-with.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../zip-with.html">R1</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../zip-with.html"><span class="token function">zipWith</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../zip-with.html">R2</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">crossinline </span>transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../zip-with.html">R1</a><span class="token punctuation">, </span><a href="../zip-with.html">R2</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../zip-with.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../zip-with.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Combines two <a href="../-async-result/index.html">AsyncResult</a>s (the receiver and <a href="../zip-with.html">result</a>) into a single one, by applying the <a href="../zip-with.html">transform</a> to their values.</p></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../zip-with.html">R1</a><span class="token punctuation">, </span><a href="../zip-with.html">R2</a><span class="token punctuation">, </span><a href="../zip-with.html">R3</a><span class="token punctuation">, </span><a href="../zip-with.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../zip-with.html">R1</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../zip-with.html"><span class="token function">zipWith</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result1<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../zip-with.html">R2</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">result2<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../zip-with.html">R3</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">crossinline </span>transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../zip-with.html">R1</a><span class="token punctuation">, </span><a href="../zip-with.html">R2</a><span class="token punctuation">, </span><a href="../zip-with.html">R3</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../zip-with.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../zip-with.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Combines three <a href="../-async-result/index.html">AsyncResult</a>s (the receiver, <a href="../zip-with.html">result1</a>, and <a href="../zip-with.html">result2</a>) into a single one, by applying the <a href="../zip-with.html">transform</a> to their values.</p></div><div class="symbol monospace"><span class="token keyword">inline </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../zip-with.html">R1</a><span class="token punctuation">, </span><a href="../zip-with.html">R2</a><span class="token punctuation">, </span><a href="../zip-with.html">R3</a><span class="token punctuation">, </span><a href="../zip-with.html">R4</a><span class="token punctuation">, </span><a href="../zip-with.html">T</a><span class="token operator">&gt; </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../zip-with.html">R1</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../zip-with.html"><span class="token function">zipWith</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">result1<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../zip-with.html">R2</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">result2<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../zip-with.html">R3</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">result3<span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../zip-with.html">R4</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">crossinline </span>transform<span class="token operator">: </span><span class="token punctuation">(</span><a href="../zip-with.html">R1</a><span class="token punctuation">, </span><a href="../zip-with.html">R2</a><span class="token punctuation">, </span><a href="../zip-with.html">R3</a><span class="token punctuation">, </span><a href="../zip-with.html">R4</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../zip-with.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-async-result/index.html">AsyncResult</a><span class="token operator">&lt;</span><a href="../zip-with.html">T</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">Combines four <a href="../-async-result/index.html">AsyncResult</a>s (the receiver, <a href="../zip-with.html">result1</a>, <a href="../zip-with.html">result2</a>, and <a href="../zip-with.html">result3</a>) into a single one, by applying the <a href="../zip-with.html">transform</a> to their values.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <div class="footer--container">
+            <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+            <div class="footer--content">
+                <div>
+                    <span>Generated by </span>
+                    <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                        Dokka
+                    </a>
+                    <div>© 2026 Copyright</div>
+                </div>
+            </div>
+        </div>
+    </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
