@@ -38,6 +38,7 @@ Extensions for interoperability with Arrow's `Either` type:
 - **Conversion** - `toAsyncResult()` to convert `Either` to `AsyncResult`
 - **Binding** - `bind()` to flatten `AsyncResult<Either<L, R>>` to `AsyncResult<R>`
 - **Flow conversion** - `asAsyncResult()` to convert `Flow<Either<L, R>>` to `Flow<AsyncResult<R>>`, `toEither()` to convert `Flow<AsyncResult<T>>` to `Either`
+- **Arrow Raise** - `Raise<Error>.bind()` to use `AsyncResult` inside Arrow's `either { }` / `result { }` blocks
 
 ### asyncresult-test
 
@@ -45,7 +46,9 @@ Testing utilities built on [assertk](https://github.com/willowtreeapps/assertk):
 
 - **State assertions** - `isNotStarted()`, `isLoading()`, `isIncomplete()`, `isSuccess()`, `isError()`
 - **Value assertions** - `isSuccessEqualTo()`, `isErrorWithMetadata()`, `isErrorWithMetadataEqualTo()`
-- **Flow assertions** - `assertSuccess()`, `assertError()` for testing flow emissions
+- **Error assertions** - `isErrorWithThrowable()`, `isErrorWithThrowableOfType()`, `isErrorWithThrowableMessage()`, `isErrorWithId()`, `isErrorWithIdEqualTo()`, `hasErrorId()`
+- **Flow assertions** - `assertSuccess()`, `assertError()`, `assertErrorWithMetadata()`, `assertErrorWithId()`, `assertFirstIsLoading()`, `assertFirstIsNotStarted()`, `assertFirstIsIncomplete()`
+- **Collection assertions** - `hasAnyLoading()`, `hasAnyIncomplete()`, `allErrors()`, `allErrorMetadata()`
 
 ## Usage
 
