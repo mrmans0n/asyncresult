@@ -581,10 +581,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#spreading" class="md-nav__link">
+  <a href="#spreading-and-destructuring" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Spreading
+        Spreading and destructuring
       
     </span>
   </a>
@@ -1045,10 +1045,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#spreading" class="md-nav__link">
+  <a href="#spreading-and-destructuring" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Spreading
+        Spreading and destructuring
       
     </span>
   </a>
@@ -1210,6 +1210,10 @@
 <span class="w">    </span><span class="n">metadata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">NetworkFailure</span><span class="p">(</span><span class="s">&quot;timeout&quot;</span><span class="p">),</span>
 <span class="w">    </span><span class="n">errorId</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ErrorId</span><span class="p">(</span><span class="s">&quot;req-123&quot;</span><span class="p">)</span>
 <span class="p">)</span>
+
+<span class="c1">// Compose errors with the + operator</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Error</span><span class="p">(</span><span class="n">IOException</span><span class="p">())</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">NetworkFailure</span><span class="p">(</span><span class="s">&quot;timeout&quot;</span><span class="p">)</span><span class="w"> </span><span class="c1">// adds metadata</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Error</span><span class="p">(</span><span class="n">IOException</span><span class="p">())</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ErrorId</span><span class="p">(</span><span class="s">&quot;req-123&quot;</span><span class="p">)</span><span class="w">        </span><span class="c1">// adds error ID</span>
 </code></pre></div>
 <h2 id="checking-state">Checking state<a class="headerlink" href="#checking-state" title="Permanent link">&para;</a></h2>
 <p>Query the current state of an <code>AsyncResult</code>:</p>
@@ -1418,9 +1422,13 @@ It lets you write sequential code and short-circuit on the first non-success sta
 <span class="p">}</span>
 </code></pre></div>
 <p>Supports up to 4 results.</p>
-<h3 id="spreading">Spreading<a class="headerlink" href="#spreading" title="Permanent link">&para;</a></h3>
+<h3 id="spreading-and-destructuring">Spreading and destructuring<a class="headerlink" href="#spreading-and-destructuring" title="Permanent link">&para;</a></h3>
 <p>Split a result containing a <code>Pair</code> or <code>Triple</code>:</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="p">(</span><span class="nv">userResult</span><span class="p">,</span><span class="w"> </span><span class="nv">settingsResult</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pairResult</span><span class="p">.</span><span class="na">spread</span><span class="p">()</span>
+</code></pre></div>
+<p>You can also destructure directly without calling <code>spread()</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="p">(</span><span class="nv">first</span><span class="p">,</span><span class="w"> </span><span class="nv">second</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pairResult</span><span class="w">            </span><span class="c1">// component1(), component2()</span>
+<span class="kd">val</span><span class="w"> </span><span class="p">(</span><span class="nv">a</span><span class="p">,</span><span class="w"> </span><span class="nv">b</span><span class="p">,</span><span class="w"> </span><span class="nv">c</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tripleResult</span><span class="w">                </span><span class="c1">// component1(), component2(), component3()</span>
 </code></pre></div>
 <h3 id="combining-collections">Combining collections<a class="headerlink" href="#combining-collections" title="Permanent link">&para;</a></h3>
 <p>Convert a list of results into a result of a list:</p>

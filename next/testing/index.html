@@ -448,6 +448,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Flow assertions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-state-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initial state assertions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collection-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Collection assertions
+      
+    </span>
+  </a>
+  
 </li>
       
     </ul>
@@ -553,6 +581,34 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Flow assertions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initial-state-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initial state assertions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#collection-assertions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Collection assertions
+      
+    </span>
+  </a>
+  
 </li>
       
     </ul>
@@ -604,12 +660,25 @@
 <span class="c1">// Check the throwable</span>
 <span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isError</span><span class="p">().</span><span class="na">isThrowableEqualTo</span><span class="p">(</span><span class="n">expectedException</span><span class="p">)</span>
 
+<span class="c1">// Check throwable type</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isErrorWithThrowable</span><span class="p">()</span><span class="w">  </span><span class="c1">// asserts Error has a non-null throwable</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isErrorWithThrowableOfType</span><span class="o">&lt;</span><span class="n">IOException</span><span class="o">&gt;</span><span class="p">()</span><span class="w">  </span><span class="c1">// asserts throwable is specific type</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isErrorWithThrowableMessage</span><span class="p">(</span><span class="s">&quot;Network error&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1">// asserts throwable message</span>
+
 <span class="c1">// Check metadata</span>
 <span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isErrorWithMetadata</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="p">()</span>
 <span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isErrorWithMetadataEqualTo</span><span class="p">(</span><span class="n">NetworkError</span><span class="p">.</span><span class="na">Timeout</span><span class="p">)</span>
 
 <span class="c1">// Chain assertions on metadata</span>
 <span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isError</span><span class="p">().</span><span class="na">isMetadataEqualTo</span><span class="p">(</span><span class="n">expectedMetadata</span><span class="p">)</span>
+
+<span class="c1">// Check error ID</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isErrorWithId</span><span class="p">()</span><span class="w">  </span><span class="c1">// asserts Error has a non-null errorId</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isErrorWithIdEqualTo</span><span class="p">(</span><span class="n">ErrorId</span><span class="p">(</span><span class="s">&quot;req-123&quot;</span><span class="p">))</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">hasErrorId</span><span class="p">(</span><span class="n">ErrorId</span><span class="p">(</span><span class="s">&quot;req-123&quot;</span><span class="p">))</span>
+
+<span class="c1">// Chain assertions on error ID</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">result</span><span class="p">).</span><span class="na">isError</span><span class="p">().</span><span class="na">isErrorIdEqualTo</span><span class="p">(</span><span class="n">ErrorId</span><span class="p">(</span><span class="s">&quot;req-123&quot;</span><span class="p">))</span>
 </code></pre></div>
 <h2 id="flow-assertions">Flow assertions<a class="headerlink" href="#flow-assertions" title="Permanent link">&para;</a></h2>
 <p>Test terminal emissions from a <code>Flow&lt;AsyncResult&lt;T&gt;&gt;</code>:</p>
@@ -619,8 +688,35 @@
 <span class="c1">// Assert the first terminal emission is Error and get it for further checks</span>
 <span class="kd">val</span><span class="w"> </span><span class="nv">error</span><span class="p">:</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="p">.</span><span class="na">assertError</span><span class="p">()</span>
 <span class="n">assertThat</span><span class="p">(</span><span class="n">error</span><span class="p">.</span><span class="na">throwable</span><span class="p">).</span><span class="na">isInstanceOf</span><span class="p">(</span><span class="n">IOException</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
+
+<span class="c1">// Assert error with typed metadata</span>
+<span class="kd">val</span><span class="w"> </span><span class="nv">metadata</span><span class="p">:</span><span class="w"> </span><span class="n">NetworkError</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">flow</span><span class="p">.</span><span class="na">assertErrorWithMetadata</span><span class="o">&lt;</span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="p">()</span>
+
+<span class="c1">// Assert error with throwable type</span>
+<span class="n">flow</span><span class="p">.</span><span class="na">assertErrorWithThrowableOfType</span><span class="o">&lt;</span><span class="n">IOException</span><span class="o">&gt;</span><span class="p">()</span>
+
+<span class="c1">// Assert error with error ID</span>
+<span class="n">flow</span><span class="p">.</span><span class="na">assertErrorWithId</span><span class="p">(</span><span class="n">ErrorId</span><span class="p">(</span><span class="s">&quot;req-123&quot;</span><span class="p">))</span>
 </code></pre></div>
-<p>These suspend functions wait for the first <code>Success</code> or <code>Error</code> emission, ignoring <code>Loading</code> and <code>NotStarted</code> states.</p>
+<h3 id="initial-state-assertions">Initial state assertions<a class="headerlink" href="#initial-state-assertions" title="Permanent link">&para;</a></h3>
+<p>Assert the very first emission (before terminal state):</p>
+<div class="highlight"><pre><span></span><code><span class="n">flow</span><span class="p">.</span><span class="na">assertFirstIsLoading</span><span class="p">()</span>
+<span class="n">flow</span><span class="p">.</span><span class="na">assertFirstIsNotStarted</span><span class="p">()</span>
+<span class="n">flow</span><span class="p">.</span><span class="na">assertFirstIsIncomplete</span><span class="p">()</span><span class="w">  </span><span class="c1">// Loading or NotStarted</span>
+</code></pre></div>
+<h2 id="collection-assertions">Collection assertions<a class="headerlink" href="#collection-assertions" title="Permanent link">&para;</a></h2>
+<p>Assert properties of a collection of results:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nv">results</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">AsyncResult</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">listOf</span><span class="p">(</span><span class="n">Loading</span><span class="p">,</span><span class="w"> </span><span class="n">Success</span><span class="p">(</span><span class="m">1</span><span class="p">),</span><span class="w"> </span><span class="n">Error</span><span class="p">.</span><span class="na">Empty</span><span class="p">)</span>
+
+<span class="n">assertThat</span><span class="p">(</span><span class="n">results</span><span class="p">).</span><span class="na">hasAnyLoading</span><span class="p">()</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">results</span><span class="p">).</span><span class="na">hasAnyIncomplete</span><span class="p">()</span>
+
+<span class="c1">// Extract and assert on all errors</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">results</span><span class="p">).</span><span class="na">allErrors</span><span class="p">().</span><span class="na">hasSize</span><span class="p">(</span><span class="m">1</span><span class="p">)</span>
+
+<span class="c1">// Extract and assert on all error metadata of a specific type</span>
+<span class="n">assertThat</span><span class="p">(</span><span class="n">results</span><span class="p">).</span><span class="na">allErrorMetadata</span><span class="o">&lt;</span><span class="n">NetworkError</span><span class="o">&gt;</span><span class="p">().</span><span class="na">isEmpty</span><span class="p">()</span>
+</code></pre></div>
 
 
 

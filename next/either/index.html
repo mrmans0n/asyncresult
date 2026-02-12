@@ -485,6 +485,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#arrow-raise-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arrow Raise integration
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -679,6 +690,17 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#arrow-raise-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Arrow Raise integration
+      
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -792,6 +814,16 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>By default, it attempts to extract the error type from the <code>Error.metadata</code>.</p>
+<h2 id="arrow-raise-integration">Arrow Raise integration<a class="headerlink" href="#arrow-raise-integration" title="Permanent link">&para;</a></h2>
+<p>Use <code>AsyncResult</code> inside Arrow's <code>Raise</code> context (e.g., <code>either { }</code> or <code>result { }</code> blocks):</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">io.nlopez.asyncresult.either.bind</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="nv">either</span><span class="p">:</span><span class="w"> </span><span class="n">Either</span><span class="o">&lt;</span><span class="n">Error</span><span class="p">,</span><span class="w"> </span><span class="n">User</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">either</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nv">user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fetchUser</span><span class="p">().</span><span class="na">bind</span><span class="p">()</span><span class="w">  </span><span class="c1">// extracts Success or raises Error</span>
+<span class="w">    </span><span class="n">user</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The <code>Raise&lt;Error&gt;.bind()</code> extension extracts the value from <code>Success</code>, or raises (<code>shift</code>) the <code>Error</code> for non-success states (<code>Loading</code> and <code>NotStarted</code> raise <code>Error.Empty</code>).</p>
 
 
 
