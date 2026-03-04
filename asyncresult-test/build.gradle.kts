@@ -39,7 +39,7 @@ kotlin {
 
 android {
   namespace = "io.nlopez.asyncresult.test"
-  compileSdk = 34
+  compileSdk = 36
 
   defaultConfig { minSdk = 21 }
 
