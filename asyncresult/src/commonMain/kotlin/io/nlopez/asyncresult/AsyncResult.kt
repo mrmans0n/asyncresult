@@ -28,8 +28,7 @@ public data object Loading : AsyncResult<Nothing>(), Incomplete
 public data class Success<out S>(override val value: S) : AsyncResult<S>(value = value)
 
 /** A unique identifier for error tracking and correlation. */
-@ObjCName("AsyncErrorId")
-@JvmInline public value class ErrorId(public val value: String)
+@ObjCName("AsyncErrorId") @JvmInline public value class ErrorId(public val value: String)
 
 /**
  * The modeled request failed. If there was anything thrown to cause this, it'll be included in
