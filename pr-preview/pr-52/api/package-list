@@ -1,9 +1,0 @@
-$dokka.format:html-v1
-$dokka.linkExtension:html
-
-module:asyncresult
-io.nlopez.asyncresult
-module:asyncresult-either
-io.nlopez.asyncresult.either
-module:asyncresult-test
-io.nlopez.asyncresult.test
