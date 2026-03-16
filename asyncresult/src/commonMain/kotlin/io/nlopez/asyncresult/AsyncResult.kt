@@ -1,10 +1,13 @@
 // Copyright 2026 Nacho Lopez
 // SPDX-License-Identifier: MIT
 @file:Suppress("NOTHING_TO_INLINE")
+@file:OptIn(ExperimentalObjCName::class)
 
 package io.nlopez.asyncresult
 
+import kotlin.experimental.ExperimentalObjCName
 import kotlin.jvm.JvmInline
+import kotlin.native.ObjCName
 
 /** Models the state of an asynchronous operation. */
 public sealed class AsyncResult<out S>(public open val value: S? = null)
@@ -25,6 +28,7 @@ public data object Loading : AsyncResult<Nothing>(), Incomplete
 public data class Success<out S>(override val value: S) : AsyncResult<S>(value = value)
 
 /** A unique identifier for error tracking and correlation. */
+@ObjCName("AsyncErrorId")
 @JvmInline public value class ErrorId(public val value: String)
 
 /**
@@ -33,6 +37,7 @@ public data class Success<out S>(override val value: S) : AsyncResult<S>(value =
  * the failure, to help make it actionable (either for the user or the developer). An optional
  * [errorId] can be provided for error tracking and correlation purposes.
  */
+@ObjCName("AsyncError")
 public data class Error(
     public val throwable: Throwable? = null,
     @PublishedApi internal val metadata: Any? = null,
@@ -53,11 +58,13 @@ public data class Error(
 }
 
 /** Creates an [Error] object with the given [metadata] and optional [errorId]. */
+@ObjCName("AsyncErrorWithMetadata")
 @Suppress("FunctionName")
 public inline fun ErrorWithMetadata(metadata: Any, errorId: ErrorId? = null): Error =
     Error(metadata = metadata, errorId = errorId)
 
 /** Creates an [Error] object with the given [errorId] and optional [metadata]. */
+@ObjCName("AsyncErrorWithId")
 @Suppress("FunctionName")
 public inline fun ErrorWithId(errorId: ErrorId, metadata: Any? = null): Error =
     Error(metadata = metadata, errorId = errorId)
