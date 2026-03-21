@@ -3,7 +3,7 @@ kotlin = "2.3.20"
 coroutines = "1.10.2"
 assertk = "0.28.1"
 arrow = "2.2.2.1"
-android-gradle = "8.13.2"
+android-gradle = "9.1.0"
 ktfmt = "0.53"
 dokka = "2.1.0"
 
