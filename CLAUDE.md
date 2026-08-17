@@ -13,7 +13,8 @@ AsyncResult is a Kotlin Multiplatform library for modeling asynchronous operatio
 ./gradlew test           # Run all tests
 ./gradlew spotlessApply  # Format code (ktfmt)
 ./gradlew spotlessCheck  # Check formatting
-./gradlew dokkaHtml      # Generate API docs
+./gradlew dokkaGenerate  # Generate Dokka documentation
+./gradlew dokkaGenerateHtml # Generate Dokka HTML output
 ```
 
 ## Module Structure
