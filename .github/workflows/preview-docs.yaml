@@ -35,7 +35,7 @@ jobs:
 
       - name: Setup Android SDK
         if: github.event.action != 'closed'
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4
 
       - uses: gradle/actions/setup-gradle@v6
         if: github.event.action != 'closed'
