@@ -24,6 +24,9 @@ jobs:
           distribution: 'zulu'
           java-version: '24'
 
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Copy CI gradle.properties
         run: mkdir -p ~/.gradle ; cp .github/ci-gradle.properties ~/.gradle/gradle.properties
 
@@ -33,7 +36,7 @@ jobs:
         run: ./gradlew spotlessCheck
 
       - name: Build and unit test
-        run: ./gradlew assemble test
+        run: ./gradlew assemble jvmTest testAndroidHostTest jsNodeTest wasmJsBrowserTest iosSimulatorArm64Test
 
       - name: Upload test results
         if: always()
@@ -62,6 +65,9 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '24'
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
 
       - uses: gradle/actions/setup-gradle@v6
 

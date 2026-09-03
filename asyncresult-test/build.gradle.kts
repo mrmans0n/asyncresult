@@ -4,14 +4,19 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
   alias(libs.plugins.kotlin.multiplatform)
-  alias(libs.plugins.android.library)
+  alias(libs.plugins.android.kmp.library)
   alias(libs.plugins.mavenPublish)
   alias(libs.plugins.dokka)
 }
 
 kotlin {
   jvm()
-  androidTarget { publishLibraryVariants("release") }
+  androidLibrary {
+    namespace = "io.nlopez.asyncresult.test"
+    compileSdk = 36
+    minSdk = 21
+    withHostTest {}
+  }
   iosX64()
   iosArm64()
   iosSimulatorArm64()
@@ -34,17 +39,5 @@ kotlin {
         implementation(libs.kotlinx.coroutines.test)
       }
     }
-  }
-}
-
-android {
-  namespace = "io.nlopez.asyncresult.test"
-  compileSdk = 36
-
-  defaultConfig { minSdk = 21 }
-
-  compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
   }
 }
