@@ -19,5 +19,5 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "android-gradle" }
 android-kmp-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "android-gradle" }
 mavenPublish = "com.vanniktech.maven.publish:0.37.0"
-spotless = { id = "com.diffplug.spotless", version = "8.10.1" }
+spotless = { id = "com.diffplug.spotless", version = "8.10.2" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
