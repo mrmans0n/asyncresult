@@ -40,7 +40,7 @@ public inline fun <K, V> AsyncResult<Map<K, V>>.getOrEmpty(): Map<K, V> = getOrE
 
 /** Returns the [Error] itself if the [AsyncResult] is [Error] else returns null. */
 public inline fun <R> AsyncResult<R>.errorOrNull(): Error? {
-  contract { returns() implies (this@errorOrNull is Error) }
+  contract { returnsNotNull() implies (this@errorOrNull is Error) }
   return this as? Error
 }
 
