@@ -87,6 +87,21 @@ class AsyncResultTest {
   }
 
   @Test
+  fun `errorOrNull does not smart cast the receiver to Error when the result is null`() {
+    // Regression test for https://github.com/mrmans0n/asyncresult/issues/102.
+    // errorOrNull()'s contract used to claim `this is Error` unconditionally, even
+    // though it returns null for Success/Loading/NotStarted. Capturing the receiver
+    // in a closure after that call (mirroring the reported crash site, where the
+    // receiver was read again inside a `setState { ... }` lambda) used to make
+    // Kotlin/Native emit a real downcast to Error and crash with a
+    // ClassCastException for non-Error receivers.
+    val result: AsyncResult<Int> = Success(42)
+    result.errorOrNull()
+    val readResultAgain = { result }
+    assertThat(readResultAgain()).isEqualTo(Success(42))
+  }
+
+  @Test
   fun `errorWithMetadataOrNull returns metadata when error has metadata of matching type else returns null`() {
     assertThat(Success(10).errorWithMetadataOrNull<String>()).isNull()
     assertThat((NotStarted as AsyncResult<Int>).errorWithMetadataOrNull<String>()).isNull()
