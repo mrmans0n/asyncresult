@@ -41,7 +41,7 @@ jobs:
         run: ./gradlew :dokkaGenerate
 
       - name: Setup uv
-        uses: astral-sh/setup-uv@v10.3.2
+        uses: astral-sh/setup-uv@v10.3.3
 
       - name: Install dependencies
         run: uv sync --frozen
