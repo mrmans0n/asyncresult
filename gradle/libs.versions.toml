@@ -5,7 +5,7 @@ assertk = "0.28.1"
 arrow = "2.3.0"
 android-gradle = "9.4.1"
 ktfmt = "0.53"
-dokka = "2.2.0"
+dokka = "2.3.0"
 
 [libraries]
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
